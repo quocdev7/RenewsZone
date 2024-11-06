@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LinqToExcel" Version="1.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.1" />
+    <PackageReference Include="NewId" Version="3.0.2" />
+    <PackageReference Include="Opc.UaFx.Client" Version="2.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\worldsoft.DataBase\worldsoft.DataBase.csproj" />
+    <ProjectReference Include="..\worldsoft.system.data\worldsoft.system.data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MenuAndRole\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="worldsoft.common">
+      <HintPath>..\..\worldsoft.common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
