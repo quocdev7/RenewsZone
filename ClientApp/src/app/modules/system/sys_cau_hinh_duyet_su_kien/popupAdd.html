@@ -1,0 +1,80 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_cau_hinh_duyet_su_kien"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+
+            <div class="flex-1">
+
+                <cm_select_server_side *ngIf="actionEnum==1"
+                                       [errorModel]="errorModel"
+                                       [keyError]="'db.user_id'"
+                                       [label]="'system.nguoi_duyet_su_kien'"
+                                       [link]="'/sys_user.ctr/getListUseNew/'"
+                                       [(objectChose)]="item_chose"
+                                       [callbackChange]="bind_data_item_chose.bind(this)"
+                                       [(model)]="record.db.user_id"></cm_select_server_side>
+
+                <cm_input *ngIf="actionEnum!=1"
+                          [actionEnum]="3"
+                          [label]="'system.nguoi_duyet_su_kien'"
+                          [(model)]="record.full_name"></cm_input>
+            </div>
+
+        </div>
+
+       
+
+    
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" >
+
+            <div class="flex-1">
+                <cm_select [errorModel]="errorModel" *ngIf="actionEnum!=3"
+                           [actionEnum]="actionEnum"
+                           [label]="'NAV.sys_khoa'"
+                           [keyError]="'db.id_khoa'"
+                           [listData]="list_khoa"
+                           [(model)]="record.khoa"
+                           [type]="'multiple'"></cm_select>
+
+
+                <cm_input [errorModel]="errorModel" *ngIf="actionEnum==3"
+                          [actionEnum]="actionEnum"
+                          [label]="'NAV.sys_khoa'"
+                          [(model)]="record.khoa_name"></cm_input>
+
+            </div>
+        </div>
+       
+       
+        <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.no_'"
+                          [keyError]="'db.stt'"
+                          [type]="'number'"
+                          [(model)]="record.db.stt"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.note'"
+                          [keyError]="'db.note'"
+                          [(model)]="record.db.note"></cm_input>
+            </div>
+
+        </div>-->
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

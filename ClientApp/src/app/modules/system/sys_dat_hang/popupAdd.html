@@ -1,0 +1,213 @@
+<div class="flex flex-col flex-auto w-full  mx-auto h-fit overflow-y-visible">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_dat_hang"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-row justify-end space-x-2">
+            <button *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button
+                class="bg-teal-500 text-white shadow-none hover:bg-teal-600" (click)="save()" transloco="save"></button>
+            <button [disabled]="loading" mat-raised-button (click)="close()"
+                class="bg-primary-600 text-white shadow-none hover:bg-primary-700" transloco="close"></button>
+        </div>
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <mat-label>
+                        {{'system.gioi_tinh' | transloco}}<span style="color: red"
+                            *ngFor="let item of errorModel | filter: 'key':'gioi_tinh'; index as i">
+                            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                        </span>
+                    </mat-label>
+                    <br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group space-x-4"
+                        [disabled]="actionEnum==3" [(ngModel)]="record.db.gioi_tinh">
+                        <mat-radio-button class="example-radio-button " *ngFor="let item of gioi_tinh"
+                            [value]="item.id">
+                            {{item.name}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <br>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.full_name'"
+                        [keyError]="'db.full_name'" [(model)]="record.db.full_name"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.phone'"
+                        [keyError]="'db.phone'" [(model)]="record.db.phone"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.email'"
+                        [keyError]="'db.email'" [(model)]="record.db.email"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'"
+                        [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                        [callbackChange]="change_list_quan_huyen_user.bind(this)" [label]="'NAV.sys_tinh_thanh'"
+                        [keyError]="'db.tinh_thanh_user'" [listData]="lst_tinh_thanh" [(model)]="record.db.tinh_thanh">
+                    </cm_select>
+                </div>
+
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.quan_huyen'"
+                        [keyError]="'db.quan_huyen_user'" [listData]="lst_quan_huyen_user"
+                        [(model)]="record.db.quan_huyen">
+                    </cm_select>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.dia_chi'"
+                        [keyError]="'db.dia_chi_user'" [(model)]="record.db.dia_chi"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1 mb-4">
+                    <mat-label>
+                        {{'system.phuong_thuc_thanh_toan' | transloco}}<span style="color: red"
+                            *ngFor="let item of errorModel | filter: 'key':'phuong_thuc_thanh_toan'; index as i">
+                            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                        </span>
+                    </mat-label>
+                    <br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group space-x-4"
+                        [disabled]="actionEnum==3" [(ngModel)]="record.db.phuong_thuc_thanh_toan">
+                        <mat-radio-button class="example-radio-button " *ngFor="let item of list_phuong_thuc_thanh_toan"
+                            [value]="item.id" (click)="set_phuong_thuc_thanh_toan()">
+                            {{item.name}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <br>
+                </div>
+            </div>
+            <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [actionEnum]="3" [(model)]="record.db.note_phuong_thuc">
+                    </cm_input>
+                </div>
+            </div> -->
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.cong_ty'"
+                        [keyError]="'db.ten_cong_ty'" [(model)]="record.db.ten_cong_ty"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ma_so_thue'"
+                        [keyError]="'db.ma_so_thue'" [(model)]="record.db.ma_so_thue"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                        [callbackChange]="change_list_quan_huyen_cong_ty.bind(this)" [label]="'NAV.sys_tinh_thanh'"
+                        [keyError]="'db.tinh_thanh_cong_ty'" [listData]="lst_tinh_thanh"
+                        [(model)]="record.db.tinh_thanh_cong_ty"></cm_select>
+                </div>
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.quan_huyen'"
+                        [keyError]="'db.quan_huyen_cong_ty'" [listData]="lst_quan_huyen_cong_ty"
+                        [(model)]="record.db.quan_huyen_cong_ty">
+                    </cm_select>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.dia_chi'"
+                        [keyError]="'db.dia_chi_cong_ty'" [(model)]="record.db.dia_chi_cong_ty"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-row md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+                <div class="flex-1 mt-6">
+                    <label transloco="system.danh_sach_san_pham"
+                        style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                    <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" [disabled]="loading"
+                        mat-raised-button (click)="openDialogAddProduct()" transloco="add"></button>
+                </div>
+            </div>
+            <br>
+            <div class="w-full overflow-auto">
+                <table class="cell-border hover w-full overflow-auto ">
+                    <thead class="bg-blue-500 text-center text-white h-8">
+                        <tr>
+                            <th *ngIf="actionEnum !=3" style="width: 50px;"></th>
+                            <th transloco="no_" style="width:50px;"></th>
+                            <th transloco="system.ma_san_pham"></th>
+                            <th transloco="system.san_pham"></th>
+                            <th transloco="system.so_luong"></th>
+                            <th transloco="system.don_gia"></th>
+                            <th transloco="system.thanh_tien"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="record.list_detail?.length != 0">
+                        <tr *ngFor="let item of record.list_detail;  index as i;">
+                            <td *ngIf="actionEnum !=3" align="center">
+                                <div class=" flex justify-center items-center" (click)="delete_row(i)"
+                                    *ngIf=" actionEnum!=3">
+                                    <mat-icon style="width: 24px;height: 24px;"
+                                        svgIcon="heroicons_solid:trash"></mat-icon>
+                                    <!-- <img src="../assets/icons/trash-can.png" style="width: 24px;height: 24px;" alt=""> -->
+                                </div>
+                            </td>
+                            <td style="text-align:center">{{i+1}}</td>
+                            <td>
+                                <cm_input [actionEnum]="3" [errorModel]="errorModel" [keyError]="'ten_san_pham'+i"
+                                    [(model)]="item.ma_san_pham">
+                                </cm_input>
+                            </td>
+                            <td>
+                                <cm_input [actionEnum]="3" [errorModel]="errorModel" [keyError]="'ten_san_pham'+i"
+                                    [(model)]="item.ten_san_pham">
+                                </cm_input>
+                            </td>
+                            <td>
+                                <cm_input [actionEnum]="actionEnum" [errorModel]="errorModel" [keyError]="'so_luong'+i"
+                                    [(model)]="item.so_luong" [type]="'number'">
+                                </cm_input>
+                            </td>
+                            <td>
+                                <cm_input [actionEnum]="actionEnum" [errorModel]="errorModel" [keyError]="'don_gia'+i"
+                                    [(model)]="item.don_gia" [type]="'number'">
+                                </cm_input>
+                            </td>
+                            <td>
+                                <cm_input [actionEnum]="actionEnum" [errorModel]="errorModel" [keyError]="'so_tien'+i"
+                                    [(model)]="item.so_tien" [type]="'number'">
+                                </cm_input>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="record.list_detail?.length == 0">
+                        <tr class="h-40">
+                            <td colspan="100" class="no-data-available">
+                                <nz-empty
+                                    nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                    [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                    <ng-template #contentTpl>
+                                        <span transloco="no_data"></span>
+                                    </ng-template>
+                                </nz-empty>
+                            </td>
+                        </tr>
+                    <tbody>
+                </table>
+            </div>
+        </mat-card>
+        <div class="flex flex-row justify-end space-x-2">
+            <button *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button
+                class="bg-teal-500 text-white shadow-none hover:bg-teal-600" (click)="save()" transloco="save"></button>
+            <button [disabled]="loading" mat-raised-button (click)="close()"
+                class="bg-primary-600 text-white shadow-none hover:bg-primary-700" transloco="close"></button>
+        </div>
+    </div>
+</div>

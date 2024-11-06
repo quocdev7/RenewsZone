@@ -1,0 +1,49 @@
+<div class="flex flex-col flex-auto w-full mx-auto h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_event_qa"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="text-lg font-medium">
+            <span transloco="NAV.sys_event"></span> - {{record.ten_su_kien}}
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" style="padding:10px">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [keyError]="'db.question'"
+                          [label]="'system.question'"
+                          [(model)]="record.db.question"></cm_input>
+            </div>
+
+        </div>
+        <br />
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="max-width:100%">
+                    <h1 transloco="system.answer"></h1>
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.answer' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+
+                <editor class="w-full" [init]="timyconfig" [(ngModel)]="record.db.answer"></editor>
+
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                <h1 transloco="system.answer"></h1>
+                <span [innerHtml]="record.db.answer | safeHtml"></span>
+
+            </div>
+        </div>
+
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

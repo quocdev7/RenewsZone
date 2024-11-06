@@ -1,0 +1,91 @@
+<!-- <div class="flex items-center justify-center  bg-card shadow    rounded-lg" style="width: 255px; height: 255px;">                        
+    <a href="{{slide.db.link}}" target="_blank" >
+        <img class="mx-auto" style="height:230px;width:230px" src="{{slide.db.image}}" />
+    </a>
+</div> -->
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 " >
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+        <!--Đối tác web-->
+<div class="w-full mx-auto flex flex-col" *ngIf="lst_loai_doi_tac.length>0 && !isScreenSmall">
+
+    <div *ngFor="let item of lst_loai_doi_tac; let i = index" class="flex flex-col w-full pb-4" data-aos="fade-right" data-aos-once="true" [ngStyle]="{'background-color':  item.db.color }">
+        
+            <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-4 pl-20 pr-20">
+                <div class="flex flex-row items-center justify-between">
+                    <div *ngIf="activeLang=='vi'" class="flex text-white text-2xl sm:text-3xl font-bold uppercase">{{item.db.name}}</div>
+                    <div *ngIf="activeLang!='vi'" class="flex text-white text-2xl sm:text-3xl font-bold uppercase">{{item.db.name_en}}</div>
+                </div>
+            </div>
+            <!--web-->
+            <div class="flex flex-col flex-auto min-w-0 max-w-screen-xl w-full mx-auto pl-20 pr-20">
+                <swiper *ngIf="item.lst_doi_tac.length>0" [slidesPerView]="'auto'" [pagination]="{  clickable: true}" [autoplay]="{delay: 3000}" [spaceBetween]="30" class="mySwiperCuuSinhVien">
+                    <ng-template swiperSlide *ngFor="let slide of item.lst_doi_tac; let i = index">
+                        <a href="{{slide.db.link}}" target="_blank" >
+                            <div class="flex-none bg-card shadow   mx-auto m-1 p-4 mb-2 rounded-lg" style="width: 295px;height: 440px;">
+                                <div class="flex items-center justify-center">
+                                        <img class="mx-auto rounded-full" style="height:230px;width:230px" src="{{slide.db.image}}" />
+                                </div>
+                                <div class="flex flex-col items-center mt-1">
+                                    <div  *ngIf="activeLang=='vi'" class=" font-bold bka-text-primary text-black" align="center">{{slide.db.name}}</div>
+                                    <div  *ngIf="activeLang!='vi'" class=" font-bold bka-text-primary text-black" align="center">{{slide.name_en}}</div>
+
+                                </div>
+                                <div class="flex flex-col items-center mt-1">
+                                    <div *ngIf="activeLang=='vi'" class="text-blue-900 italic line-clamp-6" align="center"> <span [innerHtml]="slide.db.note | safeHtml"></span></div>
+                                    <div *ngIf="activeLang!='vi'" class="text-blue-900 italic line-clamp-6" align="center"> <span [innerHtml]="slide.note_en | safeHtml"></span></div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </ng-template>
+                </swiper>
+            </div>
+    </div>
+
+</div>
+
+
+<!--Đối tác mobi-->
+<div class="w-full mx-auto flex flex-col" *ngIf="lst_loai_doi_tac.length>0 && isScreenSmall">
+
+    <div *ngFor="let item of lst_loai_doi_tac; let i = index" class="flex flex-col w-full pb-4" data-aos="fade-right" data-aos-once="true" [ngStyle]="{'background-color':  item.db.color }">
+        
+            <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-4 px-6">
+                <div class="flex flex-row items-center justify-between">
+                    <div *ngIf="activeLang=='vi'" class="flex text-white text-2xl sm:text-3xl font-bold uppercase">{{item.db.name}}</div>
+                    <div *ngIf="activeLang!='vi'" class="flex text-white text-2xl sm:text-3xl font-bold uppercase">{{item.db.name_en}}</div>
+                </div>
+            </div>
+            <!--mobi-->
+            <swiper *ngIf="item.lst_doi_tac.length>0" [slidesPerView]="'1'" [spaceBetween]="30" [pagination]="{
+                    clickable: true
+                  }" class="mySwiperMobileBlue">
+                <ng-template swiperSlide *ngFor="let slide of item.lst_doi_tac">
+                    <a href="{{slide.db.link}}" target="_blank" >
+                        <div class="flex-none rounded overflow-hidden shadow-lg  bg-white mx-auto m-1 p-4 mb-6" style="height: 450px;">
+                            <div class="flex items-center justify-center">
+                                    <img class=" rounded-full mx-auto" style="height:250px;width:250px" src="{{slide.db.image}}" />
+                            </div>
+
+                            <div class="flex flex-col items-center mt-1">
+                                <div  *ngIf="activeLang=='vi'" class=" font-bold bka-text-primary text-black" align="center">{{slide.db.name}}</div>
+                                <div  *ngIf="activeLang!='vi'" class=" font-bold bka-text-primary text-black" align="center">{{slide.name_en}}</div>
+
+                            </div>
+                            <div class="flex flex-col items-center mt-1">
+                                <div *ngIf="activeLang=='vi'" class="text-blue-900 italic line-clamp-6" align="center"> <span [innerHtml]="slide.db.note | safeHtml"></span></div>
+                                <div *ngIf="activeLang!='vi'" class="text-blue-900 italic line-clamp-6" align="center"> <span [innerHtml]="slide.note_en | safeHtml"></span></div>
+                            </div>
+                        </div>
+                    </a>
+                </ng-template>
+            </swiper>
+        
+    </div>
+
+</div>
+    </div>
+</div>
+

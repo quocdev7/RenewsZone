@@ -1,0 +1,108 @@
+<div class="flex flex-col flex-auto w-full mx-auto h-fit overflow-y-visible">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.danh_sach_san_pham"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <br>
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+            <div class="flex flex-col flex-auto min-w-0 ">
+                <!-- Main -->
+                <div class="flex-auto p-3 sm:pt-3 sm:p-10">
+                    <!-- CONTENT GOES HERE -->
+                    <div class="rounded-2xl">
+                        <mat-card class="rounded-2xl py-6 px-6 shadow">
+                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                <div class="flex-1">
+                                    <cm_select [label]="'NAV.sys_loai_san_pham'" [listData]="list_loai_san_pham"
+                                        [callbackChange]="rerender.bind(this)" [(model)]="filter.id_loai"></cm_select>
+                                </div>
+                                <div class="flex-1">
+                                    <cm_select [label]="'system.use_status'" [listData]="list_status_del"
+                                        [(model)]="filter.status_del" [callbackChange]="rerender.bind(this)">
+                                    </cm_select>
+                                </div>
+                            </div>
+                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                <div class="flex-1">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>
+                                            {{'search' | transloco}} ({{ 'system.code' | transloco }} | {{'system.name'
+                                            | transloco}})
+                                        </mat-label>
+                                        <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div align="right" class="space-x-2">
+                                <button class="py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center"
+                                    (click)="close()">
+                                    <p transloco="system.chon" class="mb-0 text-white"></p>
+                                </button>
+                            </div>
+                        </mat-card>
+                        <br />
+                        <mat-card class="rounded-2xl py-6 px-6 shadow">
+                            <div class="w-full overflow-auto">
+                                <table class="cell-border hover w-full overflow-auto" dataTable>
+                                    <thead class="bg-blue-500 text-center text-white h-12">
+                                        <tr>
+                                            <th transloco="system.no_" style="width:50px; text-align:center"></th>
+                                            <th style="width: 50px;">
+                                                <mat-checkbox class="example-margin" value="true"
+                                                    [checked]="check_all_product" [indeterminate]="set_product()"
+                                                    (change)="set_all_product($event.checked)">
+                                                </mat-checkbox>
+                                            </th>
+                                            <th transloco="system.ten_san_pham"></th>
+                                            <th transloco="system.don_gia"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="list_san_pham?.length != 0">
+                                        <tr *ngFor="let item of list_san_pham;  index as i;">
+                                            <td style="text-align:center">{{ i+1 }}</td>
+                                            <td class="p-auto" align="center">
+                                                <mat-checkbox [(ngModel)]="item.is_check"
+                                                    (ngModelChange)="update_all_product()">
+                                                </mat-checkbox>
+                                            </td>
+                                            <td>
+                                                <a class="underline" style="color:#0465ad">{{item.name }} </a>
+                                            </td>
+                                            <td align="right">
+                                                {{ item.so_tien|number}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="list_san_pham?.length == 0">
+                                        <tr class="h-40">
+                                            <td colspan="100" class="no-data-available">
+                                                <nz-empty
+                                                    nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                                    [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                                    <ng-template #contentTpl>
+                                                        <span transloco="no_data"></span>
+                                                    </ng-template>
+                                                </nz-empty>
+                                            </td>
+                                        </tr>
+                                    <tbody>
+                                </table>
+                            </div>
+
+                        </mat-card>
+                        <div align="right" class="space-x-2">
+                            <button class="py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center"
+                                (click)="close()">
+                                <p transloco="close" class="mb-0 text-white"></p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

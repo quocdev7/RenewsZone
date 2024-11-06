@@ -1,0 +1,997 @@
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 " >
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+		<div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+                <!--px-6 sm:px-8-->
+<div class="flex flex-col flex-auto min-w-0" *ngIf="record!=null">
+
+
+    <div class="dark:border-b  bg-white">
+        <!--max-w-screen-xl-->
+        <!-- <div class="w-full   bg-bka-header  z-50  p-2"   [ngClass]="{'sticky': this.config.layout!='empty','fixed': this.config.layout=='empty','fix_top_web': !isScreenSmall  && this.config.layout!='empty', 'fix_top_mobile': isScreenSmall && this.config.layout!='empty'}">
+
+            <div class="flex w-full mx-auto max-w-screen-xl flex-row  sticky flex-auto sm:items-center md:pl-20 md:pr-20">
+               <div class="flex flex-auto items-center min-w-0  sticky  z-50" *ngIf="this.config.layout!='empty'">
+                <a [routerLink]="['/portal-event']">
+                    <mat-icon class="text-bka-header"  *ngIf="this.config.layout=='empty'">arrow_back</mat-icon>
+                    <span class="text-bka-header whitespace-nowrap " transloco="NAV.sys_event"></span>
+                </a>
+                <mat-icon class="text-bka-header">keyboard_arrow_right</mat-icon>
+
+                <span class="text-bka-header    line-clamp-1">{{record.db.title}}</span>
+
+                </div>
+                <div class="flex flex-auto grids items-center min-w-0  sticky  z-50" *ngIf="this.config.layout=='empty'">
+                    <a [routerLink]="['/portal-event']">
+                       <div class="grids items-center">
+                            <mat-icon class="text-bka-header"  style="font-size:24px !important"  *ngIf="this.config.layout=='empty'">arrow_back</mat-icon>
+                            <span style="font-size:24px !important" class="ml-5 text-bka-header whitespace-nowrap " transloco="NAV.sys_event"></span>
+                       </div>
+                    </a>
+
+
+                    </div>
+
+            </div>
+        </div> -->
+        <div class="flex flex-col mb-10 event-share" *ngIf="!isScreenSmall" style="z-index:9999999">
+            <div *ngFor="let item of shares; let i = index">
+                <a href="{{item.link}}" target="_blank">
+                    <img class="mb-1 h-10 w-10 rounded-full" src="{{item.image}}" />
+                </a>
+            </div>
+
+            <!-- <button mat-raised-button style="min-width: 45px; width: 45px" (click)="scrollToTop()"
+            *ngFor="let item of shares; let i = index">
+                <a href="{{item.link}}" target="_blank">
+                    <img class="mr-4 h-10 w-10 rounded-full" src="{{item.image}}" />
+                </a>
+            </button> -->
+        </div>
+        <!-- <div class="flex flex-col mb-10 event-share-mobile" *ngIf="isScreenSmall && this.config.layout!='empty'" style="z-index:9999999">
+            <div *ngFor="let item of shares; let i = index">
+                <a href="{{item.link}}" target="_blank">
+                    <img class="mb-1 h-10 w-10 rounded-full" src="{{item.image}}" />
+                </a>
+            </div>
+
+            <button mat-raised-button style="min-width: 45px; width: 45px" (click)="scrollToTop()"
+            *ngFor="let item of shares; let i = index">
+                <a href="{{item.link}}" target="_blank">
+                    <img class="mr-4 h-10 w-10 rounded-full" src="{{item.image}}" />
+                </a>
+            </button>
+        </div> -->
+        <div class="flex flex-col space-y-4 flex-auto sm:items-center min-w-0" data-aos="fade-right" data-aos-once="true">
+            <!-- Card #59 - Expandable card -->
+            <div class="flex flex-col w-full bg-card ">
+                <div class="" align="center">
+                    <img class="h-auto w-full"
+                         src="{{record.db.logo}}"
+                         alt="Card cover image">
+                </div>
+
+
+            </div>
+
+            <p *ngIf="record.db.quyen_rieng_tu==5">
+                <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+                    Thông tin vé:&nbsp;
+                </span>
+                <span style="font-weight: bold; font-size: 16px; vertical-align: middle;color:blue" *ngIf="record.db.quyen_rieng_tu==5">{{record.db.so_tien |  number }} {{record.ten_tien_te }}</span>
+            </p>
+            <!-- <div *ngIf="is_login==false && record.cho_phep_dang_ky==1">
+                <button class="bka-button-dang-ky " mat-raised-button (click)="gotologin()">
+
+                    <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                </button>
+            </div> -->
+
+            <div *ngIf="record.is_register_event == 2">
+                <span style="color:orange;font-weight:bold;font-size:16px;" transloco="system.khong_cho_phep_dang_ky"></span>
+            </div>
+        </div>
+
+        <!-- test -->
+        <div class=" bg-white z-20">
+            <div class="flex flex-col w-full  max-w-screen-xl mx-auto md:pl-20 md:pr-20">
+                <div class="flex flex-col bg-card  p-4 filter-post filter-interactive  hover:cursor-pointer">
+
+                    <div>
+                        <p class="text-2xl font-bold bka-text" *ngIf=" !isScreenSmall && activeLang=='vi'">
+                            {{record.db.title}}
+                        </p>
+                        <p class="text-2xl font-bold bka-text" *ngIf=" !isScreenSmall && activeLang=='en'">
+                            {{record.title_en}}
+                        </p>
+                        <p class="text-2xl font-bold bka-text" align="center" *ngIf=" isScreenSmall && activeLang=='vi'">
+                            {{record.db.title}}
+                        </p>
+                        <p class="text-2xl font-bold bka-text" align="center" *ngIf=" isScreenSmall && activeLang=='en'">
+                            {{record.title_en}}
+                        </p>
+                        <!-- dang ki web -->
+                        <div class="grid grid-cols-2 gap-2" *ngIf=" !isScreenSmall">
+                            <div>
+                                <p *ngIf="record.db.quyen_rieng_tu==5">
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle" transloco="sys.thong_tin_ve">
+                                    </span>&nbsp;
+                                    <span style="font-weight: bold; font-size: 16px; vertical-align: middle;color:blue" *ngIf="record.db.quyen_rieng_tu==5">{{record.db.so_tien |  number }} {{record.ten_tien_te }}</span>
+                                </p>
+                                <div *ngIf="record.is_register_event == 2">
+                                    <span style="color:orange;font-weight:bold;font-size:16px;" transloco="system.khong_cho_phep_dang_ky"></span>
+                                </div>
+                                <div>
+                                    <span *ngIf="record.check_in_status == 1" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.moi_tham_gia_su_kien"></span>
+                                    <span *ngIf="record.check_in_status == 2" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.tu_choi_tham_gia_su_kien"></span>
+
+                                    <span *ngIf="record.check_in_status == 3" style="color:blue;font-weight:bold;font-size:16px;" transloco="system.se_tham_gia_su_kien"></span>
+
+
+                                    <span *ngIf="record.check_in_status == 4" style="color:green;font-weight:bold;font-size:16px;" transloco="system.da_tham_gia_su_kien"></span>
+
+
+                                    <span *ngIf="record.check_in_status == 5" style="color:red;font-weight:bold;font-size:16px;" transloco="system.khong_duoc_chap_thuan_tham_gia_su_kien"></span>
+
+
+                                    <span *ngIf="record.check_in_status == 6" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.da_dang_ky_dang_cho_duyet"></span>
+
+                                </div>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span>                                
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        <span transloco="NAV.hinh_thuc"></span>&nbsp;                              
+
+                                        <span class="pl-2 pr-2" style="color:cornflowerblue" *ngIf="record.db.type.includes('1')" transloco="system.offline"></span>
+                                        <span class="pl-2 pr-2" style="color:forestgreen" *ngIf="record.db.type.includes('2')" transloco="system.online"></span>
+                                        <span class="pl-2 pr-2" style="color:orange" *ngIf="record.db.type.includes('3')" transloco="system.hoc_bong"></span>
+                                        <span class="pl-2 pr-2" style="color:red" *ngIf="record.db.type.includes('4')" transloco="system.tai_tro"></span>
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span>                                  
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                                        <span transloco="system.trang_thai"></span>&nbsp;                                       
+
+                                        <span style="color:cornflowerblue" *ngIf="record.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                                        <span style="color:forestgreen" *ngIf="record.trang_thai == 3" transloco="system.ket_thuc"></span>
+                                        <span style="color:orange" *ngIf="record.trang_thai == 4" transloco="system.sap_toi"></span>
+                                        <span style="color:red" *ngIf="record.trang_thai == 2" transloco="system.cancel"></span>
+                                    </span>
+                                </p>
+                                <p *ngIf="record.db.quyen_rieng_tu!=5">
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span>
+                                    
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                                        <span transloco="system.quyen_rieng_tu"></span>&nbsp;
+                                        <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==1" transloco="system.cong_khai"></span>
+                                        <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==2" transloco="system.thanh_vien"></span>
+                                        <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==3" transloco="system.ban_be"></span>
+                                        <p class="text-green-900" *ngIf="record.db.quyen_rieng_tu==4">{{item.ten_khoa }}</p>
+
+
+                                    </span>
+                                </p>
+
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">access_time</mat-icon>
+                                    </span>
+            
+                                    <span *ngIf="activeLang=='vi'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        Thời gian tổ chức: Từ {{record.db.time_start |  date: 'HH:mm - dd/MM/yyyy'}}
+                                        Đến {{record.db.time_end |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </span>
+                                    <span *ngIf="activeLang=='en'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        Time to organize: From {{record.db.time_start |  date: 'HH:mm - dd/MM/yyyy'}}
+                                        To {{record.db.time_end |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </span>
+            
+                                </p>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">room</mat-icon>
+                                    </span>
+
+                                    <span *ngIf="activeLang=='vi'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+            
+                                        Địa điểm: {{record.db.location}}
+                                    </span>
+                                    <span *ngIf="activeLang=='en'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+            
+                                        Location: {{record.location_en}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">access_time</mat-icon>
+                                    </span>
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle" transloco="system.han_dang_ky"></span>
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                                        
+                                        {{record.db.ngay_den_han_dang_ky |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span> 
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle" transloco="system.phi_tham_gia"></span>
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle;color: red;">
+
+                                        {{record.db.so_tien | number}} {{record.ten_tien_te}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div>
+
+                                <div *ngIf="is_login==false && record.cho_phep_dang_ky==1" class=" pl-20 sm:pl-32" align="right">
+                                    <button style="background:#273a88; height: 68px; min-height: 40px; max-height: 55px;" class="w-60" mat-raised-button (click)="gotologin()">
+
+                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                    </button>
+                                </div>
+                                <div *ngIf="is_login==true  && record.cho_phep_dang_ky==1" class=" pl-20 sm:pl-36" align="right">
+                                    <button style="background:#273a88;height: 68px; min-height: 40px; max-height: 55px;" class="md:w-60 sm:w-32 w-24" mat-raised-button (click)="thamgia(record.db.id)">
+                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                    </button>
+                                </div>
+                                <div *ngIf="is_login==true  && record.check_in_status == 2" class=" pl-20 sm:pl-36" align="right">
+                                    <button style="background:#273a88;height: 68px; min-height: 40px; max-height: 55px;" class="md:w-60 sm:w-32 w-24" mat-raised-button (click)="thamgia(record.db.id)">
+                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangkylai"></span>
+                                    </button>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <!-- dăng ki mobile -->
+                        <div class="" *ngIf="isScreenSmall">
+                            <div>
+                                <p *ngIf="record.db.quyen_rieng_tu==5">
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle" transloco="sys.thong_tin_ve">&nbsp;
+                                    </span>
+                                    <span style="font-weight: bold; font-size: 16px; vertical-align: middle;color:blue" *ngIf="record.db.quyen_rieng_tu==5">{{record.db.so_tien |  number }} {{record.ten_tien_te }}</span>
+                                </p>
+                                <div *ngIf="record.is_register_event == 2">
+                                    <span style="color:orange;font-weight:bold;font-size:16px;" transloco="system.khong_cho_phep_dang_ky"></span>
+                                </div>
+                                <div>
+                                    <span *ngIf="record.check_in_status == 1" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.moi_tham_gia_su_kien"></span>
+                                    <span *ngIf="record.check_in_status == 2" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.tu_choi_tham_gia_su_kien"></span>
+
+                                    <span *ngIf="record.check_in_status == 3" style="color:blue;font-weight:bold;font-size:16px;" transloco="system.se_tham_gia_su_kien"></span>
+
+
+                                    <span *ngIf="record.check_in_status == 4" style="color:green;font-weight:bold;font-size:16px;" transloco="system.da_tham_gia_su_kien"></span>
+
+
+                                    <span *ngIf="record.check_in_status == 5" style="color:red;font-weight:bold;font-size:16px;" transloco="system.khong_duoc_chap_thuan_tham_gia_su_kien"></span>
+
+
+                                    <span *ngIf="record.check_in_status == 6" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.da_dang_ky_dang_cho_duyet"></span>
+
+                                </div>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span>&nbsp;
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        <span transloco="NAV.hinh_thuc"></span>&nbsp;
+                                        <span class="pl-2 pr-2" style="color:cornflowerblue" *ngIf="record.db.type.includes('1')" transloco="system.offline"></span>
+                                        <span class="pl-2 pr-2" style="color:forestgreen" *ngIf="record.db.type.includes('2')" transloco="system.online"></span>
+                                        <span class="pl-2 pr-2" style="color:orange" *ngIf="record.db.type.includes('3')" transloco="system.hoc_bong"></span>
+                                        <span class="pl-2 pr-2" style="color:red" *ngIf="record.db.type.includes('4')" transloco="system.tai_tro"></span>
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span>&nbsp;
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+            
+                                        <span transloco="system.trang_thai"></span>&nbsp;
+
+                                        <span style="color:cornflowerblue" *ngIf="record.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                                        <span style="color:forestgreen" *ngIf="record.trang_thai == 3" transloco="system.ket_thuc"></span>
+                                        <span style="color:orange" *ngIf="record.trang_thai == 4" transloco="system.sap_toi"></span>
+                                        <span style="color:red" *ngIf="record.trang_thai == 2" transloco="system.cancel"></span>
+                                    </span>
+                                </p>
+                                <p *ngIf="record.db.quyen_rieng_tu!=5">
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span>&nbsp;
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+            
+                                        <span transloco="system.quyen_rieng_tu"></span>&nbsp;
+                                        <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==1" transloco="system.cong_khai"></span>
+                                        <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==2" transloco="system.thanh_vien"></span>
+                                        <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==3" transloco="system.ban_be"></span>
+                                        <p class="text-green-900" *ngIf="record.db.quyen_rieng_tu==4">{{item.ten_khoa }}</p>
+
+
+                                    </span>
+                                </p>
+
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">access_time</mat-icon>
+                                    </span>
+            
+                                    <span *ngIf="activeLang=='vi'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        Thời gian tổ chức: Từ {{record.db.time_start |  date: 'HH:mm - dd/MM/yyyy'}}
+                                        Đến {{record.db.time_end |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </span>
+                                    <span *ngIf="activeLang=='en'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        Time to organize: From {{record.db.time_start |  date: 'HH:mm - dd/MM/yyyy'}}
+                                        To {{record.db.time_end |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">room</mat-icon>
+                                    </span>
+                                    <span *ngIf="activeLang=='vi'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                                        Địa điểm: {{record.db.location}}
+                                    </span>
+                                    <span *ngIf="activeLang=='en'" style="font-weight:bold;font-size:16px;vertical-align:middle">
+            
+                                        Location: {{record.location_en}}
+
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">access_time</mat-icon>
+                                    </span>&nbsp;
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle" transloco="system.han_dang_ky"></span>
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+            
+                                        {{record.db.ngay_den_han_dang_ky |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </span>
+                                </p>
+                                <p *ngIf="record.db.so_tien != null">
+                                    <span>
+                                        <mat-icon style="color:#273a88;vertical-align:middle">apps</mat-icon>
+                                    </span>&nbsp;
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle" transloco="system.phi_tham_gia"></span>
+                                    <span style="font-weight:bold;font-size:16px;vertical-align:middle;color: red;">
+            
+                                        {{record.db.so_tien | number}} {{record.ten_tien_te}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div>
+
+                                <div *ngIf="is_login==false && record.cho_phep_dang_ky==1" class=" " align="center">
+                                    <button style="background:#273a88" class="w-full" mat-raised-button (click)="gotologin()">
+
+                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                    </button>
+                                </div>
+                                <div *ngIf="is_login==true  && record.cho_phep_dang_ky==1" class="" align="center">
+                                    <button style="background:#273a88" class="w-full" mat-raised-button (click)="thamgia(record.db.id)">
+
+                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                    </button>
+
+                                </div>
+                                <div *ngIf="is_login==true && record.check_in_status == 2" class="" align="center">
+                                    <button style="background:#273a88" class="w-full" mat-raised-button (click)="thamgia(record.db.id)">
+
+                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangkylai"></span>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!--dien gia web -->
+        <div class="flex flex-col w-full pb-4 bg-bka-header" *ngIf="list_dien_gia.length>0 && !isScreenSmall" data-aos="fade-right" data-aos-once="true">
+            <div class="flex flex-col flex-auto min-w-0 max-w-screen-xl w-full mx-auto pl-20 pr-20">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-4">
+                    <div class="flex flex-row items-center justify-between" >
+                        <div class="flex  text-2xl text-blue-900 font-bold uppercase" transloco="NAV.sys_dien_gia"></div>
+                    </div>
+                </div>
+                <swiper [slidesPerView]="'auto'"
+                        [pagination]="{
+                          clickable: true
+                        }"
+                        [autoplay]="{delay: 3000}"
+                        [spaceBetween]="30"
+                        class="mySwiperDienGia">
+                    <ng-template swiperSlide *ngFor="let slide of list_dien_gia; let i = index" >
+                        <div class="bg-card rounded-2xl mx-auto m-1 p-4 mb-2" style="width: 295px;height: 335px;" *ngIf="slide.anh_dai_dien!=null">
+                            <div class="flex items-start justify-between">
+                                <img class="mx-auto rounded-full object-contain" style="height:230px;width:230px" src="{{slide.anh_dai_dien}}" />
+                            </div>
+                            <div class="flex flex-col items-center mt-1">
+                                <div class=" font-bold bka-text-primary" align="center">{{slide.ten_dien_gia}}</div>
+                            </div>
+                            <div class="flex flex-col items-center mt-1">
+                                <div class="text-blue-900 italic" align="center"> <span [innerHtml]="slide.chuc_danh | safeHtml"></span></div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </swiper>
+            </div>
+        </div>
+        <!-- dien gia mobile -->
+        <div class="flex flex-col w-full pb-4 bg-bka-header" *ngIf="list_dien_gia.length>0 && isScreenSmall" data-aos="fade-right" data-aos-once="true">
+
+            <div class="flex flex-col w-full max-w-screen-xl mx-auto  pb-4 ">
+                <div class="mt-10 text-2xl font-bold text-blue-900 mb-2 " align="center" transloco="NAV.sys_dien_gia"></div>
+               
+            <swiper [slidesPerView]="'1'"
+            [spaceBetween]="30"
+            [pagination]="{
+                  clickable: true
+                }"
+                        class="mySwiperMobileDienGia">
+                    <ng-template swiperSlide *ngFor="let slide of list_dien_gia">
+                        <div class="flex-none overflow-hidden bg-white mx-auto m-1 p-4 mb-6" style="height: 350px" *ngIf="slide.anh_dai_dien!=null">
+                            <div class="flex items-start justify-between">
+                                <img class=" rounded-full mx-auto object-contain" style="height:250px;width:250px" src="{{slide.anh_dai_dien}}" />
+                            </div>
+                            <div class="flex flex-col items-center mt-1">
+                                <div class=" font-bold bka-text-primary" align="center">{{slide.ten_dien_gia}}</div>
+                            </div>
+                            <div class="flex flex-col items-center mt-1">
+                                <div class="text-blue-900 italic" align="center"> <span [innerHtml]="slide.chuc_danh | safeHtml"></span></div>
+                            </div>
+
+                        </div>
+                    </ng-template>
+                </swiper>
+            </div>
+
+
+
+        </div>       
+
+       <!-- nha tai tro chinh web -->
+       <div class="flex flex-col w-full pb-4 bg-bka-header" *ngIf="list_event_nha_tai_tro.length>0 && !isScreenSmall" data-aos="fade-right" data-aos-once="true"  >
+        <div class="flex flex-col flex-auto min-w-0 max-w-screen-xl w-full mx-auto pl-20 pr-20">
+            <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-4">
+                <div class="flex flex-row items-center justify-between" >
+                    <div class="flex  text-2xl  text-blue-900 font-bold uppercase" transloco="system.nha_tai_tro_chinh"></div>
+
+                </div>
+                <swiper [slidesPerView]="'auto'"
+                        [pagination]="{
+                      clickable: true
+                    }"
+                        [autoplay]="{delay: 3000}"
+                        [spaceBetween]="30"
+                        class="mySwiperNhaTaiTro mb-20">
+                    <ng-template swiperSlide *ngFor="let slide of list_event_nha_tai_tro; let i = index">
+                        <div class="flex-none mx-auto m-1 p-4 mb-2" style="width: 250px;height: 200px;">
+                            <div class="flex items-start justify-between">
+                                <img class="mx-auto  object-contain" style="height:200px;width:250px" src="{{slide.db.logo}}" />
+                            </div>
+                            <!-- <div class="flex flex-col items-center mt-1">
+                                <div class="text-primary font-bold bka-text" align="center">{{slide.db.name}}</div>
+                            </div> -->
+
+                        </div>
+                    </ng-template>
+                </swiper>
+            </div>
+        </div>
+        </div>
+        <!-- nha tai tro chinh mobile -->
+        <div class="flex flex-col w-full pb-4 bg-bka-header" *ngIf="list_event_nha_tai_tro.length>0 && isScreenSmall" data-aos="fade-right" data-aos-once="true">
+
+
+            <div class="flex flex-col w-full max-w-screen-xl mx-auto  pb-4 ">
+                <div class="mt-10 text-2xl font-bold text-blue-900 mb-2 " align="center" transloco="system.nha_tai_tro_chinh"></div>
+                <swiper [slidesPerView]="'1'"
+                        [spaceBetween]="30"
+                        [pagination]="{
+                      clickable: true
+                    }"
+                        class="mySwiperMobileNhaTaiTro">
+
+                    <ng-template swiperSlide *ngFor="let slide of list_event_nha_tai_tro; let i = index">
+                        <div class="flex-none mx-auto m-1 p-4 mb-2" style="width: 250px;height: 200px;">
+                            <div class="flex items-start justify-between">
+                                <img class="mx-auto  object-contain" style="height:200px;width:250px" src="{{slide.db.logo}}" />
+                            </div>
+                            <!-- <div class="flex flex-col items-center mt-1">
+                                <div class="text-primary font-bold bka-text" align="center">{{slide.db.name}}</div>
+                            </div> -->
+
+                        </div>
+                    </ng-template>
+                </swiper>
+            </div>
+
+        </div>
+
+        <div class="flex flex-col w-full  max-w-screen-xl mx-auto md:pl-20 md:pr-20 z-99999">
+            <div class="flex flex-col  flex-wrap bg-card shadow filter-post filter-interactive z-30  hover:cursor-pointer" [ngClass]="{ '-mt-16': !isScreenSmall && list_event_nha_tai_tro.length>0,'-mt-10': !isScreenSmall && list_event_nha_tai_tro.length==0 && list_event_proram.length>0 }">
+
+                <div class="w-full" style="overflow-x: scroll;">
+                    <ul class="flex mb-0  list-none flex-wrap flex-row" style="border-bottom: 1px solid #8F8F8F !important;">
+                      <li class="-mb-px border-r-1 bka-border-color-event   last:mr-0 text-center">
+                        <a class="text-sm font-bold uppercase px-5 py-3   block leading-normal " (click)="toggleTabs(1)" [ngClass]="{'text-white bka-bg-tab-event ': openTab === 1, 'text-black ': openTab !== 1}" transloco="system.noi_dung"> 
+                        </a>
+                      </li>
+                      <li class="-mb-px  border-r-1 bka-border-color-event last:mr-0 text-center" style="border-right: 1px solid #8F8F8F !important;">
+                        <a class="text-sm font-bold uppercase px-5 py-3   block leading-normal" (click)="toggleTabs(2)" [ngClass]="{'text-white bka-bg-tab-event ': openTab === 2, 'text-black ': openTab !== 2}" transloco="system.cau_hoi_thuong_gap">
+    
+                        </a>
+                      </li>
+                     
+                    </ul>
+                    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6">
+                      <div class="px-4 py-5 flex-wrap ">
+                        <div class="tab-content tab-space">
+                          <div [ngClass]="{'hidden': openTab !== 1, 'block': openTab === 1}">
+                              <div class="w-full mt-5" style="word-break: break-word;" *ngIf ="!isScreenSmall">
+                                  <p class="text-2xl font-bold text-blue-900 mb-2 uppercase" transloco="system.gioi_thieu"></p>
+                                  <div *ngIf="activeLang=='vi'" class="whitespace-normal ">
+                                      <span [innerHtml]="record.db.mo_ta | safeHtml"></span>
+                                  </div>
+                                  <div  *ngIf="activeLang=='en'" class="whitespace-normal ">
+                                      <span [innerHtml]="record.mo_ta_en| safeHtml"></span>
+                                  </div>
+                              </div>
+                              <div class="w-full mt-5" style="word-break: break-word;" *ngIf ="isScreenSmall">
+                                <p class="text-2xl font-bold text-blue-900 mb-2 uppercase" transloco="system.gioi_thieu"></p>
+                                <div *ngIf="activeLang=='vi'" class="whitespace-normal ">
+                                    <span [innerHtml]="record.db.mo_ta_mobile | safeHtml"></span>
+                                </div>
+                                <div  *ngIf="activeLang=='en'" class="whitespace-normal ">
+                                    <span [innerHtml]="record.mo_ta_mobile_en| safeHtml"></span>
+                                </div>
+                            </div>
+                          </div>
+                          <div [ngClass]="{'hidden': openTab !== 2, 'block': openTab === 2}">
+                              <div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="list_event_qa.length>0">
+                                  <div class="flex flex-col w-full max-w-screen-xl mx-auto  pb-4 ">
+                                      <div class="mt-5 text-2xl font-bold text-blue-900 mb-2" transloco="system.cau_hoi_thuong_gap"></div>
+                                      <mat-accordion class="w-full mt-2  mx-auto">
+                                          <ng-container *ngFor="let item of list_event_qa ; let i = index;">
+                                              <mat-expansion-panel>
+                                                  <mat-expansion-panel-header class="h-auto">
+                                                      <mat-panel-title><span class="text-blue-900 text-lg font-bold">{{i+1}}.{{item.db.question}}</span></mat-panel-title>
+                                                  </mat-expansion-panel-header>
+                                                  <span [innerHtml]="item.db.answer | safeHtml"></span>
+                                              </mat-expansion-panel>
+                                          </ng-container>
+                                      </mat-accordion>
+                                  </div>
+                              </div>
+                          </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+
+        <div class="flex flex-col w-full mt-10  max-w-screen-xl mx-auto md:pl-20 md:pr-20 " *ngIf="list_group_event_proram.length>0">
+            <div class="flex flex-col filter-post filter-interactive  hover:cursor-pointer mt-2 mb-2">
+                <mat-tab-group class="sm:px-2" scrollToCenter style="padding: 0px !important; margin: 0px !important"
+                               [animationDuration]="'0'" mat-align-tabs="start">
+
+                    <mat-tab style="padding: 0px !important; margin: 0px !important" *ngFor="let group of list_group_event_proram ; let i = index;">
+                        <ng-template mat-tab-label>
+                            <mat-icon class="text-gray-500 bka-icon">calendar_today</mat-icon>
+                            <span>{{group.start_time | date: 'dd/MM/yyyy' }}</span>
+                        </ng-template>
+                        <!-- <mat-accordion class="w-full mt-12 mx-auto p-1 " *ngFor="let item of group.list_chuong_trinh  ; let j = index;">
+                            <ng-container>
+                                <mat-expansion-panel >
+                                    <mat-expansion-panel-header  class="h-auto p-2  ">
+                                        <mat-panel-title>
+                                            <span id="bka-chuong-trinh-text" class="text-xl text-blue-900 font-bold">
+                                                {{item.db.start_time | date: 'HH:mm'}} đến {{item.db.end_time | date: 'HH:mm'}}
+
+                                            </span>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <mat-expansion-panel-description class="mt-2 border-r-1 rounded-lg">
+                                        <div class="w-full">
+                                            <span class="px-2"> {{item.db.name}}</span>
+                                            <div class="px-2 text-secondary" *ngIf="item.db.description!=null"><span [innerHtml]="item.db.description | safeHtml"></span></div>
+
+
+                                            <div class="flex justify-start">
+
+                                                <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg ">
+
+                                                    <img class="w-24 h-24 rounded-full ring-4 ring-bg-card" src="{{item.anh_dai_dien}}" alt="avatar" />
+                                                    <div class="p-6 flex flex-col justify-start">
+                                                        <h5 class="text-gray-900 text-xl font-medium mb-2">{{item.chuc_danh}}</h5>
+                                                                        <p class="text-lg mb-4" style="color: #3285c7 ">
+                                                                            {{item.ten_dien_gia}}
+                                                                        </p>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </mat-expansion-panel-description>
+
+                                </mat-expansion-panel>
+                            </ng-container>
+                        </mat-accordion> -->
+
+                        <div class="w-full mt-3 mx-auto p-1  rounded-lg" *ngFor="let item of group.list_chuong_trinh  ; let j = index;">
+                            <div (click)="showHideSuccess(item)" class="flex flex-col rounded-lg px-8 color-nonclick hover:color-click"
+                                 [ngClass]="{'color-click': item.is_show!=true}">
+                                <div class="flex flex-row justify-between">
+                                    <span id="bka-chuong-trinh-text" class="text-xl font-bold my-2">
+                                        {{item.db.start_time | date: 'HH:mm'}} - {{item.db.end_time | date: 'HH:mm'}}
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col rounded-lg px-8 mt-1" style="background-color:#fff">
+
+                                <div *ngIf="item.is_show!=true">
+                                    <div class="w-full mt-2">
+                                        <span class="px-2"> {{item.db.name}}</span>
+                                        <div class="px-2 text-secondary" *ngIf="item.db.description!=null"><span [innerHtml]="item.db.description | safeHtml"></span></div>
+
+
+                                        <div class="flex flex-none justify-start" *ngIf="item.anh_dai_dien != null">
+
+                                            <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg">
+
+                                                <img class="w-24 h-24 rounded-full ring-4 ring-bg-card" src="{{item.anh_dai_dien}}" alt="avatar" />
+                                                <div class="p-6 flex flex-col justify-start">
+                                                    <h5 class="text-gray-900 text-xl font-medium mb-2">{{item.chuc_danh}}</h5>
+                                                    <p class="text-lg mb-4" style="color: #3285c7 ">
+                                                        {{item.ten_dien_gia}}
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>           
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+
+
+
+        <div class="flex flex-col w-full  max-w-screen-xl mx-auto md:pl-20 md:pr-20 " *ngIf="!isScreenSmall && (record.db.type.includes('3')||record.db.type.includes('4'))">
+            <div class="flex flex-row space-x-2 pt-4 filter-post filter-interactive  hover:cursor-pointer mt-2 mb-2">
+                <div class="flex flex-col  w-1/2 bg-card shadow-lg" *ngIf="list_event_nha_tai_tro?.length != 0">
+                    <div class="w-full text-2xl text-white font-bold py-2 uppercase " align="center" style="background:#273a88" transloco="system.nha_tai_tro">
+                        
+                    </div>
+
+                    <div class="w-full pt-8 overflow-y-auto h-96
+                    ">
+                        <table class="cell-border myTable hover w-full ml-5 mb-6  " align="left " style="overflow-y: scroll;">
+                            <thead>
+                                <tr align="left">
+
+                                    <th class="pb-4" style="width:40%" transloco="system.ten_nha_tai_tro"></th>
+                                    <th class="pb-4" style="width:30%" transloco="system.so_dien_thoai_nha_tai_tro"></th>
+                                    <th class="pb-4" style="width:30%" transloco="system.so_tien_tai_tro"></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="list_event_nha_tai_tro?.length != 0">
+                                <tr *ngFor="let item of list_event_nha_tai_tro;  index as i;">
+                                    <td>
+                                        <p class="break-all"> {{ item.db.name }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="break-all"> {{ item.db.dien_thoai }}</p>
+
+                                    </td>
+                                    <td>
+                                        <p class="break-all"> 
+                                            {{ item.db.so_tien | number}} {{ item.ten_tien_te}}
+                                        </p>
+                               
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="flex flex-col  w-1/2  bg-card shadow-lg" *ngIf="list_event_nguoi_nhan_hoc_bong?.length != 0">
+                    <div  class="w-full text-2xl text-white font-bold py-2  " align="center" style="background:#273a88" transloco="system.nguoi_duoc_nhan">
+
+                    </div>
+
+                    <div class="w-full pt-8 overflow-y-auto h-96 ">
+                        <table class="cell-border myTable hover w-full ml-5 mb-6" align="left" style=" height: 10px;overflow-y:scroll; ">
+                            <thead>
+                                <tr align="left">
+
+                                    <th class="pb-4" style="width:30%" transloco="system.ma_so_sinh_vien"></th>
+                                    <th class="pb-4" style="width:40%" transloco="system.ho_ten"></th>
+                                    <th class="pb-4" style="width:30%" transloco="system.so_tien_tai_tro"></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="list_event_nguoi_nhan_hoc_bong?.length != 0">
+                                <tr *ngFor="let item of list_event_nguoi_nhan_hoc_bong;  index as i;">
+
+                                    <td>
+                                        <p class="break-all"> {{ item.db.mssv }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="break-all"> {{ item.db.name }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="break-all"> 
+                                            {{ item.db.so_tien | number}} {{ item.ten_tien_te}}
+                                        </p>
+                               
+                              
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="flex flex-col w-full  max-w-screen-xl mx-auto md:pl-20 md:pr-20 " *ngIf=" isScreenSmall && (record.db.type.includes('3')||record.db.type.includes('4'))">
+            <div class="flex flex-col space-y-4 p-4 filter-post filter-interactive  hover:cursor-pointer mt-2 mb-2">
+                <div class="flex flex-col w-full bg-card shadow-lg" *ngIf="list_event_nha_tai_tro?.length != 0">
+                    <div class="w-full text-xl text-white font-bold py-2" align="center" style="background:#273a88">
+                        NHÀ TÀI TRỢ
+                    </div>
+
+                    <div class="w-full pt-10 px-3 overflow-y-auto h-80">
+                        <table class="cell-border myTable hover w-full text-base mb-6 overflow-auto" align="left">
+                            <thead>
+                                <tr align="left">
+
+                                    <th style="width:40%" transloco="system.ten_nha_tai_tro"></th>
+                                    <th style="width:30%" transloco="system.so_dien_thoai_nha_tai_tro"></th>
+                                    <th style="width:30%" transloco="system.so_tien_tai_tro"></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="list_event_nha_tai_tro?.length != 0">
+                                <tr *ngFor="let item of list_event_nha_tai_tro;  index as i;">
+                                    <td>
+                                        <p class="break-all"> {{ item.db.name }}</p>
+
+                                    </td>
+
+                                    <td>
+                                        <p class="break-all"> {{ item.db.dien_thoai }}</p>
+                                    </td>
+                                    <td >
+                                        <p class="break-all"> 
+                                            {{ item.db.so_tien | number}} {{ item.ten_tien_te}}
+                                        </p>
+                               
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="flex flex-col w-full bg-card shadow-lg" *ngIf="list_event_nguoi_nhan_hoc_bong?.length != 0">
+                    <div  class="w-full text-xl text-white font-bold py-2 " align="center" style="background:#273a88" transloco="system.nguoi_duoc_nhan">
+
+                    </div>
+
+                    <div class="w-full pt-10 px-3 overflow-y-auto h-80">
+                        <table class="cell-border text-base myTable hover w-full  mb-6" align="left">
+                            <thead>
+                                <tr align="left">
+
+                                    <th style="width:30%" transloco="system.ma_so_sinh_vien"></th>
+                                    <th style="width:40%" transloco="system.ho_ten"></th>
+                                    <th style="width:30%" transloco="system.so_tien_tai_tro"></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="list_event_nguoi_nhan_hoc_bong?.length != 0">
+                                <tr *ngFor="let item of list_event_nguoi_nhan_hoc_bong;  index as i;">
+
+                                    <td>
+                                        <p class="break-all"> {{ item.db.mssv }}</p>
+                                    </td>
+
+
+                                    <td>
+                                        <p class="break-all"> {{ item.db.name }}</p>
+                                    </td>
+
+                                    <td>
+                                        <p class="break-all"> 
+                                            {{ item.db.so_tien | number}} {{ item.ten_tien_te}}
+                                        </p>
+                               
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- body mobile -->
+
+        <div class="flex flex-col w-full  max-w-screen-xl mx-auto  md:pl-20 md:pr-20">
+
+            <div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="lst_hinh_anh.length>0 && isScreenSmall">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  pb-4 ">
+                    <div class="mt-10 text-2xl font-bold text-blue-900 mb-2 uppercase " align="center" transloco="system.image"></div>
+                    <swiper [slidesPerView]="'1'"
+                            [spaceBetween]="30"
+                            [autoplay]="{delay: 3000}"
+                            [pagination]="{
+                              clickable: true
+                            }"
+                            class="mySwiperMobile mt-6">
+                        <ng-template swiperSlide *ngFor="let item of lst_hinh_anh">
+                            <div class="flex-none bg-card shadow mx-auto m-1 w-full aspect-w-16 aspect-h-9">
+                                <div class="flex flex-col w-full h-full">
+                                    <div class="relative  w-full h-full rounded-lg shadow-lg cursor-pointer" (click)="openViewImg(item)">
+                                        <img class="object-cover  w-full h-full "
+                                             src="{{item.db.image}}">
+                                        <div class="absolute object-cover w-full bottom-0" style="background: #273a88">
+                                            <span class="text-xl p-1 font-semibold tracking-tight text-white line-clamp-1 text-ellipsis overflow-hidden" style="height:auto !important">{{item.db.name}}</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Course title & description -->
+
+                                </div>
+                            </div>
+                        </ng-template>
+                    </swiper>
+                </div>
+            </div>
+
+            <div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="lst_hinh_anh.length>0 && !isScreenSmall">
+                <div class="flex flex-col w-full  mx-auto  pb-4 ">
+                    <div class="mt-10  text-2xl font-bold text-blue-900 mb-2 uppercase" transloco="system.image"></div>
+
+                    <swiper *ngIf="lst_hinh_anh.length>0"
+                            [slidesPerView]="3"
+                            [centeredSlides]="true"
+                            [loop]="true"
+                            [autoplay]="{delay: 3000}"
+                            [spaceBetween]="50"
+                            [pagination]="{
+                              clickable: true
+                            }"
+                            class="mySwiperHinhAnh mt-12">
+                        <ng-template swiperSlide *ngFor="let item of lst_hinh_anh">
+                            <div class="flex-none bg-card shadow mx-auto m-1 w-full aspect-w-16 aspect-h-9">
+                                <div class="flex flex-col w-full h-full">
+                                    <div class="relative  w-full h-full rounded-lg shadow-lg cursor-pointer" (click)="openViewImg(item)">
+                                        <img class="object-cover  w-full h-full "
+                                             src="{{item.db.image}}">
+                                        <div class="absolute object-cover w-full bottom-0" style="background: #273a88">
+                                            <span class="text-xl p-1 font-semibold tracking-tight text-white line-clamp-1 text-ellipsis overflow-hidden" style="height:auto !important">{{item.db.name}}</span>
+                                        </div>
+                                    </div>
+                                    <!-- Course title & description -->
+
+                                </div>
+                            </div>
+                        </ng-template>
+                    </swiper>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+        </div>
+</div>
+
+
+<style>
+    .mat-standard-chip {
+        cursor: pointer !important;
+    }
+
+    .fuse-mat-rounded .mat-tab-group .mat-tab-header .mat-tab-label-container .mat-tab-list .mat-tab-labels .mat-tab-label {
+        border-radius: 5px !important;
+    }
+
+    .mat-tab-label-active {
+        background-color: #273a88 !important;
+        opacity: 1 !important;
+        color: white;
+    }
+
+        .mat-tab-label-active .mat-icon {
+            color: white !important;
+        }
+
+    .bka-chuong-trinh .mat-expanded:hover {
+        background-color: #273a88 !important;
+    }
+
+    /* #bka-chuong-trinh-text:hover {
+        color: white !important;
+
+    } */
+
+
+    /* .mat-expansion-panel-header.mat-expanded,
+    .mat-expansion-panel-header.mat-expanded:hover.mat-panel-title{
+
+    .mat-expansion-panel-header.mat-expanded  .mat-panel-title,
+    .mat-expansion-panel-header.mat-expanded:hover  .mat-panel-title .bka-panel-title{
+
+        color: white !important;
+    } */
+
+    .fuse-mat-rounded .mat-tab-group .mat-tab-body-content {
+        padding: 0px !important;
+    }
+</style>
+
+
+
+
+

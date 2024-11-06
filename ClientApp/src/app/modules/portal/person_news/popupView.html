@@ -1,0 +1,60 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl  h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_news"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full space-y-1 overflow-y-auto mt-2">
+        <div class="flex flex-row justify-end space-x-2">
+
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+
+
+        </div>
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto">
+
+
+            <div class="flex flex-col w-full bg-card rounded-lg">
+                <div class="" align="center">
+                    <img class="h-80 w-auto rounded-lg"
+                         src="{{record.db.image}}"
+                         alt="Card cover image">
+                </div>
+                <div class="text-2xl font-bold bka-text mx-6">
+                    {{record.db.tieu_de}}
+                </div>
+                <hr style="margin-top:8px;margin-bottom:8px" />
+                <div class="flex items-center mx-6  mt-1 mb-1">
+                    <img class="w-10 h-10 rounded-full mr-4"
+                         src={{record.avatar}}
+                         alt="Card cover image">
+                    <div class="flex flex-col">
+                        <span class="font-semibold leading-none text-blue-900">{{record.create_by_name}}</span>
+                        <span class="font-sm">{{record.position}}</span>
+                        <span class="text-base text-secondary leading-none mt-1">{{record.db.ngay_dang | date: 'dd/MM/yyyy'}}</span>
+                    </div>
+
+                </div>
+                <div class="flex items-center" style="word-break:break-word">
+                    <div class="mx-6 mt-1 mb-6">
+                        <span [innerHtml]="record.db.noi_dung | safeHtml"></span>
+                    </div>
+                </div>
+            </div>
+         
+        </div>
+        <div class="flex flex-row justify-end space-x-2">
+
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,15 @@
+<!-- list_product_cards toggle -->
+<button mat-icon-button (click)="openPanel()">
+    <ng-container *ngIf="productCount > 0">
+        <span class="absolute top-0 right-0 left-0 flex items-center justify-center h-3">
+            <span
+                class="flex items-center justify-center flex-shrink-0 min-w-4 h-4 px-1 ml-4 mt-2.5 rounded-full bg-orange-600 text-indigo-50 text-xs font-medium">
+                {{ productCount }}
+            </span>
+        </span>
+    </ng-container>
+    <mat-icon class="md:h-10 h-6 w-auto" svgIcon="mat_outline:shopping_cart"></mat-icon>
+    <!-- <img class="h-10 w-auto mt-3" src="assets/icons/icons8-cart-48.png" alt="Logo image"> -->
+    <!-- <mat-icon svgIcon="heroicons_outline:shopping-cart" class="text-base text-white mr-1"></mat-icon> -->
+</button>
+

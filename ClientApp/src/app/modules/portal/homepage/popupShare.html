@@ -1,0 +1,39 @@
+
+<div class="flex flex-col flex-auto w-full" style="min-width:350px;min-height: 270px;">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center  h-16 border-b-2 border-indigo-500">
+
+        <img class="h-7 w-auto pl-2" src="/assets/images/logo/worldsoft.png">
+        <div class="text-lg font-medium pl-22" transloco="portal.share_link"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4">
+            <div class="flex-1">
+                <mat-form-field class="w-full">
+                    <input matInput [type]="'text'" readonly [(ngModel)]="link">
+                    <button type="button" mat-icon-button matSuffix (click)="copy()">
+                        <mat-icon>file_copy</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="flex items-center mx-auto mb-3">
+                <div *ngFor="let item of shares; let i = index">
+                    <a href="{{item.link}}" target="_blank">
+                        <img class="mr-4 h-10 w-10 rounded-full" src="{{item.image}}" />
+                    </a>
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row justify-end space-x-2 sticky top-[100vh] mr-3">
+        <button *ngIf="copied==false" class="bg-indigo-500 text-white shadow-none" mat-raised-button (click)="copy()" transloco="copy_link"></button>
+        <button *ngIf="copied==true" class="bg-green-500 text-white shadow-none" mat-raised-button (click)="copy()" transloco="copied"></button>
+        <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" mat-raised-button (click)="close()" transloco="close"></button>
+    </div>
+</div>

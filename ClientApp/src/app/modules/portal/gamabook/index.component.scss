@@ -1,0 +1,170 @@
+    .mySwiperCuuSinhVien {
+        padding-top: 10px;
+        width: 100%;
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            max-width: 295px;
+        }
+
+        .swiper-pagination-bullet {
+            background-color: white !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: white !important;
+        }
+    }
+
+    .mySwiperMobileBlue {
+        width: 100%;
+        padding: 10px;
+        padding-left: 26px;
+        padding-right: 26px;
+        padding-bottom: 20px;
+
+        .swiper-slide {}
+
+        .swiper-pagination-bullet {
+            background-color: white !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: white !important;
+        }
+    }
+
+    .et-pb-row {
+        margin-top: 0px !important;
+        padding-top: 655px;
+        padding-bottom: 0px;
+    }
+
+    .et-pb-row-0 {
+        min-height: 404.3px;
+    }
+
+    .xelex-font-size-39 {
+        font-size: 39px;
+    }
+
+    .xelex-font-size-93 {
+        font-size: 93px;
+        font-weight: 900;
+    }
+
+    .xelex-font-size-63 {
+        font-size: 63px;
+        font-weight: 900;
+    }
+
+    .xelex-font-size-28 {
+        font-size: 28px;
+        font-weight: 300;
+        list-style: 1em;
+    }
+
+    .xelex-font-size-36 {
+        font-weight: 300;
+        font-size: 36px;
+        color: white;
+        line-height: 1em;
+    }
+
+    .xelex-font-size-24 {
+        font-weight: 300;
+        font-size: 24px;
+        color: white;
+        line-height: 1em;
+    }
+
+    .xelex-font-size-95 {
+        font-size: 95px;
+        font-weight: 900;
+        line-height: 1em;
+    }
+
+    .xelex-font-size-55 {
+        font-size: 55px;
+        font-weight: 900;
+    }
+
+    .xelex-font-size-14 {
+        font-size: 14px;
+    }
+
+    .xelex-font-size-20 {
+        font-size: 20px;
+    }
+
+    .xelex-font-size-50 {
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+    .xelex-linear-gradient-to-right {
+        height: 170px;
+        background: linear-gradient(to right, #ff0000 0%, #ff99cc 100%);
+        border-radius: 25px;
+    }
+
+    .xelex-font-size-65 {
+        font-size: 65px;
+        font-weight: 700;
+        color: white
+    }
+
+    .xelex-font-size-35 {
+        font-size: 35px;
+        font-weight: 700;
+        color: white
+    }
+
+    .xelex-font-size-41 {
+        font-weight: 700;
+        font-size: 41px;
+        margin-top: 10px;
+        color: white;
+        line-height: 2.5rem;
+    }
+
+    .xelex-font-size-36-width-80 {
+        color: white;
+        font-weight: 300;
+        font-size: 36px;
+        line-height: 1em;
+        width: 80%
+    }
+
+    .xelex-font-size-56 {
+        font-size: 56px;
+        font-weight: 900;
+        line-height: 1em;
+    }
+
+    .xelex-font-family {
+        font-family: Roboto;
+    }
+
+    .xelex-color-yellow {
+        color: #fab317;
+    }
+
+    .xelex-input-email {
+        width: 550px;
+        height: 49px;
+        border-radius: 3px;
+    }
+
+    .xelex-button-flow {
+        width: 150px;
+        height: 49px;
+        background-color: #fab317;
+        color: #000000;
+        border-radius: 3px;
+    }
+
+    :host ::ng-deep .mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper {
+        margin-bottom: 0px !important;
+    }

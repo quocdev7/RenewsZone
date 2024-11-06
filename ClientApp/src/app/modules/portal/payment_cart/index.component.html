@@ -1,0 +1,433 @@
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="w-full mx-auto flex flex-col bg-white" *ngIf="loading!=true">
+        <!--san pham web-->
+        <div class="flex flex-col w-full pb-4" data-aos="fade-right" data-aos-once="true">
+            <ng-container *ngIf="record.list_product_card.length>0">
+                <div class=" w-full md:px-4 bg-gray-300">
+                    <h1 mat-dialog-title (click)="goBuyProduct()"
+                        class="w-full cursor-pointer mx-2 min-w-0 max-w-screen-xl md:mx-auto md:pl-16 md:pr-16 mt-2 uppercase text-base md:text-3xl hover:text-blue-400"
+                        transloco="system.quay_lai_mua_them_san_pham"> </h1>
+                </div>
+                <!-- Card #59 - Expandable card -->
+                <mat-card class="rounded-2xl py-6 px-6 shadow" *ngIf="!isScreenSmall">
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto  md:pl-16 md:pr-16">
+                        <div class="flex-row md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <h1 style="margin:0;font-size: 2em;" transloco="system.gio_hang_cua_ban"></h1>
+                                <p>
+                                    <b class="text-red-600">
+                                        <span
+                                            transloco="system.lien_he_nhan_vien_truoc_khi_chuyen_tien_mua_hang"></span>
+                                        <br>
+                                        <span transloco="system.de_dat_hang"></span>
+                                    </b>
+                                    <span transloco="system.quy_khach_kiem_tra_thong_tin"></span>
+                                </p>
+                            </div>
+                            <ng-container *ngFor="let item of record.list_product_card;index as i">
+                                <div class="flex w-full flex-row ng-star-inserted">
+                                    <div class="w-1/6">
+                                        <div class="aspect-w-4 aspect-h-3 w-full pr-16">
+                                            <img alt="avatar" class="w-full h-full object-fill"
+                                                src="{{item.db.hinh_anh}}">
+
+                                            <!--   src="/FileManager/Download/?filename=%5cimage_upload%5csys_san_pham%5cweb%5c1d2b3570-88a2-4440-a6d8-fd7bae925bb1edit.png&amp;v=703feddc-3dc2-452f-8528-c972304daeb2" -->
+                                        </div>
+                                        <div
+                                            class="flex flex-col flex-wrap justify-center lg:flex-row md:flex-row md:space-x-4">
+                                            <mat-icon (click)="delete(item)" svgIcon="heroicons_solid:trash"></mat-icon>
+                                        </div>
+                                    </div>
+                                    <div class="w-4/6 pl-2">
+                                        <div class="flex flex-col">
+                                            <b class="font-bold text-black">{{item.db.ten_san_pham}}</b>
+                                            <b class="text-red-600"><span
+                                                    transloco="system.ma_san_pham_cart"></span>{{item.db.ma_san_pham}}</b>
+                                            <span *ngIf="item.khuyen_mai !=null"
+                                                [innerHtml]="item.khuyen_mai | safeHtml"></span>
+                                            <span *ngIf="item.khuyen_mai ==null"
+                                                [innerHtml]="item.db.mo_ta | safeHtml"></span>
+                                        </div>
+                                    </div>
+                                    <div class="w-1/6">
+                                        <div class="flex justify-center">
+                                            <div class="flex flex-col">
+                                                <!-- <span style="color:#999; text-decoration:line-through">23.990.000 đ</span> -->
+                                                <div class="flex justify-end">
+                                                    <span>{{item.db.so_tien|number}} đ </span>
+                                                </div>
+                                                <div class="flex justify-end">
+                                                    <b class="text-red-600">Tổng:
+                                                        <span>{{item.so_tien|number}}</span> đ</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-center">
+                                            <div class="flex justify-between">
+                                                <div class="p-2 flex items-center" (click)="
+                                                    plus_or_minus_product(
+                                                        i,
+                                                        2
+                                                    )
+                                                ">
+                                                    <button class="h-8 w-8 border border-primary-300 bg-card">
+                                                        <mat-icon class="icon-size-4 text-primary-500"
+                                                            svgIcon="heroicons_solid:minus"></mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="p-4">
+                                                    {{ item.so_luong }}
+                                                </div>
+                                                <div class="p-2 flex items-center" (click)="
+                                                    plus_or_minus_product(
+                                                        i,
+                                                        1
+                                                    )
+                                                ">
+                                                    <button class="h-8 w-8 border border-primary-300 bg-card">
+                                                        <mat-icon class="icon-size-4 text-primary-500"
+                                                            svgIcon="heroicons_solid:plus"></mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </ng-container>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [label]="'system.ma_giam_gia_qua_tang'" [keyError]="'db.ma_giam_gia'"
+                                    [(model)]="record.db.ma_giam_gia"></cm_input>
+                            </div>
+                            <div class="flex-1 justify-end">
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-end"><span
+                                            transloco="system.phi_van_chuyen"></span>
+                                        {{record.db.thanh_tien_van_chuyen |number}}đ</div>
+                                    <div class="flex items-end justify-end"> <span transloco="system.phi_thu_ho"></span>
+                                        {{record.db.thanh_tien_thu_ho|number}}đ</div>
+                                    <div class="flex items-end justify-end text-red-600 font-bold"><span
+                                            transloco="system.tong_cong"></span>
+                                        {{record.db.thanh_tien|number}}đ
+                                    </div>
+                                    <div class="flex items-end justify-end"><span transloco="system.giam_gia"></span>
+                                        {{record.db.thanh_tien_giam_gia|number}}đ</div>
+                                    <div class="flex items-end justify-end text-red-600 font-bold"><span
+                                            transloco="system.thanh_toan"></span>
+                                        {{record.db.thanh_tien|number}}đ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-card class="rounded-2xl py-6 px-6 shadow" *ngIf="isScreenSmall">
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto  md:pl-16 md:pr-16">
+                        <div class="flex-row md:flex-row lg:flex-row md:space-x-4 flex-wrap ">
+                            <div class="flex-1">
+                                <h1 style="margin:0;font-size: 1.5em;" transloco="system.gio_hang_cua_ban"></h1>
+                                <p class="text-base">
+                                    <b class="text-red-600 ">
+                                        <span
+                                            transloco="system.lien_he_nhan_vien_truoc_khi_chuyen_tien_mua_hang"></span>
+                                        <br>
+                                        <span transloco="system.de_dat_hang"></span>
+                                    </b>
+                                    <span transloco="system.quy_khach_kiem_tra_thong_tin"></span>
+                                </p>
+                            </div>
+                            <ng-container *ngFor="let item of record.list_product_card;index as i">
+                                <div class="flex w-full flex-row ng-star-inserted">
+                                    <div class="w-1/6">
+                                        <div class="aspect-w-4 aspect-h-3 w-full">
+                                            <img alt="avatar" class="w-full h-full object-fill"
+                                                src="{{item.db.hinh_anh}}">
+                                        </div>
+                                        <div class="flex items-center justify-center">
+                                            <mat-icon (click)="delete(item)" svgIcon="heroicons_solid:trash"></mat-icon>
+                                        </div>
+                                    </div>
+                                    <div class="w-5/6">
+                                        <div class="flex flex-row">
+                                            <div class="flex flex-col">
+                                                <b class="font-bold text-black text-base">{{item.db.ten_san_pham}}</b>
+                                                <b class="text-red-600 text-base" transloco="system.ma_san_pham_cart">
+                                                    {{item.db.ma_san_pham}}</b>
+                                                <div class="flex" (click)="check_show_khuyen_mai(i)">
+                                                    <span class="text-base" transloco="system.khuyen_mai"></span>
+                                                    <mat-icon *ngIf="item.is_showKhuyenMai==false"
+                                                        svgIcon="mat_solid:arrow_downward"></mat-icon>
+                                                    <mat-icon *ngIf="item.is_showKhuyenMai==true"
+                                                        svgIcon="mat_solid:arrow_upward"></mat-icon>
+                                                </div>
+                                                <ng-contaier *ngIf="item.is_showKhuyenMai==true">
+                                                    <span class="text-base" *ngIf="item.khuyen_mai !=null"
+                                                        [innerHtml]="item.khuyen_mai | safeHtml"></span>
+                                                    <span class="text-base" *ngIf="item.khuyen_mai ==null"
+                                                        [innerHtml]="item.db.mo_ta | safeHtml"></span>
+                                                </ng-contaier>
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <div class="flex justify-end">
+                                                    <span class="text-base">{{item.db.so_tien|number}}đ</span>
+                                                </div>
+                                                <div class="flex justify-end">
+                                                    <span
+                                                        class="text-base text-red-600 font-bold">{{item.so_tien|number}}đ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex w-full flex-row justify-end">
+                                    <div class="flex justify-center">
+                                        <div class="flex justify-between">
+                                            <div class="p-2 flex items-center" (click)="
+                                                    plus_or_minus_product(
+                                                        i,
+                                                        2
+                                                    )
+                                                ">
+                                                <button class="h-8 w-8 border border-primary-300 bg-card">
+                                                    <mat-icon class="icon-size-4 text-primary-500"
+                                                        svgIcon="heroicons_solid:minus"></mat-icon>
+                                                </button>
+                                            </div>
+                                            <div class="p-4">
+                                                {{ item.so_luong }}
+                                            </div>
+                                            <div class="p-2 flex items-center" (click)="
+                                                    plus_or_minus_product(
+                                                        i,
+                                                        1
+                                                    )
+                                                ">
+                                                <button class="h-8 w-8 border border-primary-300 bg-card">
+                                                    <mat-icon class="icon-size-4 text-primary-500"
+                                                        svgIcon="heroicons_solid:plus"></mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                            </ng-container>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [label]="'system.ma_giam_gia_qua_tang'" [keyError]="'db.ma_giam_gia'"
+                                    [(model)]="record.db.ma_giam_gia"></cm_input>
+                            </div>
+                            <div class="flex-1 justify-end">
+                                <div class="flex flex-col">
+                                    <div class="flex items-end flex-row justify-end text-red-600 font-bold">
+                                        <div class="flex-1"><span transloco="system.tong_cong"></span></div>
+                                        <div class="flex-1 text-right">{{record.db.thanh_tien|number}}đ</div>
+                                    </div>
+                                    <div class="flex items-end justify-end">
+                                        <div class="flex-1"><span transloco="system.giam_gia"></span></div>
+                                        <div class="flex-1 text-right">{{record.db.thanh_tien_giam_gia|number}}đ</div>
+
+                                    </div>
+                                    <div class="flex items-end justify-end text-red-600 font-bold">
+                                        <div class="flex-1"><span transloco="system.thanh_toan"></span></div>
+                                        <div class="flex-1 text-right">{{record.db.thanh_tien|number}}đ</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-card class="rounded-2xl py-6 px-6 shadow">
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto  md:pl-16 md:pr-16">
+                        <h3 transloco="system.thong_tinh_khach_hang" class="text-2xl font-bold underline"></h3>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <mat-label>
+                                    {{'system.gioi_tinh' | transloco}}<span style="color: red"
+                                        *ngFor="let item of errorModel | filter: 'key':'gioi_tinh'; index as i">
+                                        (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                                    </span>
+                                </mat-label>
+                                <br>
+                                <mat-radio-group aria-labelledby="example-radio-group-label"
+                                    class="example-radio-group space-x-4" [disabled]="actionEnum==3"
+                                    [(ngModel)]="record.db.gioi_tinh">
+                                    <mat-radio-button class="example-radio-button " *ngFor="let item of gioi_tinh"
+                                        [value]="item.id">
+                                        {{item.name}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ho_ten'"
+                                    [keyError]="'db.full_name'" [(model)]="record.db.full_name"></cm_input>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.email'"
+                                    [keyError]="'db.email'" [(model)]="record.db.email"></cm_input>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.phone'"
+                                    [keyError]="'db.phone'" [(model)]="record.db.phone"></cm_input>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [callbackChange]="change_list_quan_huyen_user.bind(this)"
+                                    [label]="'NAV.sys_tinh_thanh'" [keyError]="'db.tinh_thanh_user'"
+                                    [listData]="lst_tinh_thanh" [(model)]="record.db.tinh_thanh">
+                                </cm_select>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [label]="'system.quan_huyen'" [keyError]="'db.quan_huyen_user'"
+                                    [listData]="lst_quan_huyen_user" [(model)]="record.db.quan_huyen">
+                                </cm_select>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.dia_chi'"
+                                    [keyError]="'db.dia_chi_user'" [(model)]="record.db.dia_chi"></cm_input>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'"
+                                    [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu"></cm_input>
+                            </div>
+                        </div>
+                        <!-- thong tin thanh toan -->
+                        <h3 transloco="system.thong_tin_thanh_toan" class="text-2xl font-bold underline"></h3>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1 mb-4">
+                                <mat-label>
+                                    {{'system.phuong_thuc_thanh_toan' | transloco}}<span style="color: red"
+                                        *ngFor="let item of errorModel | filter: 'key':'phuong_thuc_thanh_toan'; index as i">
+                                        (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                                    </span>
+                                </mat-label>
+                                <br>
+                                <mat-radio-group aria-labelledby="example-radio-group-label"
+                                    class="example-radio-group space-x-4" [disabled]="actionEnum==3"
+                                    [(ngModel)]="record.db.phuong_thuc_thanh_toan">
+                                    <mat-radio-button class="example-radio-button "
+                                        *ngFor="let item of list_phuong_thuc_thanh_toan" [value]="item.id"
+                                        (click)="set_phuong_thuc_thanh_toan()">
+                                        {{item.name}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                                <br>
+                            </div>
+                        </div>
+                        <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [actionEnum]="3" [(model)]="record.db.note_phuong_thuc">
+                                </cm_input>
+                            </div>
+                        </div> -->
+                        <h3 transloco="system.xuat_hoa_don_cong_ty" class="text-2xl font-bold underline"></h3>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.cong_ty'"
+                                    [keyError]="'db.ten_cong_ty'" [(model)]="record.db.ten_cong_ty"></cm_input>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [callbackChange]="change_list_quan_huyen_cong_ty.bind(this)"
+                                    [label]="'NAV.sys_tinh_thanh'" [keyError]="'db.tinh_thanh_cong_ty'"
+                                    [listData]="lst_tinh_thanh" [(model)]="record.db.tinh_thanh_cong_ty"></cm_select>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [label]="'system.quan_huyen'" [keyError]="'db.quan_huyen_cong_ty'"
+                                    [listData]="lst_quan_huyen_cong_ty" [(model)]="record.db.quan_huyen_cong_ty">
+                                </cm_select>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.dia_chi'"
+                                    [keyError]="'db.dia_chi_cong_ty'" [(model)]="record.db.dia_chi_cong_ty"></cm_input>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [label]="'system.ma_so_thue'" [keyError]="'db.ma_so_thue'"
+                                    [(model)]="record.db.ma_so_thue"></cm_input>
+                            </div>
+                        </div>
+                        <h3 transloco="system.hinh_thuc_van_chuyen" class="text-2xl font-bold underline"></h3>
+                        <mat-radio-button class="example-radio-button" [checked]="true">
+                            <span transloco="system.giao_hang_binh_thuong"></span>
+                        </mat-radio-button>
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                            <div class="flex-1">
+                                <mat-form-field class="w-full mb-5 mt-3">
+                                    <mat-label>
+                                        Captcha <span style="color: red"
+                                            *ngFor="let item of errorModel | filter: 'key':'captcha'; index as i">
+                                            (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                                        </span>
+                                    </mat-label>
+                                    <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()"
+                                            style="width:100px" class="h-auto" /></span>
+                                    <input matInput [type]="'text'" [(ngModel)]="record.captcha">
+                                    <button mat-icon-button matSuffix (click)="reloadCaptcha()" type="button">
+                                        <mat-icon>refresh</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-wrap justify-center lg:flex-row md:flex-row md:space-x-4">
+                        <div align="left">
+                            <button class="fuse-mat-button-large w-50 md:mb-4 md:mt-1 mt-0" mat-flat-button
+                                style="background:#273a88!important" [color]="'primary'" (click)="SendUp()">
+                                <span transloco="system.dat_hang">
+
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </mat-card>
+            </ng-container>
+            <ng-container *ngIf="record.list_product_card.length==0">
+                <mat-card class="rounded-2xl py-6 px-6 shadow">
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto pl-16 pr-16">
+                        <div class="flex-row md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-10">
+                            <div class="flex-1">
+                                <h1 style="margin:0;font-size: 2em;"
+                                    transloco="system.khong_co_san_pham_trong_gio_hang"> </h1>
+                                <a (click)="goBuyProduct()" transloco="system.go_back_product">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </ng-container>
+        </div>
+
+    </div>
+</div>

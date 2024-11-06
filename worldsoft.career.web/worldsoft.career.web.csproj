@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="NewId" Version="3.0.2" />
+    <PackageReference Include="Opc.UaFx.Client" Version="2.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\worldsoft.careeer.data\worldsoft.career.data.csproj" />
+    <ProjectReference Include="..\worldsoft.DataBase\worldsoft.DataBase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="worldsoft.common">
+      <HintPath>..\Dll\worldsoft.common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="hubChanel\" />
+    <Folder Include="MenuAndRole\" />
+    <Folder Include="Partial\" />
+    <Folder Include="Controller\" />
+  </ItemGroup>
+
+</Project>

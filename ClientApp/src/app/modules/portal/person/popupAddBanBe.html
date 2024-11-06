@@ -1,0 +1,191 @@
+<div class="flex flex-col flex-auto w-full h-full min-h-screen  overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="w-full flex flex-row">
+            <div class="flex text-lg w-full text-center font-medium truncate pr-4 grids items-center" transloco="portal.tim_kiem_thanh_vien_de_ket_ban"></div>
+            <div class="flex w-20">
+                <button class="flex  text-white shadow-none"  color="accent" mat-raised-button  (click)="close()" transloco="close"></button>
+            </div>
+         
+        </div>
+     
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+    
+        <div class="flex flex-col w-full">
+            <mat-card class="rounded-2xl shadow w-full">
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1">
+                            <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript w-full min-w-50">
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                <input [(ngModel)]="filter.search_key" placeholder="{{  'portal.go_email_sdt' |  transloco}}"  (change)="search(0)"
+    
+    
+                                       matInput>
+                                       <button class="absolute top-1/2   h-10 -mt-5  right-0 " style=" border-radius: 0!important;padding: 5px !important;"
+                                       mat-flat-button color="primary"
+                                       (click)="search(0)">
+                                        Tìm kiếm
+                                    </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                   <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-3">
+                        <div class="flex-1">
+                            <cm_select [label]="'system.khoa'" [listData]="list_khoa"
+                                       [(model)]="filter.id_khoa" [callbackChange]="beginSearch.bind(this)"></cm_select>
+                        </div>
+                        <div class="flex-1">
+                            <cm_select [label]="'system.nien_khoa'" [listData]="list_school_year"
+                                       [(model)]="filter.nien_khoa" [callbackChange]="beginSearch.bind(this)"></cm_select>
+                        </div>
+                    </div>
+            </mat-card>
+    
+           
+            
+                <mat-card class="rounded-2xl shadow mt-4 w-full">
+                    <div class="flex flex-col w-full  mx-auto">
+    
+                        <div class="flex flex-col mt-2" *ngIf="total_item > 0 ">
+                            <h1 class="text-blue-900">Có {{total_item}} kết quả tìm kiếm </h1>
+                        </div>
+                        <div class="flex flex-col mt-2" *ngIf="total_item == 0 ">
+                            <h1 class="text-blue-900">Không có kết quả tìm kiếm nào</h1>
+                        </div>
+                        <!-- Header -->
+                        <!--(click)="gotoTypeNewsPage(item1.id)"-->
+                        <!--[routerLink]="['/portal-news/'+id_group_news]"-->
+                     
+                            <div class="flex flex-col w-full mx-auto mb-10" >
+                                <div class="flex-none w-full pt-1 pb-1" *ngFor="let item of lst_ban_be ; let i = index;">
+                                    <div class="flex flex-row w-full" >
+                                        <div class="p-2 flex flex-col border-b w-full">
+
+                                            <a (click) ="openProfile(item.id)"  class="flex items-center  cursor-pointer ">
+                                                <div class="flex flex-0 items-center justify-center w-20 h-20 rounded-full overflow-hidden">
+                                                    <ng-container >
+                                                        <img
+                                                            class="object-cover w-full h-full"
+                                                            [src]="item.avatar_path"
+                                                            alt="Contact avatar"/>
+                                                    </ng-container>
+                                                </div>
+                                                <div class="min-w-0 ml-4">
+                                                    <div class="text-2xl text-start   font-bold leading-none text-blue-900" style="word-break: break-word;">
+                                                        <span>{{item.name}}</span> 
+                                                     </div>
+                                                     <div class="w-full mt-1 text-center">
+                                                         <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  mx-auto w-full " >
+                                                             <!-- profile -->
+                                                             <div class="flex-1  flex-col items-start w-full text-blue-900" style="word-break: break-word;">
+                                                                 <div *ngIf="item.status_graduate==1 || item.status_graduate==2" align="left" class="flex mt-2 w-full break-word">                               
+                                                                         <div class="flex grids items-start">
+                                                                             <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                                             svgIcon="heroicons_solid:academic-cap"></mat-icon>
+                                                                         </div>
+                                                                         <div class="flex-row items-start">
+                                         
+                                                                             <span class="text-blue-900" *ngIf="item.khoa_name!=null && item.khoa_name!=''">Khoa:&ensp;{{item.khoa_name}}</span>
+                                                                             <span class="" *ngIf="item.khoa_name==null || item.khoa_name==''">Khoa:---</span> <span> - </span>
+                                                                             <span class="text-blue-900" *ngIf="item.school_year!=null && item.school_year!=''">Khóa:&ensp;{{item.school_year}}</span>
+                                                                             <span class="" *ngIf="item.school_year==null || item.school_year==''">Khóa:---</span>
+                                         
+                                                                         </div>
+                                                                      </div>
+                                                                      <div class="flex mt-2 w-full break-word grids items-center" *ngIf="item.status_del==1">
+                                                                           <mat-icon class="text-green-700">check_circle</mat-icon> &nbsp;<span transloco="portal.ban_be" class="text-green-700"  ></span>
+                                                                      </div>
+                                                                   
+                                                                    <div class="flex mt-2 w-full break-word grids items-center" *ngIf="item.status_del==2">
+                                                                        <mat-icon class="text-indigo-500">sync</mat-icon> &nbsp;<span transloco="portal.loi_moi_ket_ban" class="text-indigo-500"  ></span>
+                                                                    </div>
+                                                                    <div class="flex mt-2 w-full break-word grids items-center" *ngIf="item.status_del==3">
+                                                                        <mat-icon class="text-indigo-500">sync</mat-icon> &nbsp;<span transloco="portal.da_gui_loi_moi" class="text-indigo-500"  ></span>
+                                                                    </div>
+                                                             </div>
+                                                             <!-- profile -->
+                                                         </div>
+                                                     </div>
+                                                </div>
+                                            </a>
+                                            
+                                            <div class="flex flex-row w-full mt-1" align="right"> 
+                                                <button class="mr-5"  *ngIf="item.status_del==0"  [disabled]="loading"
+                                                   mat-raised-button color="primary"
+                                                  (click)="ketBan(item.id , item.name,i)" transloco="portal.ket_ban">
+                                                </button>
+                                                <button class="mr-5"  *ngIf="item.status_del==2"  [disabled]="loading"
+                                                mat-raised-button color="primary"
+                                                (click)="dong_y_ket_ban(item.id_invite , item.name,i)" transloco="portal.dong_y">
+                                                   <!--Đồng ý-->
+                                                </button>
+                                                <button class="mr-5"  *ngIf="item.status_del==2"  [disabled]="loading"
+                                                mat-raised-button color="warn"
+                                                (click)="tu_choi_ket_ban(item.id_invite , item.name,i)" transloco="portal.tu_choi">
+                                                   <!--từ chối-->
+                                                </button>
+
+                                                <button class="mr-5"  *ngIf="item.status_del==3"  [disabled]="loading"
+                                                mat-raised-button color="warn"
+                                                (click)="tu_choi_ket_ban(item.id_invite , item.name,i)" transloco="portal.huy_yeu_cau">
+                                                   <!--Hủy yêu cầu-->
+                                                </button> 
+                                                <button class="mr-5"  *ngIf="item.status_del==1"  [disabled]="loading"
+                                                mat-raised-button color="warn"
+                                                (click)="tu_choi_ket_ban(item.id_invite , item.name,i)" transloco="portal.huy_ket_ban">
+                                                   <!--Hủy yêu cầu-->
+                                                </button> 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+    
+    
+                            </div>
+                    
+    
+                        <nav class="mx-auto" *ngIf="pageList.length >0">
+                            <ul class="inline-flex items-center -space-x-px ul_paging" >
+                                <li>
+                                    <a href="javascript:void(0)" (click)="search(page-1)" class=" p-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                      Trước
+                                    </a>
+                                </li>
+                                 <li >
+                                       
+                                        <a href="javascript:void(0)"  aria-current="page" class="z-10 p-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                                            {{(page+1) +'/'+ total_page}}
+                                        </a>
+        
+                                 </li>
+                                <li>
+                                    <a href="javascript:void(0)" (click)="search(page+1)" class=" p-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                       Sau
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+    
+    
+    
+                    </div>
+                </mat-card>
+            </div>
+      
+
+       
+    </div>
+</div>
+
+
+
+
+

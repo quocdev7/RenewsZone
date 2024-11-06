@@ -1,0 +1,231 @@
+
+  <div class="flex flex-col flex-auto min-w-0"  *ngIf="currentUser.status_del!=1">
+    <div class="flex flex-col w-full mx-auto bg-bka" data-aos="fade-right" data-aos-once="true">
+        <div class="flex flex-col w-full max-w-screen-md mx-auto pl-4 pr-4 pb-4 mt-3 mb-10" >
+            <div class="w-full mx-auto sm:mx-0 mx-auto">
+                <!-- Title -->
+                <div class="w-full">
+                    <img src="assets/images/logo/worldsoft.png" class="h-20 w-auto  mx-auto" style="image-rendering: -webkit-optimize-contrast;">
+                </div>
+                <div class="text-2xl text-center font-bold leading-none text-white" *ngIf="!currentUser.full_name">
+                    Chào mừng <span>{{currentUser.Username}}</span>  đến với Bách Khoa Alumni
+                </div>
+                <div class="text-2xl text-center font-bold leading-none text-white" *ngIf="currentUser.full_name">
+                    Chào mừng <span>{{currentUser.full_name}}</span>  đến với Bách Khoa Alumni
+                </div>
+                <div class="w-full items-center text-center mt-5">
+                    <button mat-raised-button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" (click)="gotoAbout()">Giới thiệu Về BKA Alumni</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="currentUser.status_del==3">
+        <div class="flex flex-col w-full max-w-screen-md mx-auto pl-4 pr-4 pb-4  md:pl-15 md:pr-15">
+            <div class="w-full mx-auto sm:mx-0 mx-auto">
+                <!-- Title -->
+                <div class="mt-8 text-blue-900 text-4xl text-center font-extrabold tracking-tight leading-tight">Đăng ký thành viên để hưởng các lợi ích và dịch vụ của Platform BKA Alumni</div>
+                <div class="mt-4 text-center">
+                    <p>Vui lòng điền đầy đủ thông tin cá nhân và gửi xét duyệt để đăng ký thành viên.</p>
+                    Bạn vui lòng chỉnh sửa thông tin tại  <a class="text-md font-medium text-primary-500 hover:underline"
+                                                             [routerLink]="['/portal-profile']">
+                        ĐÂY
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="currentUser.status_del==4">
+        <div class="flex flex-col w-full max-w-screen-md mx-auto pl-4 pr-4 pb-4  md:pl-15 md:pr-15">
+            <div class="w-full mx-auto sm:mx-0 mx-auto">
+                <!-- Title -->
+                <div class="mt-8 text-blue-900 text-4xl text-center font-extrabold tracking-tight leading-tight">Tài khoản đang chờ xét duyệt</div>
+                <div class="mt-4 text-center">
+                    Bạn có thể xem lại thông tin cá nhân tại   <a class="text-md font-medium text-primary-500 hover:underline"
+                                                                  [routerLink]="['/portal-profile']">
+                        ĐÂY
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="currentUser.status_del==5">
+        <div class="flex flex-col w-full max-w-screen-md mx-auto pl-4 pr-4 pb-4  md:pl-15 md:pr-15">
+            <div class="w-full mx-auto sm:mx-0 mx-auto">
+                <!-- Title -->
+
+
+                <span class="text-2xl text-base">
+
+                </span>
+                <div class="mt-8 text-blue-900 text-4xl text-center font-extrabold tracking-tight leading-tight">Bạn chưa được xác minh vì lý do</div>
+                <div class="mt-4 text-red-900 text-3xl text-center font-extrabold tracking-tight leading-tight">
+                    {{currentUser.ly_do}}
+                </div>
+                <div class="mt-4 text-center">
+                    Bạn có thể chỉnh sửa lại thông tin cá nhân để xét duyệt lại tại   <a class="text-md font-medium text-primary-500 hover:underline"
+                                                                                         [routerLink]="['/portal-profile']">
+                        ĐÂY
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true">
+        <div class="flex flex-col w-full max-w-screen-md mx-auto pl-4 pr-4 pb-4  md:pl-15 md:pr-15">
+            <div class="mt-10 text-3xl sm:text-5xl font-extrabold leading-tight text-blue-900 tracking-tight text-center">Lợi ích và dịch vụ của Platform BKA Alumni</div>
+            <mat-accordion class="w-full mt-12 mx-auto">
+                <ng-container *ngFor="let item of quyen_loi">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                            <mat-panel-title><span class="text-blue-900 text-2xl font-bold">{{item.name}}</span></mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <span [innerHtml]="item.noi_dung | safeHtml"></span>
+                    </mat-expansion-panel>
+                </ng-container>
+            </mat-accordion>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-col flex-auto min-w-0" *ngIf="currentUser.status_del==1 && panels.length>0">
+
+
+
+    <div class="bg-card dark:border-b">
+
+
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto md:pl-20 md:pr-20">
+            <div  *ngIf="isScreenSmall" class="flex  flex-row flex-auto sm:items-center bg-card bg-blue-900  shadow sticky fix_top_mobile z-50" data-aos="fade-right" data-aos-once="true" 
+            style="height:40px;width: 100% !important;"
+            
+            (click)="scrollToTop();drawer.toggle()"   >
+                <div class="flex flex-auto items-center min-w-0 pl-4 z-50">
+                    <button
+                        class="-ml-2"
+                        mat-icon-button>
+                        <mat-icon class="text-white">menu</mat-icon>
+                    </button>
+                    <span class="text-2xl   text-white line-clamp-1 p-2"> {{getPanelInfo(selectedPanel).title}}</span>
+    
+                </div>
+            </div>
+                <div class="flex flex-col mx-auto  w-full h-full bg-card shadow rounded-lg" >
+                    <mat-drawer-container class="flex-auto  w-full mx-auto bg-white" style="min-height:700px">
+                        <!-- Drawer -->
+                        <mat-drawer
+                            class="w-96 md:w-64 bg-white"
+                            [autoFocus]="false"
+                            [mode]="drawerMode"
+                            [opened]="drawerOpened"
+                            #drawer>
+                            <div class="flex flex-col divide-y border-t border-b">
+                                <ng-container *ngFor="let panel of panels;">
+                                    <div
+                                        class="flex px-8 py-5 cursor-pointer"
+                                        [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedPanel || selectedPanel !== panel.id,
+                                                    'bg-primary-50 dark:bg-hover': selectedPanel && selectedPanel === panel.id}"
+                                        (click)="goToPanel(panel.id)">
+                                        <mat-icon
+                                        [ngClass]="{'text-hint': !selectedPanel || selectedPanel !== panel.id,
+                                                    'text-blue-900': selectedPanel && selectedPanel === panel.id}"
+                                          >{{panel.icon}}</mat-icon>
+                                        <div class="ml-3">
+                                            <div
+                                                class="font-medium leading-6"
+                                                [ngClass]="{'text-blue-900': selectedPanel && selectedPanel === panel.id}">
+                                                {{panel.title}}
+                                            </div>
+                                            <div class="mt-0.5 text-secondary text-lg">
+                                                {{panel.description}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </mat-drawer>
+                
+                        <!-- Drawer content -->
+                        <mat-drawer-content class="flex flex-col bg-white sticky">
+                           
+                            <!-- Main -->
+                            <div class="flex-auto px-6 pt-9 pb-12 md:p-8 md:pb-12 lg:p-12 bg-white">
+                                
+                                  <!-- Panel header -->
+                                <div class="flex items-center">
+                
+                                    <!-- Drawer toggle -->
+                                    <div *ngIf="!isScreenSmall" class="ml-2 text-blue-900 lg:ml-0 text-3xl font-bold tracking-tight leading-none">
+                                        <span class="text-2xl  line-clamp-1 p-2"> {{getPanelInfo(selectedPanel).title}}</span>
+                                    </div>
+                                </div>
+                                <!-- Load settings panel -->
+                                <div class="mt-2">
+                                    <ng-container [ngSwitch]="selectedPanel">
+                                        <!-- Account -->
+                                        <ng-container *ngSwitchCase="'account'">
+                                            <person_index></person_index>
+                                        </ng-container>
+                                        <!-- portal_person_news_index -->
+                                        <ng-container *ngSwitchCase="'portal_person_news_index'">
+                                            <portal_person_news_index></portal_person_news_index>
+                                        </ng-container>
+                                        <!-- person_myevent -->
+                                        <ng-container *ngSwitchCase="'person_myevent'">
+
+                                            <person_myevent></person_myevent>
+                                        </ng-container>
+
+
+                                        <ng-container *ngSwitchCase="'person_ban_be'">
+                                            <person_ban_be></person_ban_be>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="'person_quyen_rieng_tu'">
+                                            <person_quyen_rieng_tu></person_quyen_rieng_tu>
+                                        </ng-container>
+
+                                        <!-- quan ly su kien -->
+                                        <ng-container *ngSwitchCase="'portal_approved_event_index'">
+                                            <portal_approved_event_index></portal_approved_event_index>
+                                        </ng-container>
+                                   <!-- tạo sự kiện -->
+                                        <!--<ng-container *ngSwitchCase="'portal_person_event_index'">
+                                            <portal_person_event_index></portal_person_event_index>
+                                        </ng-container>-->
+
+
+                                        <ng-container *ngSwitchCase="'portal_approval_new_index'">
+                                            <portal_approved_person_news_index></portal_approved_person_news_index>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="'portal_approval_user_index'">
+                                            <portal_approval_user_index></portal_approval_user_index>
+                                        </ng-container>
+
+
+
+                                    </ng-container>
+                                </div>
+                
+                            </div>
+                
+                        </mat-drawer-content>
+                
+                    </mat-drawer-container>
+                
+                </div>
+                
+        </div>
+       
+    </div>
+
+
+
+
+</div>
+
+
+
+

@@ -1,0 +1,41 @@
+<!-- Button -->
+<button class="h-full hover:bg-blue-400" mat-button mat-button-base style="padding: 0 10px !important;"
+   
+    [matMenuTriggerFor]="languages">
+    <div class="flex flex-row h-full grids items-center">
+        <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: activeLang}"></ng-container>
+        <span class="text-base text-white ml-1 mr-1" >{{activeLanglabel}}</span>
+        <svg viewBox="0 0 12 12" fill="none" width="12" height="12" color="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 8.146L11.146 3l.707.707-5.146 5.147a1 1 0 01-1.414 0L.146 3.707.854 3 6 8.146z" fill="currentColor"></path>
+        </svg>
+   </div>
+    
+</button>
+
+<!-- Language menu -->
+<mat-menu
+    [xPosition]="'before'"
+    #languages="matMenu">
+    <ng-container *ngFor="let lang of availableLangs; trackBy: trackByFn" >
+        <button
+            mat-menu-item
+            (click)="setActiveLang(lang.id)"  >
+            <span class="flex items-center">
+                <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: lang.id}"></ng-container>
+                <span class="text-base ml-3" >{{lang.label}}</span>
+            </span>
+        </button>
+    </ng-container>
+</mat-menu>
+
+<!-- Flag image template -->
+<ng-template
+    let-lang
+    #flagImage>
+    <span class="relative w-6 shadow rounded-sm overflow-hidden">
+        <span class="absolute inset-0 ring-1 ring-inset ring-black ring-opacity-10"></span>
+        <img
+            class="w-full"
+            [src]="'assets/images/flags/' + flagCodes[lang].toUpperCase() + '.svg'">
+    </span>
+</ng-template>

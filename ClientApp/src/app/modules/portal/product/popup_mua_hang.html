@@ -1,0 +1,94 @@
+<div class="w-full mx-auto flex flex-col bg-white">
+    <div class=" text-right mt-2 mr-2" (click)="close()">
+        <mat-icon class="text-black" svgIcon="heroicons_solid:x"></mat-icon>
+    </div>
+    <!-- Card form -->
+    <div class="w-full px-6 sm:px-8 space-y-1 overflow-y-auto">
+       
+        <div class="text-lg italic mb-4">Bạn đang quan tâm đến sản phẩm <span class="font-bold text-black">{{san_pham_dat_hang.ten_san_pham}}</span>. Vui lòng cung cấp đầy đủ thông tin, chuyên viên tư vấn sẽ liên hệ bạn trong thời gian sớm nhất.</div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.full_name'"
+                          [keyError]="'db.full_name'"
+                          [(model)]="record.db.full_name"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.phone'"
+                          [maxlength]="10"
+                          [keyError]="'db.phone'"
+                          [(model)]="record.db.phone"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.email'"
+                          [keyError]="'db.email'"
+                          [(model)]="record.db.email"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.san_pham_dat_mua'"
+                          [keyError]="'db.san_pham_dat_mua'"
+                          [(model)]="record.db.san_pham_dat_mua"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.so_luong'"
+                          [type]="'number'"
+                          [keyError]="'db.so_luong'"
+                          [(model)]="record.db.so_luong"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+            <div class="flex-1">
+
+                <mat-form-field class="w-full mb-5 mt-3">
+                
+                    <mat-label>
+                        Captcha  <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'captcha'; index as i">
+                            (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                        </span>
+                    </mat-label>
+                    <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px" class="h-auto" /></span>
+
+                    <input matInput [type]="'text'" [(ngModel)]="record.captcha">
+                    <button mat-icon-button matSuffix (click)="reloadCaptcha()" type="button">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" align="left">
+                <button class="fuse-mat-button-large w-50 md:mb-4 md:mt-1 mt-0"
+                        mat-flat-button
+                        style="background:#273a88!important"
+                        [color]="'primary'"
+                        (click)="SendUp()">
+                    <span >
+                        Gửi
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

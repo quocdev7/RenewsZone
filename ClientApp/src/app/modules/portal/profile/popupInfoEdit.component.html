@@ -1,0 +1,182 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl  h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.edit_info"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1">
+        <div class="rounded-2xl py-6 px-6 bg-card shadow overflow-hidden">
+
+            <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+        <div class="flex-1">
+
+            <cm_input [errorModel]="errorModel"
+                      [actionEnum]="actionEnum"
+                      [label]="'system.Username'"
+                      [keyError]="'db.Username'"
+                      [type]="'readonly'"
+                      [(model)]="record.db.Username"></cm_input>
+        </div>
+    </div>-->
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.full_name'"
+                              [keyError]="'db.full_name'"
+                              [(model)]="record.db.full_name"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+
+                    <cm_select [errorModel]="errorModel"
+                               [label]="'system.gioi_tinh'"
+                               [keyError]="'db.sex'"
+                               [listData]="list_sex"
+                               [(model)]="record.db.sex"></cm_select>
+                </div>
+              
+
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              
+                              [label]="'date_of_birth'"
+                              [keyError]="'db.date_of_birth'"
+                              [type]="'text'"
+                              [type]="'datepicker'"
+                              [(model)]="record.db.date_of_birth"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.email'"
+                              [keyError]="'db.email'"
+                              [type]="'readonly'"
+                              [(model)]="record.db.email"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [maxlength]="10"
+                              [label]="'system.phone'"
+                              [keyError]="'db.phone'"
+                              [(model)]="record.db.phone"></cm_input>
+                </div>
+            </div>
+
+
+            <!-- <div class="flex-1">
+                <cm_select [errorModel]="errorModel"
+                           [label]="'system.hinh_thuc'"
+                           [keyError]="'db.status_graduate'"
+                           [listData]="list_status_graduate"
+                           [(model)]="record.db.status_graduate"></cm_select>
+            </div>
+ -->
+
+
+
+
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.status_graduate == 1 || record.db.status_graduate == 2">
+
+                <div class="flex-1">
+
+                    <cm_select [errorModel]="errorModel"
+                               [label]="'NAV.sys_khoa'"
+                               [keyError]="'db.id_khoa'"
+                               [listData]="list_khoa"
+                               [(model)]="record.db.id_khoa"></cm_select>
+                </div>
+                <div class="flex-1">
+
+
+                    <cm_select [errorModel]="errorModel"
+                               [label]="'portal.school_year'"
+                               [keyError]="'db.school_year'"
+                               [listData]="list_school_year"
+                               [(model)]="record.db.school_year"></cm_select>
+                </div>
+            </div>
+
+
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'portal.donvicongtac'"
+                              [keyError]="'db.company'"
+                              [(model)]="record.db.company"></cm_input>
+
+                </div>
+
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.chuc_danh'"
+                              [keyError]="'db.position'"
+                              [(model)]="record.db.position"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.dia_chi'"
+                              [keyError]="'db.dia_chi'"
+                              [maxlength]="'1000'"
+                              [(model)]="record.db.dia_chi"></cm_input>
+                </div>
+            </div>
+            <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+        <div class="flex-1">
+
+
+            <cm_input [errorModel]="errorModel"
+                      [actionEnum]="actionEnum"
+                      [label]="'system.nguoi_theo_doi'"
+                      [keyError]="'db.nguoi_theo_doi'"
+                         [type]="'readonly'"
+                      [(model)]="record.db.nguoi_theo_doi"></cm_input>
+        </div>
+        <div class="flex-1">
+
+
+
+            <cm_input [errorModel]="errorModel"
+                      [actionEnum]="actionEnum"
+                      [label]="'system.ban_be'"
+                      [keyError]="'db.ban_be'"
+                         [type]="'readonly'"
+                      [(model)]="record.db.ban_be"></cm_input>
+        </div>
+    </div>-->
+            <div class="flex flex-row justify-end space-x-2  mt-5">
+                <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="update()" transloco="save"></button>
+                <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+            </div>
+            <div class="h-40" *ngIf="isScreenSmall"></div>
+        </div>
+
+        </div>
+</div>
+
+
+

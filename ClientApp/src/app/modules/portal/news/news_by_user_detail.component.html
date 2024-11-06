@@ -1,0 +1,132 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="bg-card dark:border-b">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8" py-6>
+            <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12">
+                <!-- Avatar and name -->
+                <div class="flex flex-auto items-center min-w-0">
+                    <div class="flex-0 w-80 h-40  overflow-hidden">
+                        <img class="w-full h-full object-cover"
+                             src="assets/images/logo/worldsoft.png">
+                    </div>
+
+                </div>
+                <!-- Actions -->
+                <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
+
+                    <a class="mt-8"
+                       mat-flat-button
+                       [color]="'accent'"
+                       [routerLink]="'/sign-up'">
+                        <span>Join Now</span>
+                        <!--<mat-icon class="ml-2 icon-size-5"
+                                  [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>-->
+                    </a>
+                    <a class="mt-8"
+                       mat-flat-button
+                       [color]="'primary'"
+                       [routerLink]="'/sign-in'">
+                        <span>Sign In</span>
+                        <!--<mat-icon class="ml-2 icon-size-5"
+                                  [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>-->
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="bg-card dark:border-b">
+
+
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
+
+            <!--<div class="flex flex-col sm:flex-row flex-auto sm:items-center">
+
+        <button class="px-3"
+                mat-button
+                [color]="'primary'"
+                (click)="gotoNewsPage()">
+            <mat-icon class="ml-2 icon-size-5 justify-start"
+                      [svgIcon]="'heroicons_solid:arrow-narrow-left'"></mat-icon>
+            <span>Dicover</span>
+
+        </button>
+
+    </div>-->
+            <!--flex-wrap-->
+            <fuse-card class="flex flex-col w-3/4 filter-post filter-interactive  hover:cursor-pointer"
+                       #expandableCard02="fuseCard" (click)="gotoProfile()">
+                <div class="flex items-center mx-6 sm:mx-8 mt-6 mb-4">
+                    <img class="w-10 h-10 rounded-full mr-4"
+                         src="assets/images/img1.png"
+                         alt="Card cover image">
+                    <div class="flex flex-col">
+                        <span class="font-semibold leading-none">{{user_info.FirstName}} {{user_info.LastName}}</span>
+                
+                    </div>
+
+                </div></fuse-card>
+            <p class="text-2xl">View articles by {{user_info.FirstName}} {{user_info.LastName}}</p>
+               <div class="flex flex-row flex-wrap  items-center  justify-center  flex-auto  sm:items-center min-w-0 my-8 sm:my-12">
+
+                <!-- Card #59 - Expandable card   w-1/5 -->
+
+                   <fuse-card class="flex flex-col  w-1/4 h-3/4 filter-post filter-interactive  hover:cursor-pointer  mx-2 my-2" *ngFor="let item of lst_news_by_user"
+                              #expandableCard02="fuseCard" (click)="gotoNewsByUserPage(item.create_by)">
+                       <!--<div class="flex items-center mx-6 sm:mx-8 mt-6 mb-4">
+                           <img class="w-10 h-10 rounded-full mr-4"
+                                src="assets/images/img1.png"
+                                alt="Card cover image">
+
+
+                       </div>-->
+                       <div class="relative mb-4">
+                           <img class="h-80 object-cover"
+                                src="{{item.hinh_anh}}"
+                                alt="Card cover image">
+                           
+                       </div>
+                       <div class="mx-6 sm:mx-8 mt-1 mb-1">
+                           <span class="text-blue-900 text-xl font-black">{{item.tieu_de |  strLimit:25}}</span>
+                           <br />
+                           <span class="text-base text-secondary leading-none mt-1">{{item.ngay_dang | date : 'dd/MM/yyyy'}}</span>
+                       </div>
+
+                       <hr class="border-b mx-6 sm:mx-8 mt-1 mb-1">
+                       <div class="flex flex-col sm:flex-row sm:items-center mx-6 sm:mx-8 mb-2 sm:mb-6">
+
+                           <div class="flex items-center mt-4 sm:mt-0">
+                               <button class="px-3 mr-1 -ml-2 sm:ml-0"
+                                       mat-button>
+                                   24 likes
+                               </button>
+                               <button class="px-3 mr-1 -ml-2 sm:ml-0"
+                                       mat-button>
+                                   4 shares
+                               </button>
+                               <button class="px-3 sm:-mr-4"
+                                       mat-button
+                                       (click)="expandableCard02.expanded = !expandableCard02.expanded">
+                                   <span class="mr-1">5 Comments</span>
+                                
+                               </button>
+                           </div>
+                       </div>
+
+                   </fuse-card>
+
+
+                </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+</div>
+

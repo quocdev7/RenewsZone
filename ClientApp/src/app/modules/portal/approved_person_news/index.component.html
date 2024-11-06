@@ -1,0 +1,227 @@
+
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="bg-card dark:border-b">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_select [label]="'system.group_news'" [listData]="group_news"
+                                   [(model)]="filter.id_group_news" [callbackChange]="changeGroupNews.bind(this)"></cm_select>
+                    </div>
+                    <div class="flex-1">
+                        <cm_select [label]="'system.type_news'" [listData]="type_news"
+                                   [(model)]="filter.id_type_news" [callbackChange]="rerenderfilter.bind(this)"></cm_select>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <mat-form-field class="w-full">
+                            <mat-label>
+                                {{'search' | transloco}}  ({{ 'system.tieu_de'   | transloco }} | {{ 'system.noi_dung'  | transloco }})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                        </mat-form-field>
+                    </div>
+                    <div class="flex-1">
+                        <cm_select [label]="'system.use_status'" [listData]="list_status_del"
+                                   [(model)]="filter.status_del" [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                </div>
+                <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <mat-checkbox [(ngModel)]="filter.is_hot" (change)="rerender.bind(this)"
+                                      [color]="'warn'">
+                            <span style="font-size:20px;font-weight:700;"> <span transloco="system.tin_noi_bat"></span></span>
+                        </mat-checkbox>
+                    </div>
+                </div>-->
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-2">
+                    <button mat-raised-button transloco="system.boloc" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                            (click)="filterchange()" *ngIf="filteropen==false"></button>
+                    <button mat-raised-button transloco="system.boloc" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                            (click)="filterchange()" *ngIf="filteropen==true"></button>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-2" *ngIf="filteropen==true">
+                    <div class="flex-1">
+                        <cm_select [label]="'system.pham_vi_ngay'" [listData]="list_phamvi"
+                                   [(model)]="filter.id_phamvi" [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                    <div class="flex-1">
+                        <cm_input [label]="'system.from_date'"
+                                  [type]="'datepicker'"
+                                  [(model)]="filter.tu_ngay"></cm_input>
+                    </div>
+                    <div class="flex-1">
+                        <cm_input [label]="'system.to_date'"
+                                  [type]="'datepicker'"
+                                  [(model)]="filter.den_ngay"></cm_input>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="filteropen==true">
+
+                    <div class="flex-1">
+                        <cm_select [label]="'system.quyen_rieng_tu'" [listData]="list_quyen_rieng_tu"
+                                   [(model)]="filter.quyen_rieng_tu" [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                </div>
+                <div class="listButtonAction" align="right">
+                    <button mat-raised-button transloco="system.search" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                            (click)="rerender()"></button>
+      
+
+                </div>
+            </mat-card>
+            <br />
+
+
+
+            <!--<mat-card class="rounded-2xl py-6 px-6 shadow">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div *ngFor="let item of list_count_tin_tuc; index as i;" class="flex-1">
+                <article (click)="filtertintuc(item.id)" class="hover:shadow-2xl cursor-pointer overflow-hidden rounded-lg shadow-lg text-center" style="height:150px; width:300px;">
+                    <div class="h-17 bg pt-2" style="height:60px" [ngStyle]="{'background-color': item.color}">
+                        <span class="pt-8 text-white font-semibold">
+                            Số tin tức
+                        </span>
+                        <br />
+
+                        <span class="pt-8 text-white font-semibold">
+                            {{item.name}}
+                        </span>
+                    </div>
+                    <div *ngIf="item.count!=0" class="font-bold text-3xl pt-3">
+                        {{item.count}}
+                    </div>
+                    <div *ngIf="item.count==0" class="font-bold text-3xl pt-3">
+                        No data
+                    </div>
+                </article>
+            </div>
+        </div>
+    </mat-card>-->
+
+
+
+            <br />
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full">
+
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                            <tr>
+
+                                <th style="width:75px"></th>
+                                <th transloco="system.no_" style="width:50px; text-align:center"></th>
+                                <th style="width:125px">
+                                    <span class="text-blue-900 text-xl font-bold" transloco="system.group_news"></span><br />
+                                    <span transloco="system.type_news"></span>
+                                </th>
+                                <th style="width:75px" transloco="system.image"></th>
+                                <th transloco="system.tieu_de"></th>
+                                <th style="width:75px" transloco="system.quyen_rieng_tu"></th>
+                                <th style="width:75px" transloco="system.tin_noi_bat"></th>
+                                <th style="width:75px" transloco="system.nguoi_dang"></th>
+                                <th style="width:75px" transloco="system.ngay_dang"></th>
+                                <th style="width:75px" transloco="system.nguoi_cap_nhat"></th>
+                                <th style="width:75px" transloco="system.ngay_cap_nhat"></th>
+                                <th style="width:75px" transloco="system.nguoi_duyet"></th>
+                                <th style="width:75px" transloco="system.ngay_duyet"></th>
+                                <th style="width:75px" transloco="common.approval_status">
+
+                                </th>
+
+                            </tr>
+
+
+
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                <td>
+                                    <button class="mat-button-action" mat-button [matMenuTriggerFor]="menu"
+                                            transloco="system.feature"></button>
+                                    <mat-menu #menu="matMenu">
+
+                                        <button mat-menu-item transloco="common.approval" *ngIf="item.db.status_del == 3"
+                                        (click)="approval(item.db.id)"></button>
+                                        <button mat-menu-item transloco="common.return" *ngIf="item.db.status_del == 3"
+                                        (click)="reject(item.db.id)"></button>
+
+                                        <button mat-menu-item transloco="view"
+                                                (click)="openDialogDetail(item,i)"></button>
+                                        <!-- <button mat-menu-item transloco="system.xem_truoc_bai_dang"
+                                                (click)="openDialogViewBaiDang(item,i)"></button> -->
+                                        <!-- <button mat-menu-item transloco="edit"
+                                                (click)="openDialogEdit(item,i)"></button> -->
+                                    </mat-menu>
+                                </td>
+                                <td style="text-align:center">{{currentIndex+ i+1 }}</td>
+                                <td>
+                                    <span class="text-blue-900  text-xl font-bold"> {{ item.group_news_name }}</span>
+                                    <br />
+                                    {{ item.type_news_name }}
+                                </td>
+                                <td><img [src]="item.db.image" style="width:70px" /></td>
+                                <td>{{ item.db.tieu_de }}</td>
+
+                                <td>
+
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==1" transloco="system.cong_khai"></span>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==2" transloco="system.thanh_vien"></span>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==3" transloco="system.ban_be"></span>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==4" transloco="system.nguoi_dung_chua_la_thanh_vien"></span>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==5" transloco="system.tra_phi"></span>
+                                </td>
+                                <td>
+                                    <span class="text-green-900" *ngIf="item.db.is_hot=='true'">
+                                        <mat-icon svgIcon="heroicons_outline:check"></mat-icon>
+                                    </span>
+                                </td>
+                                <td>{{ item.create_by_name }}</td>
+                                <td>{{ item.db.ngay_dang | date: 'dd/MM/yyyy' }}</td>
+
+
+                                <td>{{ item.updateby_name | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ item.update_date }}</td>
+                                <td>{{ item.aprroval_by_name }}</td>
+                                <td>{{ item.db.approval_date | date: 'dd/MM/yyyy' }}</td>
+
+                                <td>
+                                    <span class="text-green-900" *ngIf="item.db.status_del==1" transloco="system.da_duyet"></span>
+                                    <span class="text-red-900" *ngIf="item.db.status_del==2" transloco="system.ngung_dang"></span>
+                                    <span class="text-gray-900" *ngIf="item.db.status_del==3" transloco="system.cho_xet_duyet"></span>
+                                    <span class="text-yellow-900" *ngIf="item.db.status_del==4">
+                                        <span transloco="system.bi_tra_lai"></span>
+                                        <br />
+                                        <span class="ml-1">Lý do:( {{item.db.reason_return}} )</span>
+                                    </span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                              [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+        </div>
+</div>
+</div>

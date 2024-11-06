@@ -1,0 +1,86 @@
+<div class="flex flex-col flex-auto md:w-auto md:min-w-160 max-w-screen-md w-full  md:min-w-md  -m-6 overflow-y-auto p-5">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <span style="margin-left:15px;color:white">Vé mời</span>
+        <button mat-icon-button (click)="close()" color="accent">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <fuse-card class="flex flex-col  w-full filter-post filter-interactive  hover:cursor-pointer  mx-2 my-2">
+        <p>{{user_info.db.FullName}}</p>
+        <p>{{user_info.db.position}}</p>
+        <p>{{user_info.ten_cong_ty}}</p>
+        <p>
+            <span>
+                <mat-icon style="color:blue;vertical-align:middle">room</mat-icon>
+            </span>
+            <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                {{record.db.title}}
+            </span>
+        </p>
+        <p>
+            <span>
+                <mat-icon style="color:blue;vertical-align:middle">room</mat-icon>
+            </span>
+            <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                Hình thức
+                <span *ngIf="record.db.type == 1">Offline</span>
+                <span *ngIf="record.db.type == 2">Online</span>
+            </span>
+        </p>
+        <p>
+            <span>
+                <mat-icon style="color:blue;vertical-align:middle">access_time</mat-icon>
+            </span>
+
+            <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+                Thời gian tổ chức: Từ {{record.db.time_start |  date: 'HH:mm'}} - {{record.db.time_start |  date: 'dd/MM/yyyy'}}
+                Đến {{record.db.time_end |  date: 'HH:mm'}} - {{record.db.time_end |  date: 'dd/MM/yyyy'}}
+            </span>
+
+        </p>
+        <p>
+            <span>
+                <mat-icon style="color:blue;vertical-align:middle">room</mat-icon>
+            </span>
+            <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                Địa điểm: {{record.db.location}}
+            </span>
+        </p>
+        <p>
+            <span>
+                <mat-icon style="color:blue;vertical-align:middle">room</mat-icon>
+            </span>
+            <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                Hạn đăng ký tới: {{record.db.time_end |  date: 'HH:mm'}} - {{record.db.time_end |  date: 'dd/MM/yyyy'}}
+            </span>
+        </p>
+        <p>
+            <span>
+                <mat-icon style="color:blue;vertical-align:middle">room</mat-icon>
+            </span>
+            <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                Nội dung:
+            </span>
+        </p>
+        <div fxLayout="row" fxLayout.gt-xs="column">
+            <div fxFlex="100%">
+                <h1 transloco="noi_dung"></h1>
+
+                <span *ngIf="activeLang=='vi'" [innerHtml]="record.db.mo_ta"></span>
+                <span *ngIf="activeLang !='vi'" [innerHtml]="record.db.mo_ta_en"></span>
+            </div>
+
+        </div>
+    </fuse-card>
+    </div>
+
+
+

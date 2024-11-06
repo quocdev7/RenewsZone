@@ -1,0 +1,212 @@
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b" *ngIf="loading!=true">
+        <div class="flex flex-col w-full ">
+            <!--flex-wrap-->
+            <div class="flex flex-col space-y-4 flex-auto sm:items-center min-w-0 " data-aos="fade-right"
+                data-aos-once="true">
+                <!-- Card #59 - Expandable card -->
+                <div class="flex flex-col w-full bg-card shadow">
+
+                    <div class="" align="center">
+                        <img class="h-auto w-full" src="{{news.hinh_anh}}" alt="Card cover image">
+                    </div>
+                    <div class="flex flex-row flex-auto w-full mx-auto min-w-0 max-w-screen-xl md:pl-6 md:pr-6">
+                       <!-- share web -->
+                        <div class="flex flex-col flex-auto max-w-screen-xl mx-auto md:w-14 md:mt-30 mt-10">
+                            <div class="flex flex-col items-center w-full mx-auto  pb-4 bg-card sticky top-30"
+                                *ngIf="!isScreenSmall">
+                                <div *ngFor="let item of shares; let i = index" class="mb-1 h-10 w-10">
+                                    <a [href]="item.link | safe" target="_blank" class="h-7 w-7"
+                                        matTooltip="{{item.tooltip}}">
+                                        <img class="mb-1 h-full w-full rounded-full block mx-auto"
+                                            [src]="item.image | safe"  alt="" />
+                                    </a>
+                                </div>
+                                <div class="mb-1 h-10 w-10">
+                                    <a class="h-7 w-7 relative" target="_blank" *ngIf="!copied" (click)="copy()"
+                                        matTooltip="Link sao chép đường dẫn ">
+                                        <img class="h-7 w-7 mx-auto" [src]="img" alt=""
+                                            (mouseover)="img='/assets/images/portal/share_3.png'"
+                                            (mouseout)="img='/assets/images/portal/share_2.png'" />
+                                    </a>
+                                    <a class="h-7 w-7 relative" target="_blank" *ngIf="copied" (click)="copy()"
+                                        matTooltip="Đã sao chép đường dẫn">
+                                        <img class="h-7 w-7 mx-auto" [src]="img"  alt=""
+                                            (mouseover)="img='/assets/images/portal/share_3.png'"
+                                            (mouseout)="img='/assets/images/portal/share_2.png'" />
+                                    </a>
+                                </div>
+                                
+                                <div>
+                                    <a *ngIf="news.db.is_comment==true"
+                                        href="/portal-news-detail/{{id_news}}#comment_click" class="mb-1 h-10 w-10">
+                                        <img class=" h-8 w-8 block mx-auto" [src]="icons.icon_binh_luan | safe" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col w-full flex-auto mx-auto">
+                            <!-- show noi dung -->
+                            <div class=" flex flex-col">
+                                <!-- title -->
+                                <div class="text-center">
+
+                                    <span class=" uppercase pt-8 line-clamp-1 md:text-lg text-md"
+                                        style="color: #757070; letter-spacing: 0.3rem;line-height: 3rem;">{{type_news.name}}</span>
+
+                                    <div style="font-size: 2rem!important;"
+                                        class="font-normal mx-8 text-title-color text-center">
+                                        {{news.db.tieu_de}}
+                                    </div>
+                                    <span class="font-semibold leading-none text-black">{{news.create_by_name}}</span>
+                                    <span class="mx-3 text-base text-secondary italic leading-none mt-1"
+                                        style="color: #a09f9f;">{{news.db.ngay_dang | date: 'dd/MM/yyyy'}}</span>
+                                </div>
+                                <!-- noi dung -->
+                                <div class="flex  pt-8 items-center ">
+                                    <!-- style="overflow-x: scroll;" -->
+                                    <div class="mx-3 mt-1 mb-6" style="word-break: break-word;">
+                                        <span class="text-lg" [innerHtml]="news.db.noi_dung | safeHtml"></span>
+                                    </div>
+                                </div>
+                                <!-- share mobi-->
+                                <div align="left" *ngIf="isScreenSmall">
+                                    <div class="flex h-10 mx-3 flex-row" style="z-index:9999999">
+                                        <div *ngFor="let item of shares; let i = index">
+                                            <div class="mr-2" matTooltip="{{item.tooltip}}">
+                                                <a href="{{item.link}}" target="_blank" class="mr-4">
+                                                    <img class="mb-1 h-7 w-7 rounded-full block mx-auto"
+                                                        src="{{item.image}}" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="mr-2" *ngIf="copied" style="margin-top: 0.25rem !important;">
+                                            <a class="mt-0.5 mb-1 h-6 w-6" target="_blank" (click)="copy()"
+                                                matTooltip="Đã sao chép đường dẫn">
+                                                <img class="h-5 w-5 block mx-auto"
+                                                    src="/assets/images/portal/share_2.png" />
+                                            </a>
+                                        </div>
+                                        <div class="mr-2" *ngIf="!copied" style="margin-top: 0.25rem !important;">
+                                            <a class="mt-0.5 mb-1 h-6 w-6" target="_blank" (click)="copy()"
+                                                matTooltip="Link sao chép đường dẫn">
+                                                <img class="h-5 w-5 block mx-auto"
+                                                    src="/assets/images/portal/share_2.png" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- comment -->
+            <!-- <portal_comment_news [news]="news" [lst_comment]="lst_comment"></portal_comment_news> -->
+
+            <!-- thu vien anh mobile -->
+            <div class="flex flex-col w-full bg-white"
+                *ngIf="lst_hot_news.length>0 && isScreenSmall" data-aos="fade-right"
+                data-aos-once="true">
+                <div class="flex flex-col w-full mx-auto mt-4">
+                    <div class="flex flex-row items-center justify-between">
+                        <div class="flex text-xl sm:text-3xl font-bold text-black normal-case pl-7"
+                            transloco="portal.co_the_ban_quan_tam"></div>
+                    </div>
+                </div>
+                <swiper [slidesPerView]="'1'" [spaceBetween]="30" [pagination]="{
+                            clickable: true
+                            }" class="mySwiperMobile">
+                    <ng-template swiperSlide *ngFor="let item of lst_hot_news">
+                        <div class="flex-none bg-card  mx-auto m-1 w-full aspect-w-16 aspect-h-9">
+                            <div class="flex flex-col w-full h-full" (click)="gotoNewsDetailPage(item.db.id)">
+                                <div class="relative  w-full h-full rounded-lg cursor-pointer border border-white">
+                                    <img class="object-cover  w-full h-full " src="{{item.db.image}}">
+                                </div>
+                                <div class="absolute object-cover w-full bottom-0" style="background: #ffffff">
+                                    <span
+                                        class="text-lg text-title-color font-semibold tracking-tight line-clamp-2"
+                                        style="height: auto;">{{item.db.tieu_de}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </ng-template>
+                </swiper>
+            </div>
+            <!-- thu vien anh web -->
+            <div class="flex flex-col w-full bg-white"
+                *ngIf="lst_hot_news.length>0 && !isScreenSmall " data-aos="fade-right"
+                data-aos-once="true">
+                <div class="flex flex-col  w-full flex-auto min-w-0 max-w-screen-xl mx-auto pl-20 pr-20 ">
+                    <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-4">
+                        <div class="flex flex-row items-center justify-between">
+                            <div class="flex text-xl sm:text-3xl font-bold text-black"
+                                transloco="portal.co_the_ban_quan_tam"></div>
+                        </div>
+                    </div>
+                    <swiper *ngIf="lst_hot_news.length>0" [slidesPerView]="3" [centeredSlides]="true" [loop]="true"
+                        [spaceBetween]="70" [pagination]="{
+                            clickable: true
+                            }" class="mySwiper1">
+                        <ng-template swiperSlide *ngFor="let item of lst_hot_news"
+                            style="width: 370px;margin-right: 70px;" class="duration-300 ease-in-out">
+                            <div class="flex-none bg-card  mx-auto m-1 w-full aspect-w-16 aspect-h-9">
+                                <div class="flex flex-col w-full h-full" (click)="gotoNewsDetailPage(item.db.id)">
+                                    <div class="relative  w-full h-full rounded-lg cursor-pointer border border-white">
+                                        <img class="object-cover  w-full h-full " src="{{item.db.image}}">
+                                    </div>
+                                    <div class="absolute object-cover w-full bottom-0" style="background: #ffffff">
+                                        <div class="p-1"><span
+                                                class="text-lg text-title-color leading-5 font-semibold tracking-tight line-clamp-2"
+                                                style="height: auto;">{{item.db.tieu_de}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </swiper>
+                </div>
+            </div>
+
+
+
+
+            <div class="flex w-full bg-white" data-aos="fade-right"
+                    data-aos-once="true">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-2 bg-white" data-aos="fade-right"
+                    data-aos-once="true">
+                    <div class="flex flex-col w-full mb-4 md:px-20">
+                        <div class="flex flex-col flex-auto  w-full min-w-0 max-w-screen-xl mx-auto">
+                            <!-- web -->
+                            <swiper [slidesPerView]="'auto'" *ngIf="!isScreenSmall" [pagination]="{
+                              clickable: true
+                            }" [autoplay]="{delay: 10000}" [spaceBetween]="20" class="mySwiperNhomTin1">
+                                <ng-template swiperSlide *ngFor="let item1 of lst_type_news; let i = index">
+                                    <div class="p-3 grid place-items-center text-center rounded-lg bg-bka shadow-lg"
+                                        style="height:92px;">
+                                        <a class="text-lg uppercase font-semibold tracking-tight text-white"
+                                            (click)="gotoTypeNewsPage(item1.id)"> {{item1.name}}</a>
+                                    </div>
+                                </ng-template>
+                            </swiper>
+                            <!-- mobi -->
+                            <swiper [slidesPerView]="'auto'" *ngIf="isScreenSmall" [pagination]="{
+                              clickable: true
+                            }" [autoplay]="{delay: 10000}" [spaceBetween]="20" class="mySwiperMobile">
+                                <ng-template swiperSlide *ngFor="let item1 of lst_type_news; let i = index">
+                                    <div class="p-3 grid place-items-center text-center rounded-lg bg-bka shadow-lg"
+                                        style="height:91px;">
+                                        <a class="text-2xl  font-semibold tracking-tight text-white"
+                                            (click)="gotoTypeNewsPage(item1.id)"> {{item1.name}}</a>
+                                    </div>
+                                </ng-template>
+                            </swiper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

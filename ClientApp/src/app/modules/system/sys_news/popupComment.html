@@ -1,0 +1,59 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.binh_luan"></div>
+    </div>
+
+    <mat-card class="rounded-2xl py-6 px-6 shadow">
+        <div class="w-full">
+
+            <table class="cell-border hover datatable dataTable no-footer">
+                <thead>
+                    <tr>
+                    <tr>
+                        <th></th>
+                        <th  transloco="system.no_" style="width:50px; text-align:center"></th>
+                        <th  transloco="system.tieu_de"></th>
+                        <th  transloco="system.noi_dung"></th>
+                        <th  transloco="system.nguoi_binh_luan"></th>
+                        <th  transloco="system.ngay_binh_luan"></th>
+                        <th  transloco="system.trang_thai"></th>
+
+                    </tr>
+
+
+
+                </thead>
+                <tbody *ngIf="listData?.length != 0">
+                    <tr *ngFor="let item of listData;  index as i;" >
+                        <td>
+                            <button mat-menu-item transloco="system.an_binh_luan" *ngIf="item.db.status == 1"
+                            (click)="an_binh_luan(item.db.id)"></button>
+                            <button mat-menu-item transloco="system.hien_binh_luan" *ngIf="item.db.status == 2"
+                            (click)="hien_binh_luan(item.db.id)"></button>
+                        </td>
+                        <td style="text-align:center">{{i+1 }}</td>
+                        <td style="text-align:center">{{item.news_name }}</td>
+                        <td style="text-align:center">
+                            <span [innerHtml]> {{item.comment }}</span>
+                           
+                        </td>
+                        <td style="text-align:center">{{item.user_comment }}</td>
+
+                        <td>{{ item.db.comment_date | date: 'dd/MM/yyyy' }}</td>
+                        <td>
+                            <span class="text-green-900" *ngIf="item.db.status==1" transloco="system.an"></span>
+                            <span class="text-green-900" *ngIf="item.db.status==2" transloco="system.hien"></span>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </mat-card>
+    <div class="flex flex-row justify-end space-x-2 m-2">
+        <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+        <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+    </div>
+</div>

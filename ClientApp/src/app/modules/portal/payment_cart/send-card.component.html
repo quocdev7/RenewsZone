@@ -1,0 +1,259 @@
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="w-full mx-auto flex flex-col bg-white" *ngIf="loading!=true">
+        <!--san pham web-->
+        <div class="flex flex-col w-full pb-4" data-aos="fade-right" data-aos-once="true">
+
+            <ng-container>
+                <mat-card class="rounded-2xl py-6 px-6 shadow" *ngIf="!isScreenSmall">
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto pl-16 pr-16">
+                        <div class="flex flex-col ">
+                            <div class="flex flex-1 items-center justify-center">
+                                <span class="font-bold text-6xl uppercase"
+                                    transloco="system.dat_hang_thanh_cong"></span>
+                            </div>
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1 transloco="system.cam_on_ban_da_mua_hang_tai_xelex"> </h1>
+                            </div>
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1 transloco="system.don_hang_cua_ban_hien_dang_duoc_xu_ly"></h1>
+                                <h1 transloco="system.chung_toi_se_som_lien_he_de_giao_hang"></h1>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-wrap justify-center lg:flex-row md:flex-row md:space-x-4">
+                            <div align="left">
+                                <button class="fuse-mat-button-large w-100 md:mb-4 md:mt-1 mt-0" mat-flat-button
+                                    style="background:#273a88!important" [color]="'primary'" (click)="goBuyProduct()">
+                                    <span transloco="system.kham_pha_them_cac_san_pham_khac_tai_day"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1><span transloco="system.duoi_day_la_thong_tin_don_hang"></span>
+                                    {{don_hang.db.ma_don_hang}} -
+                                    {{don_hang.db.create_date | date: 'dd/MM/yyyy HH:mm'}}</h1>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex-1 items-center justify-center w-full">
+                                <table
+                                    class="bg-blue-500 table-body cell-border myTable hover w-full dataTable no-footer overflow-auto">
+                                    <thead class="w-full">
+                                        <tr>
+                                            <th transloco="system.ten_san_pham"></th>
+                                            <th transloco="system.so_luong"></th>
+                                            <th transloco="system.don_gia"></th>
+                                            <th transloco="system.thanh_tien"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="don_hang.list_detail?.length != 0">
+                                        <tr *ngFor="let item of don_hang.list_detail;  index as i;">
+                                            <td> {{item.ten_san_pham}} </td>
+                                            <td align="right">{{item.so_luong|number}} </td>
+                                            <td align="right">{{item.don_gia|number}} </td>
+                                            <td align="right">{{item.so_luong*item.don_gia|number}} </td>
+                                        </tr>
+
+                                        <!-- <tr>
+                                            <td style="background-color: gray;border: 1px solid white;border-collapse: collapse;"
+                                                colspan="2">Mã giảm giá</td>
+                                            <td style="background-color: gray;border: 1px solid white;border-collapse: collapse;"
+                                                colspan="2"></td>
+                                        </tr> -->
+                                        <tr>
+                                            <td style="background-color: #ffb700;border: 1px solid white;border-collapse: collapse;"
+                                                colspan="2">
+                                                <span class="font-bold text-white"
+                                                    transloco="system.tong_gia_tri_san_pham"></span>
+                                            </td>
+                                            <td align="right"
+                                                style="background-color: #ffb700;border: 1px solid white; border-collapse: collapse;"
+                                                colspan="2"> <span
+                                                    class="font-bold text-white">{{don_hang.db.thanh_tien|number}}đ</span>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td style="background-color: gray;border: 1px solid white;border-collapse: collapse;"
+                                                colspan="2">Khuyến mãi</td>
+                                            <td style="background-color: gray;border: 1px solid white;border-collapse: collapse;"
+                                                colspan="2">20.000.000 đ</td>
+                                        </tr> -->
+                                        <tr>
+                                            <td colspan="4">
+                                                <hr class="m-0">
+                                                <span class="text-2xl font-bold"><span
+                                                        transloco="system.note_cart"></span></span>{{don_hang.db.ghi_chu}}
+                                                <hr class="m-0">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"><span class="text-2xl font-bold"
+                                                    transloco="system.thong_tin_nhan_hang"></span> </td>
+                                            <td colspan="2">
+                                                <span transloco="system.ten_nguoi_nhan"></span>{{don_hang.db.full_name}}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"> </td>
+                                            <td colspan="2">
+
+                                                <span transloco="system.email_cart"></span> {{don_hang.db.email}}
+
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"> </td>
+                                            <td colspan="2">
+
+                                                <span transloco="system.so_dien_thoai_cart"></span>{{don_hang.db.phone}}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"> </td>
+                                            <td colspan="2">
+                                                <span transloco="system.hinh_thuc_thanh_toan"></span>
+                                                {{don_hang.db.ghi_chu}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"></td>
+                                            <td colspan="2">
+                                                <span transloco="system.dia_chi_nhan_hang"></span>
+                                                {{don_hang.db.dia_chi}}, {{don_hang.quan_huyen_user}},
+                                                {{don_hang.tinh_thanh_user}}
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-card class="rounded-2xl py-6 px-6 shadow" *ngIf="isScreenSmall">
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto">
+                        <div class="flex flex-col ">
+                            <div class="flex flex-1 items-center justify-center">
+                                <span class="font-bold text-xl uppercase" transloco="system.dat_hang_thanh_cong"></span>
+                            </div>
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1 transloco="system.cam_on_ban_da_mua_hang_tai_xelex"></h1>
+                            </div>
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1 transloco="system.don_hang_cua_ban_hien_dang_duoc_xu_ly"></h1>
+                            </div>
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1 transloco="system.chung_toi_se_som_lien_he_de_giao_hang"></h1>
+                            </div>
+                        </div>
+                        <div
+                            class="flex flex-col flex-wrap justify-center lg:flex-row md:flex-row md:space-x-4 items-center">
+                            <div align="left">
+                                <button class="fuse-mat-button-large w-70 md:mb-4 md:mt-1 mt-0" mat-flat-button
+                                    style="background:#273a88!important" [color]="'primary'" (click)="goBuyProduct()">
+                                    <span transloco="system.kham_pha_them_cac_san_pham_khac_tai_day">
+
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1 transloco="system.duoi_day_la_thong_tin_don_hang"></h1>
+                            </div>
+                            <div class="flex flex-1 items-center justify-center">
+                                <h1>{{don_hang.db.ma_don_hang}} - {{don_hang.db.create_date | date: 'dd/MM/yyyy HH:mm'}}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex-1 items-center justify-center w-full">
+                                <table
+                                    class="bg-blue-500 table-body cell-border myTable hover w-full dataTable no-footer overflow-auto">
+                                    <thead class="w-full">
+                                        <tr>
+                                            <th transloco="system.ten_san_pham"></th>
+                                            <th transloco="system.so_luong"></th>
+                                            <th transloco="system.don_gia"></th>
+                                            <th transloco="system.thanh_tien"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="don_hang.list_detail?.length != 0">
+                                        <tr *ngFor="let item of don_hang.list_detail;  index as i;">
+                                            <td> {{item.ten_san_pham}} </td>
+                                            <td align="right">{{item.so_luong|number}} </td>
+                                            <td align="right">{{item.don_gia|number}} </td>
+                                            <td align="right">{{item.so_luong*item.don_gia|number}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: #ffb700;border: 1px solid white;border-collapse: collapse;"
+                                                colspan="2">
+                                                <span transloco="system.tong_gia_tri_san_pham"></span>
+                                            </td>
+                                            <td align="right"
+                                                style="background: #ffb700;border: 1px solid white; border-collapse: collapse;"
+                                                colspan="2"> <span>{{don_hang.db.thanh_tien|number}}đ</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                                <hr class="m-0">
+                                                <span class="text-2xl font-bold"><span
+                                                        transloco="system.note_cart"></span></span>{{don_hang.db.ghi_chu}}
+                                                <hr class="m-0">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"><span class="text-2xl font-bold"
+                                                    transloco="system.thong_tin_nhan_hang"></span> </td>
+                                            <td colspan="2">
+                                                <span transloco="system.ten_nguoi_nhan"></span>
+                                                {{don_hang.db.full_name}}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"> </td>
+                                            <td colspan="2">
+                                                <span transloco="system.email_cart"></span>
+                                                {{don_hang.db.email}}
+
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"> </td>
+                                            <td colspan="2">
+                                                <span transloco="system.so_dien_thoai_cart"></span>
+                                                {{don_hang.db.phone}}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"> </td>
+                                            <td colspan="2">
+                                                <span transloco="system.hinh_thuc_thanh_toan"></span>
+                                                {{don_hang.db.ghi_chu}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2"></td>
+                                            <td colspan="2">
+                                                <span transloco="system.dia_chi_nhan_hang"></span>
+
+                                                {{don_hang.db.dia_chi}}, {{don_hang.quan_huyen_user}},
+                                                {{don_hang.tinh_thanh_user}}
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </mat-card>
+            </ng-container>
+        </div>
+    </div>
+</div>

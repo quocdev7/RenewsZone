@@ -1,0 +1,77 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl overflow-y-auto  h-fit">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.ket_noi_voi_toi"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1 overflow-y-auto">
+        <div class="rounded-2xl py-6 px-6 bg-card shadow overflow-hidden">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'portal.website_link'"
+                              [keyError]="'db.website_link'"
+                              [(model)]="record.db.website_link"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'portal.linkedin_link'"
+                              [keyError]="'db.linkedin_link'"
+                              [(model)]="record.db.linkedin_link"></cm_input>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'portal.facebook_link'"
+                              [keyError]="'db.facebook_link'"
+                              [(model)]="record.db.facebook_link"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'portal.twitter_link'"
+                              [keyError]="'db.twitter_link'"
+                              [(model)]="record.db.twitter_link"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'portal.youtube_link'"
+                              [keyError]="'db.youtube_link'"
+                              [(model)]="record.db.youtube_link"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'portal.instagram_link'"
+                              [keyError]="'db.instagram_link'"
+                              [(model)]="record.db.instagram_link"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-row justify-end space-x-2 mt-5">
+                <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="update()" transloco="save"></button>
+                <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+            </div>
+            <div class="h-40" *ngIf="isScreenSmall"></div>
+        </div>
+       
+    </div>
+</div>
+
+
+

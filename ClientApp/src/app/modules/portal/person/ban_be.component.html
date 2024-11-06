@@ -1,0 +1,171 @@
+<div class="w-full">
+    
+
+ <div class="w-full mx-auto sm:mx-0 mx-auto" data-aos="fade-right" data-aos-once="true">
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0">
+        <!-- Summary -->
+        <div *ngFor="let item2 of lst_badges_ban_be">
+            <div class="flex flex-col flex-auto p-6 bg-card bg-bka shadow rounded-2xl overflow-hidden" style="height: 108px;"  *ngIf="stauts_filter==item2.id" >
+                <div class="flex flex-col items-center">
+                    <div class="text-base  text-center text-white  font-medium  leading-6 line-clamp-2" style="height: 48px;" >{{item2.name}}</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-3xl text-white font-bold tracking-tight leading-none">{{item2.number  | thousandSuff}}</div>
+                </div>  
+            </div>
+            <div class="flex flex-col flex-auto p-6 bg-card bg-white shadow rounded-2xl overflow-hidden"  style="height: 108px;" *ngIf="stauts_filter!=item2.id"  (click) = "stauts_filter=item2.id;filterBanBe()">
+                <div class="flex flex-col items-center">
+                    <div class="text-base  text-center text-blue-900  font-medium  leading-6 line-clamp-2"  style="height: 48px;">{{item2.name}}</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-3xl text-blue-900  font-bold tracking-tight leading-none">{{item2.number  | thousandSuff}}</div>
+                </div>
+            </div>
+        </div>
+        
+ 
+    </div>
+   
+</div>
+
+<div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" >
+    <!-- <div class="grid grid-cols-1 mt-5 gap-6  w-full min-w-0">
+        <div class="flex-none bg-card shadow  w-full  mx-auto m-1 p-4 mb-2 rounded-lg"  *ngFor="let item of lst_ban_be; let i = index">
+            <div class="flex items-start justify-between">
+                <img  class="h-20 w-20 mx-auto rounded-full"  style="height:200px;width:200px" src="{{item.avatar_path}}" />
+                <div class="text-primary font-bold" align="center">{{item.full_name}}</div>
+            </div>
+           
+        </div>
+     </div> -->
+
+       <!-- Main -->
+       <div class="flex-auto">
+
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between border-b">
+
+            <!-- Title -->
+          
+
+            <!-- Main actions -->
+            <div class="flex flex-col w-full items-center mt-4 sm:mt-0 md:mt-4">
+                <!-- Search -->
+                <div class="flex w-full">
+                    <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript w-full min-w-50">
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                        <input
+                            matInput
+                            (change)="filterBanBe()"
+                            [(ngModel)]="search_ban_be"
+                           >
+                           
+                          
+
+                    </mat-form-field>
+                </div>
+                <div class="flex mt-3 mb-3  w-full">
+                    <button class="ml-auto" 
+                           mat-raised-button color="primary"
+                                (click)="filterBanBe()">
+                            Tìm kiếm
+                        </button>
+                        <button class="ml-3" 
+                        mat-raised-button color="accent"
+                            (click)="openDialogBanBe()" transloco="portal.ket_ban">
+                            Kết bạn
+                        </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts list -->
+        <div class="mt-5 mb-10" >
+      
+
+                    <ng-container *ngFor="let contact of lst_ban_be_filter; let i = index">
+                        <!-- Group -->
+                        <ng-container *ngIf="i === 0 
+                        || contact.full_name.charAt(0) !== lst_ban_be_filter[i - 1].full_name.charAt(0) ">
+                        <div class="flex flex-row flex-auto sm:items-center bg-card bg-bka  shadow sticky  z-50" data-aos="fade-right" data-aos-once="true" style="height:40px;"
+                        [ngClass]="{'fix_top_web': !isScreenSmall , 'fix_top_mobile': isScreenSmall}"
+       
+                        >
+                       <div class="flex flex-auto items-center min-w-0 pl-4 sticky  z-50">
+                               <span class="text-2xl   text-white line-clamp-1"> {{contact.full_name.charAt(0)}}</span>
+                         
+       
+                       </div>
+                   </div>
+                        </ng-container>
+                        <!-- Contact -->
+                        <div class="p-2 flex flex-col border-b">
+
+                            <a [routerLink]="['/portal-profile-user/' +contact.user_id]"   class="flex items-center  cursor-pointer ">
+                                <div class="flex flex-0 items-center justify-center w-10 h-10 rounded-full overflow-hidden">
+                                    <ng-container *ngIf="contact.avatar_path">
+                                        <img
+                                            class="object-cover w-full h-full"
+                                            [src]="contact.avatar_path"
+                                            alt="Contact avatar"/>
+                                    </ng-container>
+                                    <ng-container *ngIf="!contact.avatar_path">
+                                        <div class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                            {{contact.full_name.charAt(0)}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="min-w-0 ml-4">
+                                    <div class="font-medium leading-5 truncate">{{contact.full_name}}</div>
+                                </div>
+                            </a>
+                            
+                            <div class="flex flex-row w-full mt-1" align="right"> 
+
+                                <button class="mr-5"  *ngIf="contact.status_del==2" 
+                                mat-raised-button color="primary"
+                                (click)="dong_y_ket_ban(contact.id , contact.full_name)" transloco="portal.dong_y">
+                                   <!--Đồng ý-->
+                                </button>
+                                <button class="mr-5"  *ngIf="contact.status_del==2" 
+                                mat-raised-button color="warn"
+                                (click)="tu_choi_ket_ban(contact.id , contact.full_name)" transloco="portal.tu_choi">
+                                   <!--từ chối-->
+                                </button>
+
+                                <button class="mr-5"  *ngIf="contact.status_del==1"  
+                                mat-raised-button color="warn"
+                                (click)="tu_choi_ket_ban(contact.id , contact.full_name)" transloco="portal.huy_ket_ban">
+                                   <!--Hủy yêu cầu-->
+                                </button> 
+
+                                <button class="mr-5"  *ngIf="contact.status_del==3" 
+                                mat-raised-button color="warn"
+                                (click)="tu_choi_ket_ban(contact.id , contact.full_name)" transloco="portal.huy_yeu_cau">
+                                   <!--Hủy yêu cầu-->
+                                </button> 
+
+                                
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="lst_ban_be_filter.length ==0">
+                        <!-- Group -->
+                      
+                        <div class="flex flex-auto text-center  grids items-center min-w-0 p-4 " style="height: 300px">
+                            <span class="text-2xl   text-blue-900"  transloco="portal.khong_tim_thay_ket_qua_nao"> </span>
+                      
+    
+                    </div>
+                   
+                    </ng-container>
+
+            <!-- No contacts -->
+        </div>
+
+    </div>
+</div>
+</div>

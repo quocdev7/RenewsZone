@@ -1,0 +1,505 @@
+<div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true">
+    <div class="flex flex-col w-full max-w-screen-md mx-auto pb-4 pl-3 pr-3  mt-15">
+        <div class="flex flex-col w-full mx-auto">
+            <!-- Title -->
+            <div class="relative cursor-pointer w-full">
+                <img class="h-auto w-full  object-cover cursor-pointer"
+                     src={{currentUser.db.cover_image}}
+                     alt="Cover image">
+            </div>
+            <!-- Avatar -->
+            <div class="flex items-center  md:mt-10 md:mb-10 cursor-pointer ng-star-inserted  dark:bg-hover">
+
+
+                <div class="flex flex-col flex-0 lg:flex-row items-center max-w-5xl w-full mx-auto px-8 lg:h-18">
+
+                    <!-- Avatar -->
+                    <div class="flex flex-col  rounded-full">
+                        <div class="relative">
+                            <img class="w-32 h-32 rounded-full ring-4 ring-bg-card"
+                                 src={{currentUser.db.avatar_path}}
+                                 alt="User avatar">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="text-2xl text-start  font-bold leading-none text-blue-900" *ngIf="currentUser.db.full_name">
+               <span>{{currentUser.db.full_name}}</span> 
+            </div>
+            <div class="w-full mt-1 text-center">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  mx-auto w-full " data-aos="fade-right" data-aos-once="true">
+                    <!-- profile -->
+                    <div class="flex-1  flex-col items-start w-full text-blue-900">
+                        <div align="left" class="flex mt-2 w-full break-word">
+                                <div class="flex grids items-start">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                    [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                                </div>
+                                <div class="flex-row items-start">
+                                    <span transloco="system.email"></span>:&nbsp;
+                                    <span class="" *ngIf="currentUser.db.email!=null && currentUser.db.email!=''">{{currentUser.db.email}}</span>
+                                    <span class="" *ngIf="currentUser.db.email==null || currentUser.db.email==''">---</span>
+                                </div>
+                        </div>
+                        <div align="left" class="flex mt-2 w-full break-word">     
+                                <div class="flex grids items-start">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                    [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                </div>
+                                <div class="flex-row items-start">
+                                    <span transloco="system.phone"></span>:&nbsp;
+                                    <span class="" *ngIf="currentUser.db.phone!=null && currentUser.db.phone!=''">{{currentUser.db.phone}}</span>
+                                    <span class="" *ngIf="currentUser.db.phone==null || currentUser.db.phone==''">---</span>
+                                </div>
+                        </div>
+                        <div align="left" class="flex mt-2 w-full break-word">    
+                                <div class="flex grids items-start">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                      svgIcon="heroicons_solid:user"></mat-icon>
+                                </div>
+
+                               <div class="flex-row items-start">
+                                   <span class="" *ngIf="currentUser.db.status_graduate!=null && currentUser.db.status_graduate!=''">
+                                       <span transloco="system.hinh_thuc"></span>:&nbsp;
+                                       <span class="" *ngIf="currentUser.db.status_graduate==1" transloco="portal.student"></span>
+                                       <span class="" *ngIf="currentUser.db.status_graduate==2" transloco="portal.alumni"></span>
+                                       <span class="" *ngIf="currentUser.db.status_graduate==3" transloco="portal.teacher"></span>
+                                       <span class="" *ngIf="currentUser.db.status_graduate==4" transloco="portal.CBCNV"></span>
+                                       <span class="" *ngIf="currentUser.db.status_graduate==5" transloco="portal.retire"></span>
+                                   </span>
+                                   <span class="" *ngIf="currentUser.db.status_graduate==null || currentUser.db.status_graduate==''">
+                                       <span transloco="system.hinh_thuc"></span>:&nbsp;---
+                                   </span>
+                               </div>
+        
+                        </div>
+
+                        <div *ngIf="currentUser.db.status_graduate==1 || currentUser.db.status_graduate==2" align="left" class="flex mt-2 w-full break-word">                               
+                                <div class="flex grids items-start">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                    svgIcon="heroicons_solid:academic-cap"></mat-icon>
+                                </div>
+                                <div class="flex-row items-start">
+
+                                    <span class="text-blue-900" *ngIf="currentUser.khoa_name!=null && currentUser.khoa_name!=''">Khoa:&ensp;{{currentUser.khoa_name}}</span>
+                                    <span class="" *ngIf="currentUser.khoa_name==null || currentUser.khoa_name==''">Khoa:---</span> <span> - </span>
+                                    <span class="text-blue-900" *ngIf="currentUser.db.school_year!=null && currentUser.db.school_year!=''">Khóa:&ensp;{{currentUser.db.school_year}}</span>
+                                    <span class="" *ngIf="currentUser.db.school_year==null || currentUser.db.school_year==''">Khóa:---</span>
+
+                                </div>
+                             </div>
+                
+                    </div>
+                    <div class="flex-1 flex-col items-start w-full text-blue-900">
+                        <div align="left" class="flex items-start mt-2 w-full break-word"> 
+                                <div class="flex grids items-start">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                    [svgIcon]="'heroicons_solid:briefcase'"></mat-icon>
+                                </div>
+                               <div class="flex-row items-start">
+                                        <span transloco="system.chuc_danh"></span>:&nbsp;
+                                        <span class="" *ngIf="currentUser.db.position!=null && currentUser.db.position!=''">{{currentUser.db.position}}</span>
+                                        <span class="" *ngIf="currentUser.db.position==null || currentUser.db.position==''">---</span>
+                               </div>
+                        </div>
+                        <div align="left" class="flex mt-2 w-full break-word">                               
+                                <div class="flex grids items-start">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                    svgIcon="mat_solid:account_balance"></mat-icon>
+                                </div>
+                                <div class="flex-row items-start">
+                                    <span transloco="portal.donvicongtac"></span>:&nbsp;
+                                    <span class="" *ngIf="currentUser.db.company!=null && currentUser.db.company!=''">{{currentUser.db.company}}</span>
+                                    <span class="" *ngIf="currentUser.db.company==null || currentUser.db.company==''">---</span>
+                                </div>                              
+                        </div>
+                        <div align="left" class="flex mt-2 w-full break-word">                               
+                                <div class="flex grids items-start">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                    [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                                </div>
+                                <div class="flex-row items-start">
+                                    <span transloco="system.dia_chi" ></span>:&nbsp;
+                                    <span class="" *ngIf="currentUser.db.dia_chi!=null && currentUser.db.dia_chi!=''">{{currentUser.db.dia_chi}}</span>
+                                    <span class="" *ngIf="currentUser.db.dia_chi==null || currentUser.db.dia_chi==''">---</span>
+                                </div>                               
+                        </div>
+                        <div align="left" class="flex items-start mt-2 w-full break-word">                               
+                                <div class="flex grids items-center">
+                                    <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                          [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                </div>
+                               <div class="flex-row items-start">
+                                    <span transloco="date_of_birth"></span>:&nbsp;
+                                    <span class="" *ngIf="currentUser.db.date_of_birth!=null && currentUser.db.date_of_birth!=''"> {{currentUser.db.date_of_birth |  date : 'dd/MM/yyyy'}}</span>
+                                    <span class="" *ngIf="currentUser.db.date_of_birth==null || currentUser.db.date_of_birth==''">---</span>
+                               </div>                             
+                        </div>
+                    </div>
+                    <!-- profile -->
+
+                </div>
+            </div>
+            <div>
+                <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4" *ngIf='list_user_education.length>0'>
+                    <div class="flex flex-row justify-between">
+                        <div class="flex items-center mt-2">
+                            <mat-icon *ngIf="is_show_hide_education==true" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideEducation()"></mat-icon>
+                            <mat-icon *ngIf="is_show_hide_education==false" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideEducation()"></mat-icon>
+                            <span class="font-bold text-lg">Học vấn</span>
+                            <!--<mat-icon class="icon-size-5 mr-2 ml-1"
+                                      [svgIcon]="'heroicons_solid:academic-cap'"></mat-icon>-->
+                        </div>
+                        <div class="flex items-center mt-2">
+                         
+                        </div>
+                    </div>
+
+                    <hr class="w-full border-t border-blue-500 border-2 my-2">
+                    <div *ngIf="is_show_hide_education==true">
+                        <div class="flex flex-col" *ngFor="let item of list_user_education;  index as i;">
+                            <div class="flex flex-row justify-between">
+                                <div class="flex flex-col items-start mt-2">
+
+                                    <span class="font-bold text-lg">{{item.db.school}}</span>
+
+                                    <span *ngIf="item.degree_name!=null && item.db.speciality==null" class="font-medium text-base text-blue-900">Bằng {{item.degree_name}}</span>
+
+                                    <span *ngIf="item.db.speciality!=null && item.degree_name==null" class="font-medium text-base text-blue-900">Chuyên ngành {{item.db.speciality}}</span>
+
+                                    <span *ngIf="item.degree_name && item.db.speciality !=null" class="font-medium text-base text-blue-900">Bằng {{item.degree_name}}, Chuyên nghành {{item.db.speciality}}</span>
+
+                                    <span *ngIf="item.degree_name && item.db.speciality ==null"></span>
+
+                                    <span *ngIf="item.db.from_year && item.db.to_year !=null" class="font-medium text-base">{{item.db.from_year}} - {{item.db.to_year}}</span>
+
+                                    <span *ngIf="item.db.from_year && item.db.to_year ==null" class="font-medium text-base"></span>
+
+                                    <span *ngIf="item.db.from_year!=null && item.db.to_year ==null" class="font-medium text-base">{{item.db.from_year}} - (Chưa bổ sung)</span>
+
+                                    <span *ngIf="item.db.from_year==null && item.db.to_year !=null" class="font-medium text-base">(Chưa bổ sung) - {{item.db.to_year}}</span>
+
+                                </div>
+
+                                <div class="flex items-center mt-2">
+
+                                
+
+                                </div>
+
+
+
+                            </div>
+                            <hr class="w-full border-t border-slate-900 border-2 my-2">
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <!--thành tựu-->
+                <div class="flex flex-col shadow border border-blue-500 rounded-md  px-8 mt-4" *ngIf='list_user_success.length>0'>
+                    <div class="flex flex-row justify-between">
+                        <div class="flex items-center mt-2">
+                            <mat-icon *ngIf="is_show_hide_success==true" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideSuccess()"></mat-icon>
+                            <mat-icon *ngIf="is_show_hide_success==false" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideSuccess()"></mat-icon>
+                            <span class="font-bold text-lg">Thành tựu</span>
+                            <!--<mat-icon class="icon-size-5 mr-2 ml-1"
+                                      [svgIcon]="'heroicons_solid:users'"></mat-icon>-->
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <!--<mat-icon class="icon-size-5 mr-2 mr-3"
+                            [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+                            
+
+                        </div>
+                    </div>
+
+                    <hr class="w-full border-t border-blue-500 border-2 my-2">
+                    <div *ngIf="is_show_hide_success==true">
+                        <div class="flex flex-col" *ngFor="let item of list_user_success;  index as i;">
+                            <div class="flex flex-row justify-between">
+                                <div class="flex flex-col w-4/5 items-start mt-2">
+
+                                    <span class="font-bold text-lg">{{item.db.description}}</span>
+
+
+                                    <span class="font-medium text-base text-blue-900">{{item.db.field_name}}</span>
+
+                                    <a class="mt-2 mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" href="{{item.db.url}}" target="_blank" mat-raised-button>
+                                        <span class="text-base">Hiển thị giải thưởng </span>
+                                    </a>
+
+
+                                </div>
+                                <!--<div class="flex items-center w-1/5 mt-2">
+                                    <img class="w-32 h-24 rounded-md border border-blue-500 cursor-pointer" (click)="openDialogDetailSuccess(item,i)"
+                                         src={{item.db.image}}
+                                         alt="Image success">
+
+                                </div>-->
+                                <div class="flex items-center justify-end w-1/5 mt-2">
+                                
+                                </div>
+
+
+
+                            </div>
+                            <hr class="w-full border-t border-slate-900 border-2 my-2">
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+                <!--bằng cấp chứng chỉ-->
+                <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4" *ngIf='list_user_certificate.length>0'>
+                    <div class="flex flex-row justify-between">
+                        <div class="flex items-center mt-2">
+                            <mat-icon *ngIf="is_show_hide_certificate==true" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideCertificate()"></mat-icon>
+                            <mat-icon *ngIf="is_show_hide_certificate==false" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideCertificate()"></mat-icon>
+                            <span class="font-bold text-lg">Bằng cấp & chứng chỉ</span>
+                            <!--<mat-icon class="icon-size-5 mr-2 ml-1"
+                                      [svgIcon]="'heroicons_solid:lock-closed'"></mat-icon>-->
+                        </div>
+                        <div class="flex items-center mt-2">
+                           
+                        </div>
+                    </div>
+
+                    <hr class="w-full border-t border-blue-500 border-2 my-2">
+
+                    <div *ngIf="is_show_hide_certificate==true">
+                        <div class="flex flex-col" *ngFor="let item of list_user_certificate;  index as i;">
+                            <div class="flex flex-row justify-between">
+                                <div class="flex w-4/5  flex-col items-start mt-2">
+
+                                    <span class="font-bold text-lg"><!--Advance Your Skill in HTML-->{{item.db.description}}</span>
+
+
+                                    <span class="font-medium text-base text-blue-900"><!--LinkEd Learning--> {{item.db.issued_by}}</span>
+
+                                    <span *ngIf="item.db.hinh_thuc==2" class="font-medium text-base">{{item.db.from_date | date: 'dd/MM/yyyy'}}<!--14/05/2021 - 14/05/2023--> - {{item.db.to_date | date: 'dd/MM/yyyy'}}</span>
+
+                                    <a class="mt-2 mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" href="{{item.db.url}}" target="_blank" mat-raised-button>
+                                        <span class="text-base">Hiển thị chứng chỉ </span>
+                                    </a>
+                                </div>
+                                <!--<div class="flex w-1/5 items-center mt-2" (click)="openDialogDetailCertificate(item,i)">
+                                    <img class="w-32 h-24 rounded-md border border-blue-500 cursor-pointer"
+                                         src={{item.db.image}}
+                                         alt="User avatar">
+
+                                </div>-->
+                                <div class="flex w-1/5 items-center justify-end mt-2">
+                             
+
+                                </div>
+
+
+
+                            </div>
+                            <hr class="w-full border-t border-slate-900 border-2 my-2">
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!--Kinh nghiệm-->
+                <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4" *ngIf='list_user_work_history.length>0'>
+                    <div class="flex flex-row justify-between">
+                        <div class="flex items-center mt-2">
+                            <mat-icon *ngIf="is_show_hide_work_history==true" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideWorkHistory()"></mat-icon>
+                            <mat-icon *ngIf="is_show_hide_work_history==false" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideWorkHistory()"></mat-icon>
+                            <span class="font-bold text-lg">Kinh nghiệm</span>
+                            <!--<mat-icon class="icon-size-5 mr-2 ml-1"
+                                      [svgIcon]="'heroicons_solid:globe'"></mat-icon>-->
+
+
+                        </div>
+                        <div class="flex items-center mt-2">
+                          
+                        </div>
+                    </div>
+
+                    <hr class="w-full border-t border-blue-500 border-2 my-2">
+
+                    <div *ngIf="is_show_hide_work_history==true">
+                        <div class="flex flex-col" *ngFor="let item of list_user_work_history;  index as i;">
+                            <div class="flex flex-row justify-between">
+                                <div class="flex flex-col items-start mt-2">
+
+                                    <span class="font-bold text-lg">{{item.db.position}}</span>
+
+                                    <span class="font-medium text-base text-blue-900">{{item.db.company}}</span>
+
+                                    <span *NgIf="item.db.from_date !=null && item.db.to_date!=null" class="font-medium text-base">{{item.db.from_date | date: 'dd/MM/yyyy'}} - {{item.db.to_date | date: 'dd/MM/yyyy'}}</span>
+
+                                    <span *NgIf="item.db.from_date ==null || item.db.to_date==null" class="font-medium text-base"></span>
+
+                                    <span class="font-medium leading-normal text-base" [innerHtml]="item.db.description | safeHtml"></span>
+
+                                </div>
+
+                                <div class="flex items-center mt-2">
+
+                                   
+                                </div>
+
+
+
+                            </div>
+                            <hr class="w-full border-t border-slate-900 border-2 my-2">
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!--Kỹ năng-->
+                <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4" *ngIf='list_user_experience.length>0'>
+                    <div class="flex flex-row justify-between">
+                        <div class="flex items-center mt-2">
+                            <mat-icon *ngIf="is_show_hide_experience==true" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideExperience()"></mat-icon>
+                            <mat-icon *ngIf="is_show_hide_experience==false" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideExperience()"></mat-icon>
+                            <span class="font-bold text-lg">Kỹ năng</span>
+                            <!--<mat-icon class="icon-size-5 mr-2 ml-1"
+                                      [svgIcon]="'heroicons_solid:users'"></mat-icon>-->
+
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <!--<mat-icon class="icon-size-5 mr-2 mr-3"
+                            [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+                           
+                        </div>
+                    </div>
+
+                    <hr class="w-full border-t border-blue-500 border-2 my-2">
+
+                    <div *ngIf="is_show_hide_experience==true">
+                        <div class="flex flex-col" *ngFor="let item of list_user_experience;  index as i;">
+                            <div class="flex flex-row justify-between">
+                                <div class="flex flex-col items-start mt-2">
+
+                                    <span class="font-bold text-lg">{{item.db.skill}}</span>
+
+                                    <span class="font-medium text-base leading-normal" [innerHtml]="item.db.description | safeHtml">
+                                    </span>
+                                </div>
+
+                                <div class="flex items-center mt-2">
+                               
+
+
+                                </div>
+
+
+
+                            </div>
+                            <hr class="w-full border-t border-slate-900 border-2 my-2">
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <!--Mạng xã hội-->
+                <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4" *ngIf="currentUser.show_ket_noi_voi_toi==true">
+                    <div class="flex flex-row justify-between">
+                        <div class="flex items-center mt-2 mb-4">
+                            <mat-icon *ngIf="is_show_hide_social==true" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideSocial()"></mat-icon>
+                            <mat-icon *ngIf="is_show_hide_social==false" class="icon-size-5 mr-2 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideSocial()"></mat-icon>
+                            <span class="font-bold text-lg" transloco="system.ket_noi_voi_toi"></span>
+                        </div>
+                        <div class="flex items-center mt-2">
+                           
+
+
+                        </div>
+                    </div>
+
+                    <hr class="w-full border-t border-blue-500 border-2 my-0">
+
+                    <div class="flex flex-col">
+                        <div class="flex flex-row justify-between">
+                            <div class="flex flex-row items-start mt-2 mb-4">
+
+                                <div class="flex items-center mt-2" *ngIf="currentUser.db.website_link!=null && currentUser.db.website_link!=''">
+
+                                    <a class="leading-none text-ellipsis truncate " href="{{currentUser.db.website_link}}">
+                                        <img src="/assets/images/portal/browser.png" class="h-7 w-7 mr-2" />
+
+                                    </a>
+                                </div>
+                                <div class="flex items-center mt-2" *ngIf="currentUser.db.linkedin_link!=null && currentUser.db.linkedin_link!=''">
+
+                                    <a href="{{currentUser.db.linkedin_link}}" class="leading-none text-ellipsis truncate ">
+                                        <img src="/assets/images/portal/linkedin.png" class="h-7 w-7 mr-2" />
+
+                                    </a>
+
+                                </div>
+                                <div class="flex items-center mt-2" *ngIf="currentUser.db.facebook_link!=null && currentUser.db.facebook_link!=''">
+
+                                    <a href="{{currentUser.db.facebook_link}}" class="leading-none text-ellipsis truncate ">
+                                        <img src="/assets/images/portal/facebook.png" class="h-7 w-7 mr-2" />
+
+                                    </a>
+
+                                </div>
+                                <div class="flex items-center mt-2" *ngIf="currentUser.db.twitter_link!=null && currentUser.db.twitter_link!=''">
+
+                                    <a href="{{currentUser.db.twitter_link}}" class="leading-none text-ellipsis truncate ">
+                                        <img src="/assets/images/portal/twitter.png" class="h-7 w-7 mr-2" />
+
+                                    </a>
+
+                                </div>
+                                <div class="flex items-center mt-2" *ngIf="currentUser.db.youtube_link!=null && currentUser.db.youtube_link!=''">
+
+                                    <a href="{{currentUser.db.youtube_link}}" class="leading-none text-ellipsis truncate ">
+                                        <img src="/assets/images/portal/youtube.png" class="h-7 w-7 mr-2" />
+
+                                    </a>
+
+                                </div>
+                                <div class="flex items-center mt-2" *ngIf="currentUser.db.instagram_link!=null && currentUser.db.instagram_link!=''">
+
+                                    <a href="{{currentUser.db.instagram_link}}" class="leading-none text-ellipsis truncate ">
+                                        <img src="/assets/images/portal/instagram.png" class="h-7 w-7 mr-2" />
+
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="flex items-center mt-2" *ngIf="currentUser.db.website_link !=null">
+                               
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

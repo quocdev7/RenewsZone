@@ -1,0 +1,103 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl  h-fit overflow-y-visible">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_anh_san_pham"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1">
+        <!-- <div class="text-lg font-medium">
+            <span transloco="NAV.sys_san_pham"></span> - {{record.ten_san_pham}}
+        </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.name'"
+                          [keyError]="'db.name'"
+                          [(model)]="record.db.name"></cm_input>
+            </div>
+
+        </div> -->
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+                <label transloco="system.image" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <div align="center">
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.image' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="DragAndDropProgress($event)" align="center">
+                    <h3 style="margin:auto" transloco="system.chose_file"></h3>
+                    <input hidden type="file" #fileInput (change)="fileProgress($event)" accept="image/*">
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div class="w-full overflow-auto">
+                <table class="cell-border myTable hover w-full dataTable no-footer overflow-auto">
+                    <thead>
+                        <tr>
+                            <td style="width:50px"></td>
+                            <th transloco="no_" style="width:50px"></th>
+                            <th transloco="system.file_name" style="width:200px !important"></th>
+                          
+                            <th transloco="system.info"></th>
+                            <th transloco="system.vi_tri" style="width:200px !important"></th>
+                            <th transloco="note" style="width:200px !important"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="record.list_file?.length != 0">
+                        <tr *ngFor="let item of record.list_file;  index as i;">
+                            <td *ngIf="actionEnum!=3"><button [disabled]="loading" color="warn" mat-raised-button transloco="delete" (click)="deleteFile(item.db.id)"></button></td>
+                            <td *ngIf="actionEnum==3" align="center">
+
+                                <mat-checkbox [(ngModel)]="item.isCheck"
+                                              (ngModelChange)="updateAllCompleteUser()">
+                                </mat-checkbox>
+                            </td>
+                            <td>{{i+1 }}</td>
+                            <!--(click)="openDialogViewFileOnline('/maintain_xu_li_bao_hanh.ctr/download?id='+ item.db.id,item.db.file_name,item.db.file_type,item.db.file_size)"-->
+                            <td>
+                                <!-- href="{{downloadfile(item.db.id)}}" -->
+                                <a >   {{ item.db.file_name }}</a>
+                                <div style="position: relative" *ngIf="item.percent_complete!=100">
+                                    <mat-progress-bar mode="determinate" [value]="item.percent_complete" style="height: 2em;" color="'Warn'"></mat-progress-bar>
+                                    <span style="position: absolute; top: 0.5em;" [ngStyle]="{'left': item.percent_complete + '%'}">{{item.percent_complete}}%</span>
+                                </div>
+                            </td>
+                         
+                            <td>{{formatSizeUnits(item.db.file_size)}}|{{ item.db.upload_date  | date: 'dd/MM/yyyy'  }}</td>
+                            <td>
+                                <cm_input [(model)]="item.db.stt"></cm_input>
+
+                            </td>
+                            <td>
+                                <cm_input [(model)]="item.db.note"></cm_input>
+
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </mat-card>
+
+        <br />
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save_image()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

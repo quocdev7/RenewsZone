@@ -1,0 +1,34 @@
+<div class="flex flex-col flex-auto md:w-360  -m-6 overflow-y-auto" *ngIf="record != undefined || record != null">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium"> <span transloco="view_file_online"></span>&nbsp;
+            <span>
+                <mat-icon class="secondary-text s-16">keyboard_arrow_right</mat-icon>{{record.file_name}}
+            </span>
+        </div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" align="left">
+                <a class="bg-primary-600 text-white shadow-none hover:bg-primary-700" target="_blank" href="{{record.url_download}}" transloco="download"> </a>
+                ({{formatSizeUnits(record.file_size)}})
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <h1 transloco="ho_tro_view_file_toi_da"></h1>
+                <iframe *ngIf="record.file_size<5242880" width="100%" height="{{innerHeight+'px'}}"
+                    [src]="srcfile | safe"></iframe>
+            </div>
+        </div>
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>
+
+

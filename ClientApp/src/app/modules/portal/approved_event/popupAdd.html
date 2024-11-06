@@ -1,0 +1,303 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_event"></div>
+        <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button *ngIf="this.actionEnum ==3" (click)="close()" transloco="close"></button>
+        <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button *ngIf="this.actionEnum !=3" (click)="close_create()" transloco="close"></button>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.title'"
+                          [keyError]="'db.title'"
+                          [(model)]="record.db.title"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.ban_to_chuc'"
+                          [keyError]="'db.ban_to_chuc'"
+                          [(model)]="record.db.ban_to_chuc"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.dia_diem'"
+                          [keyError]="'db.location'"
+                          [(model)]="record.db.location"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.max_person_participate'"
+                          [type]="'number'"
+                          [keyError]="'db.max_person_participate'"
+                          [(model)]="record.db.max_person_participate"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_select [type]="'multiple'"
+                           [actionEnum]="actionEnum"
+                           [label]="'system.hinh_thuc'"
+                           [listData]="list_type"
+                           [(model)]="record.types"></cm_select>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [keyError]="'db.time_start'"
+                          [label]="'system.thoi_gian_bat_dau'"
+                          [type]="'datetimepicker'"
+                          [(model)]="record.db.time_start"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [keyError]="'db.time_end'"
+                          [label]="'system.thoi_gian_ket_thuc'"
+                          [type]="'datetimepicker'"
+                          [(model)]="record.db.time_end"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+            <div class="flex-1">
+                <cm_select [errorModel]="errorModel"
+                           [actionEnum]="actionEnum"
+                           [label]="'system.cho_phep_dang_ky'"
+                           [keyError]="'db.is_register_event'"
+                           [listData]="list_trangthai_dangky"
+                           [(model)]="record.db.is_register_event"></cm_select>
+            </div>
+            <div class="flex-1" *ngIf="record.db.is_register_event==1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [keyError]="'db.ngay_den_han_dang_ky'"
+                          [label]="'system.ngay_den_han_dang_ky'"
+                          [type]="'datetimepicker'"
+                          [(model)]="record.db.ngay_den_han_dang_ky"></cm_input>
+
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_select [errorModel]="errorModel"
+                           [actionEnum]="actionEnum"
+                           [label]="'system.quyen_rieng_tu'"
+                           [keyError]="'db.quyen_rieng_tu'"
+                           [listData]="lst_quyen_rieng_tu"
+                           [(model)]="record.db.quyen_rieng_tu"></cm_select>
+
+
+            </div>
+            <div class="flex-1">
+            </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.quyen_rieng_tu !=1 && record.db.quyen_rieng_tu !=4 && record.db.quyen_rieng_tu !=undefined ">
+            <div class="flex-1">
+            <cm_select [errorModel]="errorModel"
+                    [actionEnum]="actionEnum"
+                    [type]="'multiple'"
+                    [label]="'system.khoa'"
+                    [keyError]="'db.id_khoa'"
+                    [listData]="list_khoa"
+                    [(model)]="record.khoa"></cm_select>
+            </div>
+            <div class="flex-1">
+                <cm_select [errorModel]="errorModel"
+                        [actionEnum]="actionEnum"
+                        [type]="'multiple'"
+                        [label]="'system.hinh_thuc'"
+                        [keyError]="'db.hinh_thuc_user'"
+                        [listData]="list_hinh_thuc"
+                        [(model)]="record.hinhthuc"></cm_select>
+                </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" >
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.phi_tham_gia'"
+                          [keyError]="'db.so_tien'"
+                          [type]="'number'"
+                          [(model)]="record.db.so_tien"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_select [errorModel]="errorModel"
+                           [actionEnum]="actionEnum"
+                           [label]="'system.don_vi_tien_te'"
+                           [keyError]="'db.id_tiente'"
+                           [listData]="lst_tiente"
+                           [(model)]="record.db.id_tiente"></cm_select>
+            </div>
+        </div>
+      
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+                <label transloco="system.image" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <br>
+                (Tỷ lệ hình ảnh 16x9)
+                <div align="center">
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.logo' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <div class="uploadfilecontainer" (click)="fileInput1.click()" appDragDrop (onFileDropped)="DragAndDrop_logo($event)" align="center">
+                    <h3 style="margin:auto" transloco="chose_file" *ngIf="record.db.logo==null"></h3>
+                    <img [src]="record.db.logo" style="height:100%" *ngIf="record.db.logo!=null" class="w-auto" style="max-height:200px" />
+                    <input hidden type="file" #fileInput1 (change)="chose_file_logo($event)" accept="image/*">
+                </div>
+
+                <br />
+                <div style="position: relative;padding:20px" *ngIf="Progress_logo!=-1">
+                    <mat-progress-bar mode="determinate" [value]="Progress_logo" style="height: 2em;" color="'Warn'"></mat-progress-bar>
+                    <span style="position: absolute; top: 0.5em;" [ngStyle]="{'left': Progress_logo + '%'}">{{Progress_logo}}%</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum==3 ">
+            <div class="flex-1">
+                <label transloco="system.logo" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <br>
+                (Tỷ lệ hình ảnh 16x9)
+                <div class="uploadfilecontainer" align="center">
+                    <img [src]="record.db.logo" class="w-auto" style="max-height:200px" />
+                </div>
+                <br />
+            </div>
+
+        </div>
+        <!--<mat-card>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_select *ngIf="actionEnum != 3"
+                               [errorModel]="errorModel"
+                               [keyError]="'db.id_template_invite'"
+                               [label]="'system.mau_thu_moi'"
+                               [callbackChange]="bindthumoi.bind(this)"
+                               [listData]="list_mau_email_moi"
+                               [(model)]="record.db.id_template_invite"></cm_select>
+
+                    <cm_input *ngIf="actionEnum == 3"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.mau_thu_moi'"
+                              [type]="'readonly'"
+                              [(model)]="record.ten_mau_thu_moi"></cm_input>
+                </div>
+
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <table datatable [dtOptions]="dtOptions" class="cell-border hover">
+                    <tbody>
+                        <tr>
+                            <td translate="tieu_de"></td>
+                            <td [innerHtml]="record.tieu_de_mau_thu_moi"></td>
+                        </tr>
+                        <tr>
+                            <td translate="noi_dung"></td>
+                            <td [innerHtml]="record.noi_dung_mau_thu_moi"></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_select *ngIf="actionEnum != 3"
+                               [label]="'system.mau_thu_cam_on'"
+                               [errorModel]="errorModel"
+                               [callbackChange]="bindthucamon.bind(this)"
+                               [keyError]="'db.id_template_thanks'"
+                               [listData]="list_mau_email_camon"
+                               [(model)]="record.db.id_template_thanks"></cm_select>
+
+                    <cm_input *ngIf="actionEnum == 3"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.mau_thu_cam_on'"
+                              [type]="'readonly'"
+                              [(model)]="record.ten_mau_thu_cam_on"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <table datatable [dtOptions]="dtOptions" class="cell-border hover">
+                    <tbody>
+                        <tr>
+                            <td translate="tieu_de"></td>
+                            <td [innerHtml]="record.tieu_de_thu_cam_on"></td>
+                        </tr>
+                        <tr>
+                            <td translate="noi_dung"></td>
+                            <td [innerHtml]="record.noi_dung_thu_cam_on"></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </mat-card>-->
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="padding:10px">
+                <h1 transloco="system.content"></h1>
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.mo_ta' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+                <editor [init]="timyconfig" [(ngModel)]="record.db.mo_ta"></editor>
+
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                <h1 transloco="system.content"></h1>
+                <span [innerHtml]="record.db.mo_ta | safeHtml"></span>
+
+            </div>
+        </div>
+        <br />
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="padding:10px">
+                <h1 transloco="system.luu_y_tham_gia"></h1>
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.luu_y_tham_gia' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+                <editor [init]="timyconfig" [(ngModel)]="record.db.luu_y_tham_gia"></editor>
+
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                <h1 transloco="system.content"></h1>
+                <span [innerHtml]="record.db.luu_y_tham_gia | safeHtml"></span>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button *ngIf="this.actionEnum ==3" (click)="close()" transloco="close"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button *ngIf="this.actionEnum !=3" (click)="close_create()" transloco="close"></button>
+        </div>
+    </div>
+</div>

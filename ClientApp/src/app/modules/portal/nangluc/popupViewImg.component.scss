@@ -1,0 +1,19 @@
+@media screen and(min-width:961px) {
+    img{
+        width: 800px;
+        height: 700px;
+    }
+}
+@media screen and(min-width:641px) {
+    img{
+        width: 700px;
+        height: 600px;
+    }
+}
+@media screen and (max-width:640px){
+
+    img{
+        width: 300px;
+        height: 300px;
+    }
+}

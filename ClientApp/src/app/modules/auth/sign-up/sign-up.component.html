@@ -1,0 +1,244 @@
+<div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
+    <div class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-50">
+                <img src="assets/images/logo/worldsoft.png" style="image-rendering: -webkit-optimize-contrast;">
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Đăng ký thành viên</div>
+            <div class="flex items-baseline mt-0.5 font-medium">
+                <div>Bạn đã có tài khoản?</div>
+                <a class="ml-1 text-primary-500 hover:underline"
+                   [routerLink]="['/sign-in']">
+                    Đăng nhập
+                </a>
+            </div>
+
+            <!-- Alert -->
+            <fuse-alert class="mt-8 -mb-4"
+                        *ngIf="showAlert"
+                        [appearance]="'outline'"
+                        [showIcon]="false"
+                        [type]="alert.type"
+                        [@shake]="alert.type === 'error'">
+                {{alert.message}}
+            </fuse-alert>
+            <div class="w-full">
+
+
+
+
+
+                <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_select [errorModel]="errorModel"
+                                   [label]="'system.danh_xung'"
+                                   [keyError]="'sex'"
+                                   [listData]="list_trang_thai"
+                                   [(model)]="record.db.sex"></cm_select>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.sex==3">
+                    <div class="flex-1">
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.input_danh_xung_khac'"
+                                  [keyError]="'db.position'"
+                                  [(model)]="record.db.position"></cm_input>
+                    </div>
+                </div>-->
+                <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.full_name'"
+                                  [keyError]="'db.full_name'"
+                                  [(model)]="record.db.full_name"></cm_input>
+                    </div>
+                </div>-->
+                <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.last_name'"
+                                  [keyError]="'db.LastName'"
+                                  [(model)]="record.db.LastName"></cm_input>
+                    </div>
+                </div>-->
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.email'"
+                                  [keyError]="'db.email'"
+                                  [(model)]="record.db.email"></cm_input>
+                    </div>
+                </div>
+                <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.phone'"
+                                  [keyError]="'db.phone'"
+                                  [(model)]="record.db.phone"></cm_input>
+                    </div>
+                </div>-->
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [type]="'password'"
+                                  [label]="'system.password'"
+                                  [keyError]="'db.password'"
+                                  [(model)]="record.password"></cm_input>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [type]="'password'"
+                                  [label]="'system.repassword'"
+                                  [keyError]="'db.repass'"
+                                  [(model)]="record.repassword"></cm_input>
+                    </div>
+                </div>
+                <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_select [errorModel]="errorModel"
+                                   [label]="'portal.status_graduate'"
+                                   [keyError]="'db.status_graduate'"
+                                   [listData]="list_status_graduate"
+                                   [(model)]="record.db.status_graduate"></cm_select>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.status_graduate==1 || record.db.status_graduate==2">
+                    <div class="flex-1">
+
+                        <cm_select [errorModel]="errorModel"
+                                   [label]="'NAV.sys_khoa'"
+                                   [keyError]="'db.id_khoa'"
+                                   [listData]="list_khoa"
+                                   [(model)]="record.db.id_khoa"></cm_select>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.status_graduate==1 || record.db.status_graduate==2">
+                    <div class="flex-1">
+
+
+                        <cm_select [errorModel]="errorModel"
+                                   [label]="'portal.school_year'"
+                                   [keyError]="'db.school_year'"
+                                   [listData]="list_school_year"
+                                   [(model)]="record.db.school_year"></cm_select>
+                    </div>
+                </div>-->
+
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <mat-form-field class="w-full mb-5">
+                            <mat-label>
+                                Captcha  <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'capcha'; index as i">
+                                    (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                                </span>
+                            </mat-label>
+                            <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px" class="h-auto" /></span>
+
+                            <input matInput [type]="'text'" [(ngModel)]="record.capcha">
+                            <button mat-icon-button matSuffix (click)="reloadCaptcha()" type="button">
+                                <mat-icon>refresh</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Sign Up form -->
+            <!-- Company field -->
+            <!--<mat-form-field class="w-full">
+                <mat-label>Company</mat-label>
+                <input id="company-confirm"
+                       matInput
+                       [formControlName]="'company'">
+            </mat-form-field>-->
+            <!-- ToS and PP -->
+            <div class="inline-flex items-end w-full mt-1.5">
+                <mat-checkbox [color]="'primary'"
+                              [(ngModel)]="record.agree">
+                    <span>Tôi đồng ý với </span>
+                    <a class="ml-1 text-primary-500 hover:underline"
+                       [routerLink]="['/portal-term']">
+                        điều khoản
+                    </a>
+                    <span>và</span>
+                    <a class="ml-1 text-primary-500 hover:underline"
+                       [routerLink]="['/portal-privacy']">
+                        chính sách bảo mật
+                    </a>
+                </mat-checkbox>
+            </div>
+
+            <!-- Submit button -->
+            <button class="fuse-mat-button-large w-full mt-6"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="loading ||  (!record.agree)"
+                    (click)="signUp()">
+                <span *ngIf="!loading">
+                    Tạo tài khoản
+                </span>
+                <mat-progress-spinner *ngIf="loading"
+                                      [diameter]="24"
+                                      [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+            <!--<button class="fuse-mat-button-large w-full mt-6" *ngIf="event_id != undefined"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="loading"
+                    (click)="register()">
+                <span *ngIf="!loading">
+                    Đăng ký sự kiện
+                </span>
+                <mat-progress-spinner *ngIf="loading"
+                                      [diameter]="24"
+                                      [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>-->
+            <button class="fuse-mat-button-large w-full mt-6"
+                    mat-flat-button
+                    [color]="'accent'"
+                    (click)="gobackhomepage()">
+                <span transloco="portal.homepage"></span>
+            </button>
+            <div align="right" class="flex-1 text-base mt-10">
+                Copyright © {{currentYear}} Xelex Corporation - All right reserved
+                <br />
+                <a href="https://worldsoft.com.vn/" style="color:black">Powered by Worldsoft Corporation</a>
+            </div>
+        </div>
+    </div>
+    <div class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden dark:border-l" style="background:#273a88">
+
+        <div class="z-10 relative w-full max-w-2xl">
+
+            <div class="text-7xl font-bold leading-none text-gray-100">
+                <img src="assets/images/logo/welcome_Xelex.png" style="image-rendering: -webkit-optimize-contrast;">
+            </div>
+            <div class="text-2xl text-center font-bold leading-none text-white">
+                Chào mừng bạn đến với Xelex Corporation
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<!--Logo-->
+<section>
+    <div class="md:hidden flex container mx-auto px-6">
+        <div class="md:flex-shrink-0 ">
+          <img class="rounded-lg md:w-56" src="https://i.ibb.co/x5r78V4/Mask-Group-2.png" alt="">
+        </div>
+        <div class="mt-4 md:mt-4 md:ml-6 mx-5">
+          <p class="mt-2 text-gray-600 text-lg">Worldsoft Corporation</p>
+          <a href="#" class="block mt-1 text-lg leading-tight font-semibold text-blue-400 hover:underline">Apply Now</a>
+        </div>
+      </div>
+</section>
+<!--Các công ty hàng đầu-->
+<section>
+    <div class="container mx-auto mt-20">
+        <p class="mb-5 text-3xl text-black font-medium">Các công ty hàng đầu</p>
+        <div class=" grid gap-8 lg:grid-cols-3 xl:grid-cols-5 sm:grid-cols-2" >
+        <div class="border-2 border-blue-600 rounded-xl max-w-xs overflow-hidden hover:scale-105 transition duration-500 cursor-pointer" *ngFor="let careers of career">
+            <div class=" relative overflow-hidden bg-white dark:bg-gray-800 hover-grayscale-0 wow fadeInUp">
+                <!-- team block -->
+                <div class="relative overflow-hidden px-6">
+                    <img [src]="itemCarrer.img" alt="" class="py-10 w-full h-full mx-auto rounded-ful">
+                </div>
+                <div class="pt-6 text-center">
+                    <p class="text-2xl leading-normal font-bold mb-1">{{ careers.name }}</p>
+                    <p class="text-gray-500 leading-relaxed font-light text-lg">{{ careers.adress }}</p>
+                    <p class="text-lg text-blue-500 leading-normal font-bold mt-3">{{ careers.title }}</p>
+                </div>
+            </div>
+        </div>
+        </div>
+  </div>
+</section>

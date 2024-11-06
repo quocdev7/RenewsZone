@@ -1,0 +1,128 @@
+.color-nonclick{
+    background-color: white;
+    span{
+        color: #273a88 !important;
+    }
+}
+.color-click{
+    background-color: #273a88;
+    
+    span{
+        color: white !important;
+    }
+}
+.swiper {
+    width: 100%;
+    padding-bottom: 35px;
+}
+
+.swiper-pagination {
+    bottom: 0px !important
+}
+
+.mySwiper {
+    padding-bottom: 35px;
+    width: 100%;
+
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 300px;
+        height: 382px;
+    }
+}
+
+
+.mySwiperDienGia {
+    padding-top: 10px;
+    width: 100%;
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        max-width: 295px;
+    }
+    .swiper-pagination-bullet {
+        background-color: white !important;
+    }
+    .swiper-pagination-bullet-active {
+        background: white !important;
+    }
+}
+.bka-bg-tab-event {
+    background-color: #8F8F8F !important;
+}
+
+.mySwiperNhaTaiTro {
+    padding-top: 10px;
+    width: 100%;
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        max-width: 295px;
+    }
+    .swiper-pagination-bullet {
+        background-color: white !important;
+    }
+    .swiper-pagination-bullet-active {
+        background: white !important;
+    }
+}
+
+.mySwiperHinhAnh {
+    padding-top: 10px;
+    width: 100%;
+
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        max-width: 460px;
+    }
+
+    .swiper-slide-active {
+    }
+}
+.event-share {
+    position: fixed;
+    bottom: 50%;
+    right: 15px;
+    opacity: 1;
+    transition: all .2s ease-in-out;
+}
+
+.event-share-mobile {
+    position: fixed;
+    bottom: 2%;
+    right: 15px;
+    opacity: 1;
+    transition: all .2s ease-in-out;
+}
+
+.mySwiperMobile {
+    width: 100%;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+
+    .swiper-slide {
+    }
+}
+
+.mySwiperMobileBlue {
+    width: 100%;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+
+    .swiper-slide {
+    }
+
+    .swiper-pagination-bullet {
+        background-color: white !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: white !important;
+    }
+}

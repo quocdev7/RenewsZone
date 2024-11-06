@@ -1,0 +1,182 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="flex flex-col flex-auto min-w-0 ">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_event"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-2">
+                    <div class="flex-1">
+                        <cm_select [label]="'system.hinh_thuc'" [listData]="list_type"
+                                   [(model)]="filter.id_hinh_thuc" [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                    <div class="flex-1">
+                        <cm_input [label]="'system.from_date'"
+                                  [type]="'datepicker'"
+                                  [(model)]="filter.tu_ngay"></cm_input>
+                    </div>
+                    <div class="flex-1">
+                        <cm_input [label]="'system.to_date'"
+                                  [type]="'datepicker'"
+                                  [(model)]="filter.den_ngay"></cm_input>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_select [label]="'system.cho_phep_dang_ky'" [listData]="list_trangthai_dangky"
+                                   [(model)]="filter.is_register_event" [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                    <div class="flex-1">
+                        <cm_select [label]="'system.trang_thai'"
+                                   [listData]="trang_thais"
+                                   [callbackChange]="rerender.bind(this)"
+                                   [(model)]="filter.trang_thai"></cm_select>
+                    </div>
+                    <div class="flex-1">
+                        <mat-form-field class="w-full">
+                            <mat-label>
+                                {{'search' | transloco}} ({{ 'system.name' | transloco }} | {{'system.note' | transloco }})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="listButtonAction" align="right">
+                    <button mat-raised-button transloco="system.search" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                            (click)="rerender()"></button>
+                    <button mat-raised-button transloco="system.add" class="bg-primary-600 text-white shadow-none hover:bg-primary-700" (click)="openDialogAdd()"></button>
+
+                </div>
+            </mat-card>
+
+
+
+
+
+            <br />
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+
+                                <th style="width:75px"></th>
+                                <th transloco="system.no_" style="width:50px; text-align:center"></th>
+                                <th transloco="system.tieu_de"></th>
+                                <th transloco="system.loai_su_kien"></th>
+                                <th transloco="system.thong_tin"></th>
+                                <th transloco="system.hinh_dai_dien"></th>
+                                <th style="width:75px" transloco="system.quyen_rieng_tu"></th>
+                                <th transloco="system.trang_thai"></th>
+                                <th transloco="system.cho_phep_dang_ky"></th>
+                                <th transloco="system.nguoi_cap_nhat"></th>
+                                <th transloco="system.ngay_cap_nhat"></th>
+                                <th style="width:75px" transloco="system.trang_thai_duyet"></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                <td>
+                                    <button class="mat-button-action" mat-button [matMenuTriggerFor]="menu"
+                                            transloco="system.feature"></button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item transloco="view"
+                                                (click)="openDialogDetail(item,i)"></button>
+                                        <button mat-menu-item transloco="system.edit"
+                                                (click)="openDialogEdit(item,i)"></button>
+                                        <button mat-menu-item transloco="system.edit_language"
+                                                (click)="openDialogEditEN(item,i)"></button>
+
+                                        <button *ngIf="item.trang_thai == 1" mat-menu-item transloco="system.checkinsite"
+                                        (click)="checkin(item.db.id)"></button>
+
+                                        <button *ngIf="item.db.status_del==2" mat-menu-item transloco="system.revert"
+                                                (click)="revertStatus(item,i)"></button>
+
+                                        <button *ngIf="item.db.status_del == 1" mat-menu-item transloco="system.cancel"
+                                                (click)="delete(item.db.id)"></button>
+
+                                    </mat-menu>
+                                </td>
+                                <td style="width:70px">{{currentIndex+ i+1 }}</td>
+                                <td>{{ item.db.title }}</td>
+                                <td>
+                                    <h4 style="color:cornflowerblue" *ngIf="item.db.type.includes('1')" transloco="system.offline"></h4>
+                                    <h4 style="color:forestgreen" *ngIf="item.db.type.includes('2')" transloco="system.online"></h4>
+                                    <h4 style="color:orange" *ngIf="item.db.type.includes('3')" transloco="system.hoc_bong"></h4>
+                                    <h4 style="color:red" *ngIf="item.db.type.includes('4')" transloco="system.tai_tro"></h4>
+                                </td>
+
+                                <td>
+                                    <span>Địa điểm: {{ item.db.location }}</span>
+                                    <br />
+                                    Từ: {{ item.db.time_start | date: 'dd/MM/yyyy HH:mm' }} - Đến: {{ item.db.time_end | date: 'dd/MM/yyyy HH:mm' }}
+                                </td>
+
+                                <td>
+                                    <span>
+                                        <img [src]="item.db.logo" style="height:100px;width: auto ;" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==1" transloco="system.cong_khai"></span>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==2" transloco="system.thanh_vien"></span>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==3" transloco="system.ban_be"></span>
+                                    <span class="text-green-900" *ngIf="item.db.quyen_rieng_tu==4" transloco="system.nguoi_dung_chua_la_thanh_vien"></span>
+                                </td>
+
+
+
+                                <td>
+                                    <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 4" transloco="system.sap_toi"></span>
+                                    <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                                    <span style="color:forestgreen;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 3" transloco="system.ket_thuc"></span>
+                                    <span style="color:red;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 2" transloco="system.cancel"></span>
+
+                                    <!--<span style="color:cornflowerblue" *ngIf="item.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+        <span style="color:forestgreen" *ngIf="item.trang_thai == 4" transloco="system.ket_thuc"></span>
+        <span style="color:orange" *ngIf="item.trang_thai == 3" transloco="system.sap_toi"></span>
+        <span style="color:red" *ngIf="item.trang_thai == 2" transloco="system.cancel"></span>-->
+                                </td>
+                                <td>
+                                    <span class="text-green-900" *ngIf="item.db.is_register_event==1" transloco="system.cho_phep_dang_ky"></span>
+                                    <span class="text-green-900" *ngIf="item.db.is_register_event==2" transloco="system.khong_cho_phep_dang_ky"></span>
+                                </td>
+                                <td>{{ item.createby_name  }}</td>
+                                <td>{{ item.db.create_date | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                <td>
+                                    <span class="text-green-900" *ngIf="item.db.status_del==1" transloco="system.da_duyet"></span>
+                                    <span class="text-red-900" *ngIf="item.db.status_del==2" transloco="system.khong_duoc_duyet"></span>
+                                    <span class="text-gray-900" *ngIf="item.db.status_del=='3'" transloco="system.cho_xet_duyet"></span>
+                                    <span class="text-yellow-900" *ngIf="item.db.status_del==4">
+                                        <span transloco="system.bi_tra_lai"></span>
+                                        <br />
+                                        <span class="ml-1">Lý do:( {{item.db.li_do}} )</span>
+                                    </span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty
+                                        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+</div>

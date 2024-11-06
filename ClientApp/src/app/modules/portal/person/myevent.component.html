@@ -1,0 +1,168 @@
+
+<div class="flex flex-col flex-auto min-w-0">
+
+    <div class="flex flex-col w-full max-w-screen-md mx-auto pb-4 ">
+        <div class="w-full mx-auto sm:mx-0 mx-auto">
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3  gap-6 w-full min-w-0">
+
+                <!-- Summary -->
+                <div *ngFor="let item2 of lst_event_manager">
+                    <div class="flex flex-col flex-auto p-6 bg-card bg-bka shadow rounded-2xl overflow-hidden"  style="height: 108px;" *ngIf="stauts_filter==item2.id" >
+                        <div class="flex flex-col items-center">
+                            <div class="text-base  text-center text-white  font-medium  leading-6 line-clamp-2" style="height: 48px;">{{item2.name}}</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-3xl text-white  font-bold tracking-tight leading-none">{{item2.number  | thousandSuff}}</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto p-6 bg-card bg-white shadow rounded-2xl overflow-hidden" style="height: 108px;"  *ngIf="stauts_filter!=item2.id"  (click) = "stauts_filter=item2.id;filterEvent()">
+                        <div class="flex flex-col items-center">
+                            <div class="text-base  text-center text-blue-900  font-medium  leading-6 line-clamp-2" style="height: 48px;">{{item2.name}}</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-3xl text-blue-900  font-bold tracking-tight leading-none">{{item2.number  | thousandSuff}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="flex flex-col w-full mx-auto mb-10" >
+            <div class="flex flex-col w-full mx-auto mb-10"  *ngIf="events_filter.length>0">
+                <div class="flex-none w-full pt-5 pb-5" *ngFor="let item of events_filter ; let i = index;">
+                    <div class="flex flex-row w-full" *ngIf="!isScreenSmall">
+                        <div class="flex"  (click)="gotoNewsEvenPage(item.id_su_kien)">
+                            <div class="aspect-w-16 aspect-h-9" style="width:150px">
+                                <img class="h-full w-full object-cover" src="{{item.anh_su_kien}}">
+                            </div>
+                        </div> 
+                        <div class="flex flex-col p-2" >
+                            <a>
+                                <div class="text-lg font-semibold leading-7  text-blue-900  line-clamp-2"  style="max-height:65px" (click)="gotoNewsEvenPage(item.id_su_kien)">
+                                    {{item.ten_su_kien}}
+                                  
+                                </div>
+                                <span  *ngIf="item.check_in_status == 1" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.moi_tham_gia_su_kien"></span>
+                                <span  *ngIf="item.check_in_status == 2" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.tu_choi_tham_gia_su_kien"></span>
+                                <span  *ngIf="item.check_in_status == 5" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.khong_duoc_chap_thuan_tham_gia_su_kien"></span>
+                                <span  *ngIf="item.check_in_status == 2 || item.check_in_status == 5" style="color:red;font-weight:bold;font-size:16px;" > <br>Lý do: {{item.ly_do}}</span>
+                            
+                                 <span  *ngIf="item.check_in_status == 3" style="color:blue;font-weight:bold;font-size:16px;" transloco="system.se_tham_gia_su_kien"></span>
+                            
+                           
+                                 <span  *ngIf="item.check_in_status == 4" style="color:green;font-weight:bold;font-size:16px;" transloco="system.da_tham_gia_su_kien"></span>
+                            
+                    
+                               
+                           
+                           
+                                 <span  *ngIf="item.check_in_status == 6" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.da_dang_ky_dang_cho_duyet"></span>
+                            </a>
+                            <div class="flex flex-row grids items-center"  (click)="gotoNewsEvenPage(item.id_su_kien)">
+                                <span class="text-base text-secondary italic  leading-none">
+                                    <span style="font-weight: bold; font-size: 12px; vertical-align: middle">
+                                        {{item.ngay_bat_dau |  date: 'dd/MM/yyyy HH:mm'}} - {{item.ngay_ket_thuc |  date: 'dd/MM/yyyy HH:mm'}}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="flex flex-row w-full mt-1" align="right"> 
+
+                                <button class="mr-5"  *ngIf="item.check_in_status ==1" 
+                                mat-raised-button color="primary"
+                                (click)="thamgia(item.id,item.ten_su_kien)" transloco="system.thamgia">
+                                   <!--Đồng ý-->
+                                </button>
+
+                                <button class="mr-5"  *ngIf="item.check_in_status==1" 
+                                mat-raised-button color="warn"
+                                (click)="tuchoi(item.id,item.ten_su_kien)" transloco="portal.tu_choi">
+                                   <!--Hủy yêu cầu-->
+                                </button> 
+
+                                <button class="mr-5"  *ngIf="item.check_in_status==6 || item.check_in_status==3" 
+                                mat-raised-button color="warn"
+                                (click)="tuchoi(item.id,item.ten_su_kien)" transloco="portal.khong_tham_gia">
+                                   <!--Hủy yêu cầu-->
+                                </button> 
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                   
+
+                    <div class="flex flex-col w-full" *ngIf="isScreenSmall">
+                        <div class="flex"  (click)="gotoNewsEvenPage(item.id_su_kien)">
+                            <div class="aspect-w-16 aspect-h-9 w-full">
+                                <img class="h-full w-full object-cover" src="{{item.anh_su_kien}}">
+                            </div>
+                        </div> 
+                        <div class="flex flex-col p-2" >
+                            <a>
+                                <div class="text-lg font-semibold leading-7  text-blue-900  line-clamp-2" style="max-height:65px"  (click)="gotoNewsEvenPage(item.id_su_kien)">
+                                    {{item.ten_su_kien}}
+                                </div>
+                                <span  *ngIf="item.check_in_status == 1" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.moi_tham_gia_su_kien"></span>
+                                <span  *ngIf="item.check_in_status == 2" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.tu_choi_tham_gia_su_kien"></span>
+                                <span  *ngIf="item.check_in_status == 5" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.khong_duoc_chap_thuan_tham_gia_su_kien"></span>
+                           
+                                <span  *ngIf="item.check_in_status == 2 || item.check_in_status == 5" style="color:red;font-weight:bold;font-size:16px;" > <br>Lý do: {{item.ly_do}}</span>
+                                 <span  *ngIf="item.check_in_status == 3" style="color:blue;font-weight:bold;font-size:16px;" transloco="system.se_tham_gia_su_kien"></span>
+                            
+                           
+                                 <span  *ngIf="item.check_in_status == 4" style="color:green;font-weight:bold;font-size:16px;" transloco="system.da_tham_gia_su_kien"></span>
+                            
+                    
+                           
+                           
+                                 <span  *ngIf="item.check_in_status == 6" style="color:orange;font-weight:bold;font-size:16px;" transloco="system.da_dang_ky_dang_cho_duyet"></span>
+                            </a>
+                        
+                            <div class="flex flex-row grids items-center"  (click)="gotoNewsEvenPage(item.id_su_kien)">
+                                <span class="text-base text-secondary italic  leading-none">
+                                    <span style="font-weight: bold; font-size: 12px; vertical-align: middle">
+                                        {{item.ngay_bat_dau |  date: 'dd/MM/yyyy HH:mm'}} - {{item.ngay_ket_thuc |  date: 'dd/MM/yyyy HH:mm'}}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="flex flex-row w-full mt-1" align="right"> 
+
+                                <button class="mr-5"  *ngIf="item.check_in_status ==1" 
+                                mat-raised-button color="primary"
+                                (click)="thamgia(item.id,item.ten_su_kien)" transloco="system.thamgia">
+                                   <!--Đồng ý-->
+                                </button>
+
+                                <button class="mr-5"  *ngIf="item.check_in_status==1" 
+                                mat-raised-button color="warn"
+                                (click)="tuchoi(item.id,item.ten_su_kien)" transloco="portal.tu_choi">
+                                   <!--Hủy yêu cầu-->
+                                </button> 
+
+                                <button class="mr-5"  *ngIf="item.check_in_status==6 || item.check_in_status==3" 
+                                mat-raised-button color="warn"
+                                (click)="tuchoi(item.id,item.ten_su_kien)" transloco="portal.khong_tham_gia">
+                                   <!--Hủy yêu cầu-->
+                                </button> 
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="events_filter.length ==0">
+                <!-- Group -->
+                <div class="flex flex-auto text-center  grids items-center min-w-0 p-4 " style="height: 300px">
+                    <span class="text-2xl   text-blue-900"  transloco="portal.khong_tim_thay_ket_qua_nao"> </span>
+              
+
+            </div>
+           
+            </ng-container>
+        </div>
+    </div>
+   
+</div>
+
+

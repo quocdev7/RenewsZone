@@ -1,0 +1,79 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl overflow-y-auto">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" *ngIf="actionEnum==1">Thêm Kinh nghiệm</div>
+        <div class="text-lg font-medium" *ngIf="actionEnum!=1">Chỉnh sửa Kinh nghiệm</div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1 h-fit">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.company'"
+                          [keyError]="'db.company'"
+                          [(model)]="record.db.company"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.position'"
+                          [keyError]="'db.position'"
+                          [(model)]="record.db.position"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+            <div class="flex-1">
+
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.from_date'"
+                          [type]="'datepicker'"
+                          [keyError]="'db.from_date'"
+                          [(model)]="record.db.from_date"></cm_input>
+            </div>
+            <div class="flex-1">
+
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.to_date'"
+                          [type]="'datepicker'"
+                          [keyError]="'db.to_date'"
+                          [(model)]="record.db.to_date"></cm_input>
+            </div>
+        </div>
+     
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="padding:10px">
+                <h1 transloco="system.description"></h1>
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'Key' : 'db.description' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+                <editor [init]="timyconfig" [(ngModel)]="record.db.description"></editor>
+                
+
+            </div>
+            <!--<div class="flex-1" *ngIf="actionEnum !=1" style="padding:10px">
+                <h1 transloco="system.description"></h1>
+                <span [innerHtml]="record.db.description | safeHtml"></span>
+
+            </div>-->
+        </div>
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="saveWorkHistory()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>
+
+
+

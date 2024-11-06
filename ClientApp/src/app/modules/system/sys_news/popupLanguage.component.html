@@ -1,0 +1,85 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_news"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.tieu_de'"
+                          [keyError]="'db.tieu_de'"
+                          [(model)]="record.db.tieu_de"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.noi_dung_trang_bia'"
+                          [keyError]="'db.tom_tat'"
+                          [(model)]="record.db.noi_dung_trang_bia"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.nguon_tin_tuc'"
+                          [keyError]="'db.nguon_tin_tuc'"
+                          [(model)]="record.db.nguon_tin_tuc"></cm_input>
+            </div>
+           
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="padding:10px">
+                <div class="flex flex-row">
+                    <h1 transloco="system.noi_dung"></h1>&nbsp;
+                    <span style="color:red;font-weight:700" *ngFor="let item of errorModel | filter : 'key' : 'db.noi_dung' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <editor [init]="timyconfig" [(ngModel)]="record.db.noi_dung"></editor>
+
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                <h1 transloco="system.noi_dung"></h1>
+                <span [innerHtml]="record.db.noi_dung | safeHtml"></span>
+
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="padding:10px">
+                <div class="flex flex-row">
+                    <h1 transloco="system.noi_dung_mobile"></h1>&nbsp;
+                    <span style="color:red;font-weight:700" *ngFor="let item of errorModel | filter : 'key' : 'db.noi_dung_mobile' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <editor [init]="timyconfig" [(ngModel)]="record.db.noi_dung_mobile"></editor>
+
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                <h1 transloco="system.noi_dung_mobile"></h1>
+                <span [innerHtml]="record.db.noi_dung_mobile | safeHtml"></span>
+
+            </div>
+        </div>
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save_language()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button *ngIf="this.actionEnum ==3" (click)="close()" transloco="close"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button *ngIf="this.actionEnum !=3" (click)="close_create()" transloco="close"></button>
+        </div>
+
+    </div>
+
+</div>

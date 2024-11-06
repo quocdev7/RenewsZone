@@ -1,0 +1,96 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">
+            <span transloco="system.file_dinh_kem"></span>
+            <span color="primary"> {{record.db.title}}</span>
+        </div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+
+                <div class="uploadfilecontainer" (click)="fileInput1.click()" appDragDrop (onFileDropped)="DragAndDropProgress($event)" align="center">
+                    <h3 style="margin:auto" transloco="chose_file"></h3>
+                    <input hidden type="file" #fileInput1 (change)="fileProgress($event)" accept="image/*">
+                </div>
+
+                <br />
+                <div style="position: relative;padding:20px" *ngIf="fileUploadProgress!=-1">
+                    <mat-progress-bar mode="determinate" [value]="fileUploadProgress" style="height: 2em;" color="'Warn'"></mat-progress-bar>
+                    <span style="position: absolute; top: 0.5em;" [ngStyle]="{'left': fileUploadProgress + '%'}">{{fileUploadProgress}}%</span>
+                </div>
+
+            </div>
+        </div>
+
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div align="center">
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'list_file' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+            </div>
+            <div class="w-full">
+                <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                    <thead>
+                        <tr>
+                            <th *ngIf="actionEnum!=3"></th>
+                            <th transloco="no_"></th>
+                            <th transloco="system.file_name" style="max-width:200px"></th>
+                            <th transloco="system.file_size"></th>
+                            <th transloco="system.upload_date"></th>
+                            <th transloco="note"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="list_file?.length != 0">
+                        <tr *ngFor="let item of list_file;  index as i;">
+                            <td *ngIf="actionEnum!=3">
+                                <button color="warn" mat-raised-button translate="delete" (click)="remove_file(item.db.id)"></button>
+                            </td>
+                            <td>{{i+1}}</td>
+                            <td>
+                                <a target="_blank" href="{{item.db.file_path}}">   {{ item.db.file_name }}</a>
+
+                            </td>
+                            <td>{{formatSizeUnits(item.db.size)}}</td>
+                            <td>{{ item.db.create_date  | date: 'dd/MM/yyyy HH:mm'  }}</td>
+                            <td>
+                                <cm_input [actionEnum]="actionEnum"
+                                          [label]="'note'"
+                                          [(model)]="item.db.note"></cm_input>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="list_file?.length == 0">
+                        <tr class="h-40">
+                            <td colspan="100" class="no-data-available">
+                                <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                          [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                    <ng-template #contentTpl>
+                                        <span transloco="no_data"></span>
+                                    </ng-template>
+                                </nz-empty>
+                            </td>
+                        </tr>
+                    <tbody>
+                </table>
+            </div>
+        </mat-card>
+
+
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

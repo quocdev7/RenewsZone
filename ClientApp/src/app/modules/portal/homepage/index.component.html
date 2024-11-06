@@ -1,0 +1,117 @@
+<!-- loanding -->
+<div class="flex flex-col flex-auto min-w-0 " >
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+        <!--px-6 sm:px-8-->
+        <div class="w-full mx-auto flex flex-col bg-white">
+            <!-- This is an example component -->
+             
+            
+            <div class="flex flex-col w-full  mx-auto" data-aos="fade-right" data-aos-once="true">
+
+                <!-- Banner web -->
+                <div class="flex flex-col flex-auto w-full min-w-0 max-w-screen-xl mx-auto pl-20 pr-20">
+                    <swiper [loop]="true" [autoHeight]="true" [allowTouchMove]="false"
+                        [autoplay]="{ delay: 10000, disableOnInteraction: false }" [pagination]="{ clickable: true }" [navigation]="true">
+                        <ng-template class="h-96" data-swiper-autoplay="6000" swiperSlide *ngFor="let item of lst_banner">
+                            <div class="relative cursor-pointer">
+                                <a *ngIf="activeLang=='vi'" href="{{item.db.link}}" target="_blank"><img class="h-full w-full " src="{{item.db.image}}"></a>
+                                <a *ngIf="activeLang!='vi'" href="{{item.db.link}}" target="_blank"><img class="h-3/5 w-full " src="{{item.db.image_en}}"></a>
+                            </div>
+                        </ng-template>
+                    </swiper>
+                 </div>
+                <!-- Banner mobile -->
+                <swiper [slidesPerView]="'1'" [navigation]="true" [autoplay]="{delay: 10000}" [pagination]="{
+                    clickable: true
+
+                }" class="SwiperMobileBanner" *ngIf="isScreenSmall && lst_banner.length>0">
+                    <ng-template swiperSlide *ngFor="let item of lst_banner">
+                        <div class="flex-none   mx-auto">
+                            <div class="flex flex-col">
+                                <div class="relative  cursor-pointer">
+                                    <a *ngIf="activeLang=='vi'" href="{{item.db.link}}" target="_blank"><img class="h-auto w-full " src="{{item.db.image_mobile}}"></a>
+                                    <a *ngIf="activeLang!='vi'" href="{{item.db.link}}" target="_blank"><img class="h-auto w-full " src="{{item.db.image_mobile_en}}"></a>
+
+
+                                    <!--<div class="absolute object-cover w-full bottom-0" style="background:#161F37;">
+                        <span class="text-xl p-1 font-semibold tracking-tight text-white">{{item.name}}</span>
+                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </swiper>
+            </div>
+            <div class="flex flex-col flex-auto w-full min-w-0 max-w-screen-xl mx-auto pl-20 pr-20">
+                <div class="relative flex-0 sm:px-16 overflow-hidden xelex-font-family rounded-2xl shadow my-10 border-2">
+                    <div class="z-10 relative flex flex-col items-center mt-20">
+                        <h2 class="font-bold text-4xl" transloco="portal.dinh_gia_may_cu_ban_dang_dung"></h2>
+                    </div>
+                    <div class="z-10 relative flex flex-col items-center mb-20">
+                        <div class="flex items-center w-full">
+                            <div class="flex items-center relative w-full px-40">
+                                <input type="text"
+                                    class="w-full rounded border-2 bg-gray-50 text-gray-900 text-lg focus:ring-red-500 block pl-6 p-2.5  dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500"
+                                    placeholder="Nhập tên sản phẩm bạn đang dùng..." required=""/>
+                                    <button class="w-10 h-10 -ml-14"
+                                        mat-icon-button
+                                        >
+                                    <!-- Tìm kiếm -->
+                                    <mat-icon class="absolute">search</mat-icon>
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- hot-products.component.html -->
+                <div class="w-full py-8 bg-gray-100">
+                    <div class="container mx-auto px-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-semibold text-gray-800"><strong>Hot</strong> Products</h3>
+                            <div class="flex space-x-2">
+                            <a id="prev_hot" class="cursor-pointer">&lt;</a>
+                            <a id="next_hot" class="cursor-pointer">&gt;</a>
+                            </div>
+                        </div>
+                
+                        <ul class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <li *ngFor="let product of products;  index as i;" class="bg-white shadow-md rounded-lg p-4">
+                            <div class="relative">
+                                <span *ngIf="product.offer" class="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold py-1 px-2 rounded">
+                                {{ product.offer }}
+                                </span>
+                                <img class="w-full h-48 object-cover rounded" [src]="product.image" [alt]="product.name" />
+                            </div>
+                            <div class="mt-4 text-center">
+                                <p class="font-semibold text-gray-700">{{ product.name }}</p>
+                                <p class="text-lg text-green-600 font-bold mt-2">${{ product.price.toFixed(2) }}</p>
+                                <div class="flex justify-center space-x-2 mt-4">
+                                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Add To Cart</button>
+                                <button class="text-gray-500 hover:text-blue-500"><i class="fa fa-exchange"></i></button>
+                                <button class="text-gray-500 hover:text-red-500"><i class="fa fa-heart-o"></i></button>
+                                </div>
+                            </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+  
+            
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    .mat-standard-chip {
+        cursor: pointer !important;
+    }
+</style>

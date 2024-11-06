@@ -1,0 +1,358 @@
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 " >
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+        <div class="w-full mx-auto flex flex-col bg-white">
+    
+   
+
+            <div class="flex flex-col w-full">
+        
+                <div class="flex flex-col w-full bg-bka" data-aos="fade-right" data-aos-once="true">
+        
+                    <h1 class="text-4xl text-white mx-auto mt-4 mb-4" transcolo="NAV.su_kien"></h1>
+                    <div class="flex flex-col max-w-screen-xl  md:pl-20 md:pr-20 mx-auto w-full" *ngIf="!isScreenSmall && lst_events.length>0" data-aos="fade-right" data-aos-once="true">
+                        <swiper [slidesPerView]="'3'"
+                                [spaceBetween]="50"
+                                [pagination]="{
+                                    clickable: true
+                                    }"
+                                class="mySwiper1">
+                            <ng-template swiperSlide *ngFor="let item of lst_events" >
+                                <div class="flex-none bg-card shadow rounded-lg mx-auto" (click)="gotoNewsEvenPage(item.db.id)">
+                                    <div class="flex flex-col p-4">
+                                        <!-- Course title & description -->
+                                        <img class="h-48 object-cover"
+                                             src="{{item.db.logo}}">
+                                        <div *ngIf="activeLang=='vi'" class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.db.title}}</div>
+                                        <div *ngIf="activeLang=='en'"class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.title_en}}</div>
+                                        <div class="text-secondary text-1x1">
+                                            <div *ngIf="activeLang=='vi'" style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                                <span>
+                                                    <mat-icon class="bka-text" style="vertical-align:middle">room</mat-icon>
+                                                </span> {{item.db.location}}
+                                            </div>
+                                            <div *ngIf="activeLang=='en'"style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                                <span>
+                                                    <mat-icon class="bka-text" style="vertical-align:middle">room</mat-icon>
+                                                </span> {{item.db.location_en}}
+                                            </div>
+                                        </div>
+                                        <div class="text-secondar text-1x1 text-base font-bold">
+                                            <p>
+                                                <span>
+                                                    <mat-icon class="bka-text" style="vertical-align:middle">access_time</mat-icon>
+                                                </span>
+                                                <span style="vertical-align: middle">
+                                                    {{item.db.time_start |  date: 'dd/MM/yyyy HH:mm'}} - {{item.db.time_end |  date: 'dd/MM/yyyy HH:mm'}}
+                                                </span>
+        
+                                            </p>
+                                        </div>
+                                        <div class="flex flex-row md:space-x-4 mt-4" style="height: 40px !important">
+                                            <div class="flex-1" align="left">
+                                                <div *ngIf="item.cho_phep_dang_ky==1">
+                                                    <button style="background:#273a88" mat-raised-button (click)="gotoNewsEvenPage(item.db.id)">
+                                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1" align="right">
+                                                <div mat-stroked-button class="mt-4">
+                                                    <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 4" transloco="system.sap_toi"></span>
+                                                    <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                                                    <span style="color:forestgreen;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 3" transloco="system.ket_thuc"></span>
+                                                    <span style="color:red;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 2" transloco="system.cancel"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                </div>
+                            </ng-template>
+                        </swiper>
+                    </div>
+                    <div class="flex flex-col max-w-screen-xl mx-auto  pl-3 pr-3  w-full" *ngIf="isScreenSmall && lst_events.length>0" data-aos="fade-right" data-aos-once="true">
+                        <swiper *ngIf="lst_events.length>0 && isScreenSmall"
+                                [slidesPerView]="'1'"
+                                [spaceBetween]="30"
+                                [pagination]="{
+                              clickable: true
+                            }"
+                                class="mySwiperMobileBlue">
+                            <ng-template swiperSlide *ngFor="let item of lst_events">
+                                <div class="flex-none rounded overflow-hidden bg-white shadow-lg mx-auto w-full" (click)="gotoNewsEvenPage(item.db.id)">
+                                    <div class="flex flex-col p-4">
+                                        <!-- Course title & description -->
+                                        <img class="object-cover" style="height: 181px"
+                                             src="{{item.db.logo}}">
+                                        <div *ngIf="activeLang=='vi'"class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.db.titl}}</div>
+                                        <div *ngIf="activeLang=='en'"class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.title_en}}</div>
+                                        <div class="text-secondary text-1x1">
+                                            <div *ngIf="activeLang=='vi'" style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                                <span>
+                                                    <mat-icon class="bka-text" style="color:blue;vertical-align:middle">room</mat-icon>
+                                                </span> {{item.db.location}}
+                                            </div>
+                                            <div *ngIf="activeLang=='en'" style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                                <span>
+                                                    <mat-icon class="bka-text" style="color:blue;vertical-align:middle">room</mat-icon>
+                                                </span> {{item.location_en}}
+                                            </div>
+                                        </div>
+                                        <div class="text-secondary text-1x1 text-base font-bold">
+                                            <p>
+                                                <span>
+                                                    <mat-icon class="bka-text" style="color:blue;vertical-align:middle">access_time</mat-icon>
+                                                </span>
+        
+                                                <span style="vertical-align: middle">
+                                                    {{item.db.time_start |  date: 'dd/MM/yyyy HH:mm'}} - {{item.db.time_end |  date: 'dd/MM/yyyy HH:mm'}}
+                                                </span>
+        
+                                            </p>
+                                        </div>
+                                        <div class="flex flex-row md:space-x-4 " style="height: 40px !important">
+                                            <div class="flex-1" align="left">
+                                                <div *ngIf="item.cho_phep_dang_ky==1">
+                                                    <button style="background:#273a88" mat-raised-button (click)="gotoNewsEvenPage(item.db.id)">
+                                                        <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1" align="right">
+                                              
+                                                <div mat-stroked-button (click)="gotoNewsEvenPage(item.db.id)" class="mt-4">
+                                                    <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 4" transloco="system.sap_toi"></span>
+                                                    <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                                                    <span style="color:forestgreen;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 3" transloco="system.ket_thuc"></span>
+                                                    <span style="color:red;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 2" transloco="system.cancel"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                </div>
+                            </ng-template>
+                        </swiper>
+                  
+        
+                    </div>
+                </div>
+                <!-- website -->
+                <div *ngIf="!isScreenSmall" class="flex flex-col w-full max-w-screen-xl  mb-4 pl-3 pr-3 md:pl-20 md:pr-20    mx-auto">
+                    <div class="w-full mt-4 max-w-screen-xl mx-auto mb-4">
+                        <!-- <mat-form-field class="w-full">
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input id="username" placeholder="Tìm kiếm"
+                                   matInput>
+                        </mat-form-field> -->
+                    </div>
+        
+        
+        
+        
+                    <h1 class="text-2xl text-blue-900" transcolo="NAV.danh_sach_su_kien"></h1>
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3     gap-6 w-full  mx-auto" *ngIf="lst_tat_ca.length > 0">
+                        <div class="flex flex-col bg-card shadow rounded-lg  overflow-hidden" *ngFor="let item of lst_tat_ca" (click)="gotoNewsEvenPage(item.db.id)">
+        
+                            <div class="flex flex-col p-4">
+        
+                                <!-- Course title & description -->
+        
+                                <img class="h-48 object-cover"
+                                     src="{{item.db.logo}}">
+                                <div *ngIf="activeLang=='vi'" class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.db.title}}</div>
+                                <div *ngIf="activeLang=='en'" class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.title_en}}</div>
+        
+                                <div class="text-secondary">
+        
+        
+                                    <div *ngIf="activeLang=='vi'" style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                        <span>
+                                            <mat-icon class="bka-text" style="color:blue;vertical-align:middle">room</mat-icon>
+                                        </span> {{item.db.location}}
+                                    </div>
+                                    <div *ngIf="activeLang=='en'" style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                        <span>
+                                            <mat-icon class="bka-text" style="color:blue;vertical-align:middle">room</mat-icon>
+                                        </span> {{item.location_en}}
+                                    </div>
+                                </div>
+                                <div class="text-secondary">
+                                    <p>
+                                        <span>
+                                            <mat-icon class="bka-text" style="color:blue;vertical-align:middle">access_time</mat-icon>
+                                        </span>
+        
+                                        <span style="font-weight: bold; font-size: 12px; vertical-align: middle">
+                                            {{item.db.time_start |  date: 'dd/MM/yyyy HH:mm'}} - {{item.db.time_end |  date: 'dd/MM/yyyy HH:mm'}}
+                                        </span>
+        
+                                    </p>
+                                </div>
+                                <div class="flex flex-row md:space-x-4 mt-4">
+                                    <div class="flex-1" align="left">
+                                        <div *ngIf="item.cho_phep_dang_ky==1">
+                                            <button style="background:#273a88" mat-raised-button (click)="gotoNewsEvenPage(item.db.id)">
+                                                <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1" align="right">
+                                        <div mat-stroked-button (click)="gotoNewsEvenPage(item.db.id)" class="mt-4">
+                                            <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 4" transloco="system.sap_toi"></span>
+                                            <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                                            <span style="color:forestgreen;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 3" transloco="system.ket_thuc"></span>
+                                            <span style="color:red;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 2" transloco="system.cancel"></span>
+                                        </div>
+                                    </div>
+        
+        
+                                </div>
+                            </div>
+        
+                        </div>
+        
+        
+                    </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                    <!-- Header -->
+                    <!--(click)="gotoTypeNewsPage(item1.id)"-->
+                    <!--[routerLink]="['/portal-news/'+id_group_news]"-->
+        
+        
+        
+        
+                </div>
+                <!-- mobile -->
+                <div  *ngIf="isScreenSmall" class="flex flex-col w-full max-w-screen-xl  mb-4 pl-3 pr-3 md:pl-20 md:pr-20    mx-auto">
+                    <div class="w-full mt-4 max-w-screen-xl mx-auto mb-4">
+                        <!-- <mat-form-field class="w-full">
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input id="username" placeholder="Tìm kiếm"
+                                   matInput>
+                        </mat-form-field> -->
+                    </div>
+        
+        
+        
+        
+                    <h1 class="text-2xl text-blue-900" transcolo="NAV.danh_sach_su_kien"></h1>
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3     gap-6 w-full  mx-auto" *ngIf="lst_tat_ca.length > 0">
+                        <div class="flex flex-col bg-card shadow rounded-lg  overflow-hidden" *ngFor="let item of lst_tat_ca" (click)="gotoNewsEvenPage(item.db.id)">
+        
+                            <div class="flex flex-col p-4">
+        
+                                <!-- Course title & description -->
+        
+                                <img class="h-48 object-cover"
+                                     src="{{item.db.logo}}">
+                                <div *ngIf="activeLang=='vi'" class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.db.title}}</div>
+                                <div *ngIf="activeLang=='en'" class="text-lg font-bold text-blue-900 bka-text line-clamp-2 m-1" style="height:50px !important">{{item.title_en}}</div>
+        
+                                <div class="text-secondary">
+        
+        
+                                    <div *ngIf="activeLang=='vi'" style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                        <span>
+                                            <mat-icon class="bka-text" style="color:blue;vertical-align:middle">room</mat-icon>
+                                        </span> {{item.db.location}}
+                                    </div>
+                                    <div *ngIf="activeLang=='en'" style="height:43px !important" class="line-clamp-2 text-base font-bold">
+                                        <span>
+                                            <mat-icon class="bka-text" style="color:blue;vertical-align:middle">room</mat-icon>
+                                        </span> {{item.location_en}}
+                                    </div>
+                                </div>
+                                <div class="text-secondary">
+                                    <p>
+                                        <span>
+                                            <mat-icon class="bka-text" style="color:blue;vertical-align:middle">access_time</mat-icon>
+                                        </span>
+        
+                                        <span style="font-weight: bold; font-size: 12px; vertical-align: middle">
+                                            {{item.db.time_start |  date: 'dd/MM/yyyy HH:mm'}} - {{item.db.time_end |  date: 'dd/MM/yyyy HH:mm'}}
+                                        </span>
+        
+                                    </p>
+                                </div>
+                                <div class="flex flex-row md:space-x-4 mt-4">
+                                    <div class="flex-1" align="left">
+                                        <div *ngIf="item.cho_phep_dang_ky==1">
+                                            <button style="background:#273a88" mat-raised-button (click)="gotoNewsEvenPage(item.db.id)">
+                                                <span style="color:white;font-weight:bold;font-size:16px;" transloco="system.dangky"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1" align="right">
+                                        <div mat-stroked-button (click)="gotoNewsEvenPage(item.db.id)" class="mt-4">
+                                            <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 4" transloco="system.sap_toi"></span>
+                                            <span style="color:cornflowerblue;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                                            <span style="color:forestgreen;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 3" transloco="system.ket_thuc"></span>
+                                            <span style="color:red;font-weight:bold;font-size:16px;" *ngIf="item.trang_thai == 2" transloco="system.cancel"></span>
+                                        </div>
+                                    </div>
+        
+        
+                                </div>
+                            </div>
+        
+                        </div>
+        
+        
+                    </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                    <!-- Header -->
+                    <!--(click)="gotoTypeNewsPage(item1.id)"-->
+                    <!--[routerLink]="['/portal-news/'+id_group_news]"-->
+        
+        
+        
+        
+                </div>
+        
+        
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .mat-standard-chip {
+        cursor: pointer !important;
+    }
+</style>

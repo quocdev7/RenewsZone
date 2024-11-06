@@ -1,0 +1,177 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="flex flex-col flex-auto min-w-0  w-full max-w-screen-xl mx-auto">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_approval_user"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <!--<div class="w-full max-w-sm" style="min-width:500px">
+                    <div class="flex items-center border-b border-teal-500 py-2">
+                        <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="file" (change)="onFileSelected($event)" #fileUpLoad>
+
+                        <button class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-base py-1 px-2 rounded" type="button" (click)="dowloadFileMau()">
+                            Mẫu Import
+                        </button>
+                        <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-500 border-teal-500 hover:border-teal-700 text-base border-4 text-white py-1 px-2 rounded" type="button" (click)="onSubmitFile()">
+                            Upload
+                        </button>-->
+                <!--<button class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-base py-1 px-2 rounded" type="button" (click)="cancelFile($event)">
+                    Cancel
+                </button>-->
+                <!--</div>
+                </div>-->
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1" style="padding-right:10px">
+                        <mat-form-field class="w-full">
+                            <mat-label>
+                                {{'search' | transloco}} ({{ 'system.name_dienthoai_email' | transloco }})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                        </mat-form-field>
+                    </div>
+                    <div class="flex-1">
+                        <cm_select [label]="'status'" [listData]="list_status"
+                                   [callbackChange]="rerender.bind(this)" [(model)]="filter.status_del"></cm_select>
+                    </div>
+                </div>
+
+
+                <div class="listButtonAction" align="right">
+                    <button mat-raised-button transloco="system.search" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                            (click)="rerender()"></button>
+
+                </div>
+            </mat-card>
+
+
+            <br />
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                                <th style="width:75px"></th>
+                                <th transloco="system.no_" style="width:50px; text-align:center"></th>
+                                <th transloco="system.username" style="width:50px; text-align:center"></th>
+                                <th transloco="information"></th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+
+                                <td>
+                                    <button class="mat-button-action" mat-button [matMenuTriggerFor]="menu"
+                                            transloco="system.feature"></button>
+                                    <mat-menu #menu="matMenu">
+
+                                        <button mat-menu-item transloco="common.approval"
+                                                (click)="approval(item.db.Id)" *ngIf="item.db.status_del == 4  || item.db.status_del == 5"></button>
+
+                                        <button mat-menu-item transloco="system.khong_duyet"
+                                                (click)="cancel(item.db.Id)" *ngIf="item.db.status_del == 4"></button>
+                                    </mat-menu>
+                                </td>
+                                <td style="text-align:center">{{currentIndex+ i+1 }}</td>
+                                <td>{{ item.db.Username }}</td>
+                                <td>
+
+                                    <div class="flex-1  flex-col items-start w-full ">
+                                        <div  align="left" class="mt-2 w-full break-word pr-8">
+                                            <mat-icon class="icon-size-5 mr-3"
+                                                      [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                                            <span class="">{{item.db.email}}</span>
+                                        </div>
+                                        <div class="flex items-center mt-2  w-full ml-2">
+                                            <mat-icon class="icon-size-5 mr-3 "
+                                                      [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                            <span class="" *ngIf="item.db.phone!=null && item.db.phone!=''">{{item.db.phone}}</span>
+                                            <span class="" *ngIf="item.db.phone==null || item.db.phone==''">---</span>
+                                        </div>
+                                        <div class="flex items-center mt-2  w-full ml-2">
+                                            <mat-icon class="icon-size-5 mr-3"
+                                                      svgIcon="heroicons_solid:user"></mat-icon>
+                                            <span class="" *ngIf="item.db.status_graduate!=null && item.db.status_graduate!=''">
+                                                <span transloco="system.hinh_thuc"></span>:&nbsp;
+                                                <span class="" *ngIf="item.db.status_graduate==1" transloco="portal.student"></span>
+                                                <span class="" *ngIf="item.db.status_graduate==2" transloco="portal.alumni"></span>
+                                                <span class="" *ngIf="item.db.status_graduate==3" transloco="portal.teacher"></span>
+                                                <span class="" *ngIf="item.db.status_graduate==4" transloco="portal.CBCNV"></span>
+                                                <span class="" *ngIf="item.db.status_graduate==5" transloco="portal.retire"></span>
+                                            </span>
+                                            <span class="" *ngIf="item.db.status_graduate==null || item.db.status_graduate==''">---</span>
+                                        </div>
+                                        <div  align="left" class="mt-2 w-full break-word pr-8">
+                                            <mat-icon class="icon-size-5 mr-3"
+                                                      svgIcon="heroicons_solid:academic-cap"></mat-icon>
+                                            <span class="text-blue-900" *ngIf="item.khoa_name!=null && item.khoa_name!=''">{{item.khoa_name}} - Khóa {{item.db.school_year}}</span>
+
+                                            <span class="" *ngIf="item.khoa_name==null || item.khoa_name==''">---</span>
+                                        </div>
+                                        <div  align="left" class="mt-2 w-full break-word pr-8">
+                                            <mat-icon class="icon-size-5 mr-3"
+                                                      [svgIcon]="'heroicons_solid:briefcase'"></mat-icon>
+                                            <span transloco="system.chuc_danh"></span>:
+                                            <span class="" *ngIf="item.db.position!=null && item.db.position!=''">{{item.db.position}}</span>
+                                            <span class="" *ngIf="item.db.position==null || item.db.position==''">---</span>
+                                        </div>
+                                        <div  align="left" class="mt-2 w-full break-word pr-8">
+                                            <mat-icon class="icon-size-5 mr-3"
+                                                      svgIcon="mat_solid:account_balance"></mat-icon>
+                                            <span transloco="portal.donvicongtac"></span>:
+                                            <span class="" *ngIf="item.db.company!=null && item.db.company!=''">{{item.db.company}}</span>
+                                            <span class="" *ngIf="item.db.company==null || item.db.company==''">---</span>
+                                        </div>
+                                        <div  align="left" class="mt-2 w-full break-word pr-8">
+                                            <mat-icon class="icon-size-5 mr-3 "
+                                                      [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                                            <span transloco="system.dia_chi" ></span>:
+                                            <span class="" *ngIf="item.db.dia_chi!=null && item.db.dia_chi!=''">{{item.db.dia_chi}}</span>
+                                            <span class="" *ngIf="item.db.dia_chi==null || item.db.dia_chi==''">---</span>
+                                        </div>
+                                        <div class="flex items-center mt-2  w-full ml-2">
+                                            <mat-icon class="icon-size-5 mr-3"
+                                                      [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                            <span transloco="date_of_birth"></span>:
+                                            <span class="" *ngIf="item.db.date_of_birth!=null && item.db.date_of_birth!=''">{{item.db.date_of_birth |  date : 'dd/MM/yyyy'}}</span>
+                                            <span class="" *ngIf="item.db.date_of_birth==null || item.db.date_of_birth==''">---</span>
+                                        </div>
+                                    </div>
+
+
+
+                                </td>
+
+                                <td>
+                                    <img class="w-32 h-32 rounded-full mx-auto ring-4 ring-bg-card"
+                                         src={{item.db.avatar_path}}
+                                         alt="User avatar">
+
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                              [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+</div>

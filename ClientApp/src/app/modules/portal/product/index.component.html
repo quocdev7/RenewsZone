@@ -1,0 +1,222 @@
+
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 " >
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+		<div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+                <!--px-6 sm:px-8-->
+<div class="w-full mx-auto flex flex-col bg-white">
+    <!-- Product web -->
+    <div class="flex flex-col w-full pb-4" *ngIf="list_san_pham.length>0 && !isScreenSmall" data-aos="fade-right" data-aos-once="true">
+        <div class=" w-full h-16 md:px-4 bg-gray-300">
+            <h1 mat-dialog-title class="w-full min-w-0 max-w-screen-xl mx-auto pl-16 pr-16 mt-4 uppercase text-3xl" transloco="NAV.sys_san_pham"></h1>
+        </div>
+        <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto pl-16 pr-16">
+            <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-4">
+                <div class="flex flex-row items-center justify-between">
+                    <div class="flex  text-2xl  text-black font-bold uppercase" transloco="NAV.sys_may_tinh_bang"></div>
+                </div>
+            </div>
+            <swiper [slidesPerView]="'auto'"
+                    [pagination]="{clickable: true}"
+                    [autoplay]="{delay: 3000}"
+                    [spaceBetween]="30"
+                    class="mySwiperCuuSinhVien">
+                <ng-template swiperSlide *ngFor="let item of list_mtb; let i = index" >
+                    <div class="flex-none mx-auto mb-2" style="width: 300px;height: 315px;" (click)="gotoProductDetail(item.id)" >
+                        <div class="aspect-w-4 aspect-h-3 w-full flex flex-col mt-1">
+                            <img class="object-cover w-full h-full" src="{{item.hinh_anh}}" />
+                        </div>
+                        <div class="flex flex-col mt-1">
+                            <a>
+                                <div *ngIf="activeLang=='vi'" class="text-black font-bold">{{item.name}}</div>
+                                <div *ngIf="activeLang!='vi'" class="text-black font-bold">{{item.name_en}}</div>
+                            </a>
+                        </div>
+                        <div class="flex flex-col mt-1">
+                            <!-- <div class="text-yellow-500">{{item.so_tien | currency: 'VND':true}} </div> -->
+                            <a class="text-blue-600 cursor-pointer" transloco="system.xemchitiet"></a>
+                        </div>
+                    </div>
+                </ng-template>
+            </swiper>
+        </div>
+    </div>
+    <!-- Product mobile -->
+    <div class="flex flex-col w-full pb-4" *ngIf="list_san_pham.length>0 && isScreenSmall" data-aos="fade-right" data-aos-once="true">
+        <div class=" w-full h-16 md:px-4 bg-gray-300 border-b-2">
+            <h1 mat-dialog-title class="w-full min-w-0 max-w-screen-xl mx-auto px-6 mt-4 uppercase text-xl" transloco="NAV.sys_san_pham"></h1>
+        </div>
+        
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto mt-6">
+            <div class="flex flex-row items-center justify-between">
+                <div class="flex px-6 text-2xl  text-black font-bold uppercase" transloco="NAV.sys_may_tinh_bang"></div>
+            </div>
+        </div>
+        <swiper [slidesPerView]="'1'"
+                [spaceBetween]="30"
+                [pagination]="{
+                      clickable: true
+                    }"
+                class="mySwiperMobileBlue">
+            <ng-template swiperSlide *ngFor="let item of list_mtb">
+                <div class="flex-none mx-auto mb-2" (click)="gotoProductDetail(item.id)" >
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-1" style="height: auto">
+                            <div class="aspect-w-4 aspect-h-3 w-full">
+                                <img class="object-cover w-full h-full" src="{{item.hinh_anh}}" />
+                            </div>
+                            <!-- <a>
+                                <img class=" mx-auto object-contain" style="height:300px;width:300px" src="{{item.hinh_anh}}" />
+                            </a> -->
+                        </div>
+                        <div class="flex flex-col mt-3">
+                            <a>
+                                <div *ngIf="activeLang=='vi'" class="text-black font-bold">{{item.name}}</div>
+                                <div *ngIf="activeLang!='vi'" class="text-black font-bold">{{item.name_en}}</div>
+                            </a>
+                        </div>
+                        <div class="flex flex-col mt-1">
+                            <a class="text-blue-600 cursor-pointer" transloco="system.xemchitiet"></a>
+                            <!-- <div class="text-yellow-500">{{item.so_tien | currency: 'VND':true}} </div> -->
+                        </div>
+                    </div>
+            </ng-template>
+        </swiper>
+    </div>
+
+    <!-- Software web -->
+    <div class="flex flex-col w-full pb-4" *ngIf=" !isScreenSmall" data-aos="fade-right" data-aos-once="true">
+        <div class="flex flex-col flex-auto min-w-0 max-w-screen-xl w-full mx-auto pl-16 pr-16">
+            <div class="flex mb-5 text-2xl  text-black font-bold uppercase" transloco="NAV.sys_phan_mem"></div>
+            <!--Mr.Agri-->
+            <div *ngFor="let item of list_pm; let i = index">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap pr-16" *ngIf="i%2==0">
+                    <div class="flex-1 pr-4">
+                        <div class=" mb-4">
+                            <h3  *ngIf="activeLang=='vi'" class="mb-2 text-2xl">{{item.name}}</h3>
+                            <h3  *ngIf="activeLang!='vi'" class="mb-2 text-2xl">{{item.name_en}}</h3>
+                            <p class="mb-4 text-base text-gray-700">
+                                <span *ngIf="activeLang=='vi'" [innerHtml]="item.mo_ta | safeHtml"></span>
+                                <span *ngIf="activeLang!='vi'" [innerHtml]="item.mo_ta_en | safeHtml"></span>
+                            </p>
+                        </div>
+
+                        <div class="flex items-center  pr-4"  >
+                            <a class="flex items-center cursor-pointer" (click)="gotoProductDetail(item.id)">
+                                <span class="font-medium text-blue-900" transloco="system.xemchitiet"></span>
+                                <mat-icon class="ml-2 icon-size-5 text-current text-blue-900"
+                                          [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="flex-1">
+                        <div class="w-full h-auto">
+                            <img class="w-full h-72 mx-auto object-fill" src="{{item.hinh_anh}}" alt="avata">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--X-mart--> 
+            <div *ngFor="let item of list_pm; let i = index">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-10 pr-16" *ngIf="i%2!=0">
+                    <div class="flex-1">
+                        <div class="w-full h-auto">
+                            <img class="w-full h-72 mx-auto object-fill" src="{{item.hinh_anh}}" alt="avata">
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class=" mb-4">
+                            <h3 class="mb-2 text-2xl">{{item.name}}</h3>
+                            <p class="mb-4 text-base text-gray-700">
+                                <span *ngIf="activeLang=='vi'" [innerHtml]="item.mo_ta | safeHtml"></span>
+                                <span *ngIf="activeLang!='vi'" [innerHtml]="item.mo_ta_en | safeHtml"></span>
+                            </p>
+                        </div>
+                        <div class="flex items-center  pr-4"  >
+                            <a class="flex items-center cursor-pointer" (click)="gotoProductDetail(item.id)">
+                                <span class="font-medium text-blue-900" transloco="system.xemchitiet"></span>
+                                <mat-icon class="ml-2 icon-size-5 text-current text-blue-900"
+                                          [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                            </a>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Software mobile -->
+    <div class="flex flex-col w-full pb-4" *ngIf=" isScreenSmall" data-aos="fade-right" data-aos-once="true">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto">
+            <div class="flex flex-row items-center justify-between">
+                <div class="flex px-6 text-2xl  text-black font-bold uppercase" transloco="NAV.sys_phan_mem"></div>
+            </div>
+        </div>
+        <!--Mr.Agri-->
+        <div class="w-full px-6 mt-4" *ngFor="let item of list_pm; let i = index">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="i%2==0">
+                <div class="flex-1">
+                    <div class=" mb-6">
+                        <h3  *ngIf="activeLang=='vi'" class="mb-2 text-2xl">{{item.name}}</h3>
+                        <h3  *ngIf="activeLang!='vi'" class="mb-2 text-2xl">{{item.name_en}}</h3>
+                        <p class="mt-3 mb-4 text-base text-gray-700">
+                            <span *ngIf="activeLang=='vi'" [innerHtml]="item.mo_ta_mobile | safeHtml"></span>
+                            <span *ngIf="activeLang!='vi'" [innerHtml]="item.mo_ta_mobile_en | safeHtml"></span>
+                        </p>
+                    </div>
+                    <div class="flex items-center  pr-4"  >
+                        <a class="flex items-center cursor-pointer" (click)="gotoProductDetail(item.id)">
+                            <span class="font-medium text-blue-900" transloco="system.xemchitiet"></span>
+                            <mat-icon class="ml-2 icon-size-5 text-current text-blue-900"
+                                      [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                        </a>
+                    </div>
+                 
+                </div>
+                <div class="flex-1">
+                    <div class="w-full h-auto lg:block lg:w-1/2 bg-cover mt-10">
+                        <img class="w-full h-72 mx-auto object-fill" src="{{item.hinh_anh}}" alt="avata">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--X-mart--> 
+        <div class="w-full px-6 mt-4" *ngFor="let item of list_pm; let i = index">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-10" *ngIf="i%2!=0">
+                <div class="flex-1">
+                    <div class="w-full h-auto bg-gray-400 lg:block lg:w-1/2 bg-cover">
+                        <img class="w-full h-72 mx-auto object-fill" src="{{item.hinh_anh}}" alt="avatar">
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="mt-14 mb-6">
+                        <h3 class="mb-2 text-2xl">{{item.name_en}}</h3>
+                        <p class="mt-3 mb-4 text-base text-gray-700">
+                            <span *ngIf="activeLang=='vi'" [innerHtml]="item.mo_ta_mobile | safeHtml"></span>
+                            <span *ngIf="activeLang!='vi'" [innerHtml]="item.mo_ta_mobile_en | safeHtml"></span>
+                        </p>
+                    </div>
+                    <div class="flex items-center  pr-4"  >
+                        <a class="flex items-center cursor-pointer" (click)="gotoProductDetail(item.id)">
+                            <span class="font-medium text-blue-900" transloco="system.xemchitiet"></span>
+                            <mat-icon class="ml-2 icon-size-5 text-current text-blue-900"
+                                      [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+</div>
+
+
+
+
+<style>
+    .mat-standard-chip {
+        cursor: pointer !important;
+    }
+</style>

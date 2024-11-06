@@ -1,0 +1,82 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_event_participate"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [actionEnum]="actionEnum"
+                          [label]="'system.hinhthuc'"
+                          [type]="'readonly'"
+                          [(model)]="khachmoi"></cm_input>
+            </div>
+            <!--<div class="flex-1">
+                <cm_select_server_side [errorModel]="errorModel"
+                          [label]="'name'"
+                          [link]="'/sys_user_group.ctr/getListUser/'"
+                          [keyError]="'db.user_id'"
+                          [(objectChose)] ="item_chose"
+                          [callbackChange] ="bind_data_item_chose.bind(this)"
+                          [(model)]="record.db.user_id"></cm_select_server_side>
+            </div>-->
+        </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <span style="color: red" *ngFor="let item of errorModel | filter: 'key': 'list_role';index as i;">
+                    (<span *ngFor="let msg of item.Value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+
+                <br />
+
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <mat-form-field class="w-full" appearance="outline">
+                                <mat-label>
+                                    {{'system.ten_nhom' | transloco}}
+                                </mat-label>
+                                <input matInput [(ngModel)]="searchRole" />
+                            </mat-form-field>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="example-list-section" [hidden]="actionEnum==3">
+                                <mat-checkbox class="example-margin" [checked]="allComplete"
+                                              [indeterminate]="someComplete()" (change)="setAll($event.checked)">
+                                    <span transloco="all"></span>
+                                </mat-checkbox>
+                            </span>
+                            <span class="example-list-section">
+                                <ul style="list-style-type: none;">
+                                    <li class="my-1"
+                                        *ngFor="let item of list_role | filter : 'ten_nhom' : searchRole ;  index as i;">
+                                        <mat-checkbox [(ngModel)]="item.completed" (ngModelChange)="updateAllComplete()">
+                                            {{ item.ten_nhom }} - (<span transloco="system.soluongthanhvienchuamoi">
+                                            </span>: {{item.so_luong_user_con_lai}})
+                                        </mat-checkbox>
+                                    </li>
+                                </ul>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="saveNhomNguoiDung()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

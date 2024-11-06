@@ -1,0 +1,99 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_doi_tac"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [keyError]="'db.id_loai_doi_tac'" [label]="'NAV.sys_loai_doi_tac'" [listData]="list_loai_doi_tac" [(model)]="record.db.id_loai_doi_tac"></cm_select>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.name'" [keyError]="'db.name'" [(model)]="record.db.name"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.no_'" [keyError]="'db.stt'" [(model)]="record.db.stt"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.link'" [keyError]="'db.link'" [(model)]="record.db.link"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1" *ngIf="actionEnum !=3" style="padding:10px">
+                    <h1 transloco="system.content"></h1>
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.note' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                    <editor [init]="timyconfig" [(ngModel)]="record.db.note"></editor>
+                </div>
+                <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                    <h1 transloco="system.content"></h1>
+                    <span [innerHtml]="record.db.note | safeHtml"></span>
+                </div>
+            </div>
+        </mat-card>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+                <label transloco="system.image" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <div align="center">
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.image' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <div class="uploadfilecontainer" (click)="fileInput1.click()" appDragDrop (onFileDropped)="DragAndDrop_image($event)" align="center">
+                    <h3 style="margin:auto" transloco="chose_file" *ngIf="record.db.image==null"></h3>
+                    <img [src]="record.db.image" style="height:100%" *ngIf="record.db.image!=null" />
+                    <input hidden type="file" #fileInput1 (change)="chose_file_image($event)" accept="image/*">
+                </div>
+
+                <br />
+                <div style="position: relative;padding:20px" *ngIf="Progress_image!=-1">
+                    <mat-progress-bar mode="determinate" [value]="Progress_image" style="height: 2em;" color="'Warn'"></mat-progress-bar>
+                    <span style="position: absolute; top: 0.5em;" [ngStyle]="{'left': Progress_image + '%'}">{{Progress_image}}%</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum==3 ">
+            <div class="flex-1">
+                <label transloco="system.image" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <div class="uploadfilecontainer" align="center">
+                    <img [src]="record.db.image" style="height:100%" />
+                </div>
+                <br />
+            </div>
+        </div>
+        <!--<div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="padding:10px">
+                <h1 transloco="system.content"></h1>
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.note' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+                <editor [init]="timyconfig" [(ngModel)]="record.db.note"></editor>
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                <h1 transloco="system.content"></h1>
+                <span [innerHtml]="record.db.note | safeHtml"></span>
+            </div>
+        </div>-->
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

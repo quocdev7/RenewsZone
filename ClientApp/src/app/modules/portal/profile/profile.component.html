@@ -1,0 +1,1119 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!--max-w-screen-md-->
+    <div class="flex flex-col w-full  max-w-screen-md mx-auto ">
+        <div class="flex flex-row  w-full">
+            <!--left main-->
+            <div class="flex flex-col  w-full m-2 mt-5">
+
+                <div class="shadow border border-blue-500 rounded-md  flex flex-col flex-0 items-center  lg:items-start">
+                    <!-- Cover image -->
+                    <div class="relative cursor-pointer w-full ">
+
+                        <img class="h-auto w-full  object-cover cursor-pointer "
+                             src={{record.db.cover_image}}
+                             alt="Cover image">
+
+                        <div class="absolute bottom-2 right-1 ring-2 ring-blue-500 w-8 h-8 flex items-center justify-center p-2  rounded-full bg-gray-300 mx-auto">
+
+                            <div (click)="openDialogMainImage(record)" class="flex items-center">
+                                <mat-icon class="icon-size-5"
+                                          [svgIcon]="'heroicons_solid:camera'"></mat-icon>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- Avatar -->
+                    <div class="flex items-center md:mt-10 md:mb-10 cursor-pointer ng-star-inserted  dark:bg-hover">
+
+
+                        <div class="flex flex-col flex-0 space-x-1 lg:flex-row items-center max-w-5xl w-full mx-auto px-8 lg:h-18">
+
+                            <!-- Avatar -->
+                            <div class="flex flex-col   rounded-full">
+                                <div class="relative">
+                                    <img class="w-32 h-32 rounded-full ring-4 ring-bg-card"
+                                         src={{record.db.avatar_path}}
+                                         alt="User avatar">
+
+                                    <div class="absolute bottom-2 right-1 ring-2 ring-blue-500 w-8 h-8 flex items-center justify-center p-2  rounded-full bg-gray-300 mx-auto">
+
+                                        <div (click)="openDialogAvatar(record)" class="flex items-center">
+                                            <mat-icon class="icon-size-5"
+                                                      [svgIcon]="'heroicons_solid:camera'"></mat-icon>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+
+                            <!-- Details -->
+                            <div class="flex items-center justify-between mb-2">
+                                <button *ngIf="record.db.status_del==3" class="bg-yellow-800" style="height:25px;min-height:0px" mat-raised-button disabled>
+                                    <span class="text-white text-base text-white text-white">Chưa hoàn thiện hồ sơ </span>
+                                </button>
+
+
+                                <button *ngIf="record.db.status_del==4" class="bg-gray-800" style="height:25px;min-height:0px" mat-raised-button disabled>
+                                    <span class="text-white text-base text-white text-white">Chờ xét duyệt </span>
+                                </button>
+
+
+
+                                <button *ngIf="record.db.status_del==1" class="bg-green-500" style="height:25px;min-height:0px" mat-raised-button disabled>
+                                    <span class="text-slate-900 text-base text-white">Thành viên </span>
+                                </button>
+
+
+
+
+                                <button *ngIf="record.db.status_del==5" class="bg-red-500 text-white" style="height:25px;min-height:0px" mat-raised-button disabled>
+                                    <span class="text-slate-900 text-base text-white">Chưa được xác minh  </span>
+                                </button>
+
+
+
+
+                            </div>
+                            <!--<div class="justify-end">
+                <mat-icon class="icon-size-5 ml-1 cursor-pointer"
+                        [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditInfo(record)"></mat-icon>
+            </div>-->
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- User Info -->
+                    <div class="flex flex-col flex-wrap items-center lg:items-start mt-2 lg:mt-0 lg:ml-8" *ngIf="record.db.status_del==3 ">
+                        <div>
+
+                            <button (click)="openDialogCreateUserInfo(record)" class="bg-blue-900" style="height:25px;min-height:0px" mat-raised-button>
+                                <span class=" text-base text-white ">Hoàn thiện hồ sơ để trở thành thành viên</span>
+                            </button>
+                            <!--<button *ngIf="!isScreenSmall" class="ml-3 bg-blue-900 text-white cursor-pointer" mat-raised-button (click)="guiDuyetHoSo(record.db.Id)">
+                <span class="text-base">Gửi xét duyệt </span>
+            </button>
+            <mat-icon class="icon-size-5 ml-1 cursor-pointer text-yellow-500 text-white " *ngIf="isScreenSmall"
+                      [svgIcon]="'heroicons_solid:information-circle'"></mat-icon>-->
+                        </div>
+                        <div class="flex items-center" *ngIf="record.db.full_name!=null && record.db.full_name!=''">
+                            <span class="font-bold text-2xl font-bold">{{record.db.full_name}}</span>
+
+
+
+                            <mat-icon class="icon-size-5 ml-1 cursor-pointer"
+                                      [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditInfo(record)"></mat-icon>
+                        </div>
+
+                    </div>
+                    <div class="flex flex-col flex-wrap items-center lg:items-start mt-2 lg:mt-0 lg:ml-8 mb-2" *ngIf="record.db.status_del==5 ">
+                        <div class="ml-1">
+                            <span class="text-xl text-red-900">* Bạn chưa được xác minh vì lý do:</span>
+
+                            <span class="text-2xl text-base">
+                                {{record.db.ly_do}}
+                            </span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="flex flex-row flex-wrap items-center  mt-2 lg:items-start lg:mt-0 lg:ml-8 " *ngIf="record.db.status_del!=3">
+
+
+                        <div class="flex items-center" *ngIf="record.db.full_name!=null && record.db.full_name!=''">
+                            <span class="font-bold text-4xl font-bold">{{record.db.full_name}}</span>
+
+
+
+                            <mat-icon class="icon-size-5 ml-1 cursor-pointer"
+                                      [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditInfo(record)"></mat-icon>
+
+
+                        </div>
+
+
+
+                        <!--<div class="ml-1" *ngIf="record.db.status_del==1">
+
+            <button class="mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" mat-raised-button>
+                <mat-icon class="icon-size-5"
+                          [svgIcon]="'heroicons_solid:user-add'"></mat-icon>
+                <span class="ml-1 text-slate-900 text-base">Đã gởi lời mời kết bạn </span>
+            </button>
+        </div>
+        <div class="ml-1" *ngIf="record.db.status_del==1">
+
+            <button class="mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" mat-raised-button>
+                <mat-icon class="icon-size-5 "
+                          [svgIcon]="'how_to_reg'"></mat-icon>
+                <span class="ml-1 text-slate-900 text-white text-base">Chấp nhận </span>
+            </button>
+        </div>
+        <div class="ml-1" *ngIf="record.db.status_del==1">
+
+            <button class="mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" mat-raised-button>
+                <mat-icon class="icon-size-5"
+                          [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                <span class="ml-1 text-slate-900 text-base">Bạn bè </span>
+            </button>
+        </div>-->
+                    </div>
+
+                    <div class="w-full mt-1">
+                        <div class="flex flex-col md:flex-row px-8 pb-8 lg:flex-row md:space-x-4 flex-wrap  mx-auto w-full ">
+                            <!-- profile record -->
+                            <div class="flex-1  flex-col items-start w-full">
+                                <div align="left" class="flex mt-2 w-full break-word ">
+                                    <div class="flex grids items-start">
+                                        <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                  [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+                                        <div>
+                                            <span transloco="system.email"></span>:&nbsp;
+                                            <span class="" *ngIf="record.db.email!=null && record.db.email!=''">{{record.db.email}}</span>
+                                            <span class="" *ngIf="record.db.email==null || record.db.email==''">---</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div align="left" class="flex mt-2 w-full break-word ">
+                                    <div class="flex grids items-start">
+                                        <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                  [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+                                        <div>
+                                            <span transloco="system.phone"></span>:&nbsp;
+                                            <span class="" *ngIf="record.db.phone!=null && record.db.phone!=''">{{record.db.phone}}</span>
+                                            <span class="" *ngIf="record.db.phone==null || record.db.phone==''">---</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div align="left" class="flex mt-2 w-full break-word">
+                                    <div class="flex grids items-start">
+                                        <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                  svgIcon="heroicons_solid:user"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+
+                                        <span class="" *ngIf="record.db.status_graduate!=null && record.db.status_graduate!=''">
+                                            <span transloco="system.hinh_thuc"></span>:&nbsp;
+                                            <span class="" *ngIf="record.db.status_graduate==1" transloco="portal.student"></span>
+                                            <span class="" *ngIf="record.db.status_graduate==2" transloco="portal.alumni"></span>
+                                            <span class="" *ngIf="record.db.status_graduate==3" transloco="portal.teacher"></span>
+                                            <span class="" *ngIf="record.db.status_graduate==4" transloco="portal.CBCNV"></span>
+                                            <span class="" *ngIf="record.db.status_graduate==5" transloco="portal.retire"></span>
+                                        </span>
+                                        <span class="" *ngIf="record.db.status_graduate==null || record.db.status_graduate==''">
+                                            <span transloco="system.hinh_thuc"></span>:&nbsp;---
+                                        </span>
+
+                                    </div>
+                                </div>
+
+                                <div *ngIf="record.db.status_graduate==1 || record.db.status_graduate==2" align="left" class="flex mt-2 w-full break-word pr-8">
+                                    <div class="flex grids items-start">
+                                        <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                  svgIcon="heroicons_solid:academic-cap"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+                                        <div>
+
+                                            <span class="text-blue-900" *ngIf="record.khoa_name!=null && record.khoa_name!=''">Khoa:&ensp;{{record.khoa_name}}</span>
+                                            <span class="" *ngIf="record.khoa_name==null || record.khoa_name==''">Khoa:---</span> <span> - </span>
+                                            <span class="text-blue-900" *ngIf="record.db.school_year!=null && record.db.school_year!=''">Khóa:&ensp;{{record.db.school_year}}</span>
+                                            <span class="" *ngIf="record.db.school_year==null || record.db.school_year==''">Khóa:---</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex-col items-start w-full ">
+                                <div align="left" class="flex items-start mt-2 pt-1 w-full break-word ">
+                                    <div class="flex grids items-start">
+                                        <mat-icon class="icon-size-5 mr-2 text-blue-900"
+                                                  [svgIcon]="'heroicons_solid:briefcase'"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+                                        <div>
+                                            <span transloco="system.chuc_danh"></span>:&nbsp;
+                                            <span class="" *ngIf="record.db.position!=null && record.db.position!=''">{{record.db.position}}</span>
+                                            <span class="" *ngIf="record.db.position==null || record.db.position==''">---</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div align="left" class="flex  mt-2 w-full break-word ">
+                                    <div class="flex grids items-start">
+                                        <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                  svgIcon="mat_solid:account_balance"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+                                        <span transloco="portal.donvicongtac"></span>:&nbsp;
+                                        <span class="" *ngIf="record.db.company!=null && record.db.company!=''">{{record.db.company}}</span>
+                                        <span class="" *ngIf="record.db.company==null || record.db.company==''">---</span>
+                                    </div>
+                                </div>
+                                <div align="left" class="flex mt-2 w-full break-word ">
+                                    <div class="flex grids items-start">
+                                        <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                  [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+                                        <span transloco="system.dia_chi"></span>:&nbsp;
+                                        <span class="" *ngIf="record.db.dia_chi!=null && record.db.dia_chi!=''">{{record.db.dia_chi}}</span>
+                                        <span class="" *ngIf="record.db.dia_chi==null || record.db.dia_chi==''">---</span>
+                                    </div>
+                                </div>
+                                <div align="left" class="flex items-start mt-2 w-full break-word pr-8">
+                                    <div class="flex grids items-center">
+                                        <mat-icon class="icon-size-5 mr-2 pt-1 text-blue-900"
+                                                  [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                    </div>
+                                    <div class="flex-row items-start">
+                                        <span transloco="date_of_birth"></span>:&nbsp;
+                                        <span class="" *ngIf="record.db.date_of_birth!=null && record.db.date_of_birth!=''">{{record.db.date_of_birth |  date : 'dd/MM/yyyy'}}</span>
+                                        <span class="" *ngIf="record.db.date_of_birth==null || record.db.date_of_birth==''">---</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- profile record -->
+                        </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!--<div class="tab flex flex-row items-center mt-4">
+        <button class="tablinks px-2 border border-b-2 border-blue-500" (click)="openCity($event, 'ho_so')"><span transloco="system.ho_so" class="text-base font-medium"></span></button>
+        <button class="tablinks px-2 border border-b-2 border-blue-500" (click)="openCity($event, 'ban_be')"><span transloco="system.ban_be" class="text-base font-medium"></span></button>
+        <button class="tablinks px-2 border border-b-2 border-blue-500" (click)="openCity($event, 'tai_cv')"><span transloco="system.tai_cv" class="text-base font-medium"></span></button>
+    </div>
+
+    <div id="ho_so" class="tabcontent mt-4 border border-b-1 border-blue-500 w-full max-w-screen-xl mx-auto">
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+    </div>
+
+    <div id="ban_be" class="tabcontent mt-4 border border-1 border-blue-500 w-full max-w-screen-xl mx-auto">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="tai_cv" class="tabcontent mt-4 border border-1 border-blue-500 w-full max-w-screen-xl mx-auto">
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>-->
+                    <div class="flex-auto mt-4 sm:mt-6 mb-5" *ngIf="record.db.status_del==1">
+                        <div class="w-full max-w-screen-xl mx-auto">
+
+                            <!-- Tabs -->
+                            <mat-tab-group class="sm:px-2" scrollToCenter style="padding: 0px !important; margin: 0px !important"
+                                           [animationDuration]="'0'" mat-align-tabs="start">
+                                <mat-tab label="{{'system.ho_so' | transloco}}" style="padding: 0px !important; margin: 0px !important">
+
+                                    <!--học vấn-->
+                                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-6">
+                                        <div class="flex flex-row justify-between">
+                                            <div class="flex items-center mt-2">
+                                                <mat-icon *ngIf="is_show_hide_education==true" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideEducation()"></mat-icon>
+                                                <mat-icon *ngIf="is_show_hide_education==false" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideEducation()"></mat-icon>
+                                                <span class="font-bold text-lg">Học vấn</span>
+                                                <!--<mat-icon class="icon-size-5 ml-1"
+                                [svgIcon]="'heroicons_solid:academic-cap'"></mat-icon>-->
+                                            </div>
+                                            <div class="flex items-center mt-2">
+                                                <!--<mat-icon class="icon-size-5 mr-3"
+                                [svgIcon]="'heroicons_solid:plus-circle'" (click)="openDialogEducation()"></mat-icon>-->
+                                                <button class="mb-3 bg-blue-900 text-white cursor-pointer" style="padding:0px!important" mat-raised-button (click)="openDialogEducation()">
+                                                    <span class="text-base">Thêm </span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <hr class="w-full border-t border-blue-500 border-2 my-0" *ngIf="list_user_education.length >0">
+                                        <div *ngIf="is_show_hide_education==true">
+                                            <div class="flex flex-col" *ngFor="let item of list_user_education;  index as i;">
+                                                <div class="flex flex-row justify-between">
+                                                    <div class="flex flex-col items-start mt-2">
+
+                                                        <span class="font-bold text-lg">{{item.db.school}}</span>
+
+                                                        <span *ngIf="item.degree_name!=null && item.db.speciality==null" class="font-medium text-base text-blue-900">Bằng {{item.degree_name}}</span>
+
+                                                        <span *ngIf="item.db.speciality!=null && item.degree_name==null" class="font-medium text-base text-blue-900">Chuyên ngành {{item.db.speciality}}</span>
+
+                                                        <span *ngIf="item.degree_name && item.db.speciality !=null" class="font-medium text-base text-blue-900">Bằng {{item.degree_name}}, Chuyên nghành {{item.db.speciality}}</span>
+
+                                                        <span *ngIf="item.degree_name && item.db.speciality ==null"></span>
+
+                                                        <span *ngIf="item.db.from_year && item.db.to_year !=null" class="font-medium text-base">{{item.db.from_year}} - {{item.db.to_year}}</span>
+
+                                                        <span *ngIf="item.db.from_year && item.db.to_year ==null" class="font-medium text-base"></span>
+
+                                                        <span *ngIf="item.db.from_year!=null && item.db.to_year ==null" class="font-medium text-base">{{item.db.from_year}} - (Chưa bổ sung)</span>
+
+                                                        <span *ngIf="item.db.from_year==null && item.db.to_year !=null" class="font-medium text-base">(Chưa bổ sung) - {{item.db.to_year}}</span>
+
+                                                    </div>
+
+                                                    <div class="flex items-center mt-2">
+
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditEducation(item,i)"></mat-icon>
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:trash'" (click)="deleteEducation(item.db.id)"></mat-icon>
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <hr class="w-full border-t border-slate-900 border-2 my-2">
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <!--thành tựu-->
+                                    <div class="flex flex-col shadow border border-blue-500 rounded-md  px-8 mt-4">
+                                        <div class="flex flex-row justify-between">
+                                            <div class="flex items-center mt-2">
+                                                <mat-icon *ngIf="is_show_hide_success==true" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideSuccess()"></mat-icon>
+                                                <mat-icon *ngIf="is_show_hide_success==false" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideSuccess()"></mat-icon>
+                                                <span class="font-bold text-lg">Thành tựu</span>
+                                                <!--<mat-icon class="icon-size-5 ml-1"
+                                [svgIcon]="'heroicons_solid:users'"></mat-icon>-->
+                                            </div>
+                                            <div class="flex items-center mt-2">
+                                                <!--<mat-icon class="icon-size-5 mr-3"
+                                [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+                                                <button class="mb-3 bg-blue-900 text-white cursor-pointer" style="padding:0px!important" mat-raised-button (click)="openDialogSuccess()">
+                                                    <span class="text-base">Thêm </span>
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+                                        <hr class="w-full border-t border-blue-500 border-2 my-0" *ngIf="list_user_success.length >0">
+                                        <div *ngIf="is_show_hide_success==true">
+                                            <div class="flex flex-col" *ngFor="let item of list_user_success;  index as i;">
+                                                <div class="flex flex-row justify-between">
+                                                    <div class="flex flex-col w-4/5 items-start mt-2">
+
+                                                        <span class="font-bold text-lg" *ngIf="item.db.description!=null && item.db.description!=''">{{item.db.description}}</span>
+                                                        <span class="font-bold text-lg" *ngIf="item.db.description==null || item.db.description==''"></span>
+
+                                                        <span class="font-medium text-base text-blue-900">{{item.db.field_name}}</span>
+
+                                                        <a *ngIf="item.db.url!= null && item.db.url!=''" class="mt-2 mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" href="{{item.db.url}}" target="_blank" mat-raised-button>
+                                                            <span class="text-base">Hiển thị giải thưởng </span>
+                                                        </a>
+
+
+                                                    </div>
+                                                    <!--<div class="flex items-center w-1/5 mt-2">
+                                        <img class="w-32 h-24 rounded-md border border-blue-500 cursor-pointer" (click)="openDialogDetailSuccess(item,i)"
+                                             src={{item.db.image}}
+                                             alt="Image success">
+
+                                    </div>-->
+                                                    <div class="flex items-center justify-end w-1/5 mt-2">
+                                                      
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditSuccess(item,i)"></mat-icon>
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:trash'" (click)="deleteSuccess(item.db.id)"></mat-icon>
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <hr class="w-full border-t border-slate-900 border-2 my-2">
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                    <!--bằng cấp chứng chỉ-->
+                                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4">
+                                        <div class="flex flex-row justify-between">
+                                            <div class="flex items-center mt-2">
+                                                <mat-icon *ngIf="is_show_hide_certificate==true" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideCertificate()"></mat-icon>
+                                                <mat-icon *ngIf="is_show_hide_certificate==false" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideCertificate()"></mat-icon>
+                                                <span class="font-bold text-lg">Bằng cấp & chứng chỉ</span>
+                                                <!--<mat-icon class="icon-size-5 ml-1"
+                                [svgIcon]="'heroicons_solid:lock-closed'"></mat-icon>-->
+                                            </div>
+                                            <div class="flex items-center mt-2">
+                                                <!--<mat-icon class="icon-size-5 mr-3"
+                                [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+                                                <button class="mb-3 bg-blue-900 text-white cursor-pointer" mat-raised-button style="padding:0px!important" (click)="openDialogCertificate()">
+                                                    <span class="text-base">Thêm </span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <hr class="w-full border-t border-blue-500 border-2 my-0" *ngIf="list_user_certificate.length >0">
+
+                                        <div *ngIf="is_show_hide_certificate==true">
+                                            <div class="flex flex-col" *ngFor="let item of list_user_certificate;  index as i;">
+                                                <div class="flex flex-row justify-between">
+                                                    <div class="flex w-4/5  flex-col items-start mt-2">
+
+                                                        <span class="font-bold text-lg"><!--Advance Your Skill in HTML-->{{item.db.description}}</span>
+
+
+                                                        <span class="font-medium text-base text-blue-900"><!--LinkEd Learning--> {{item.db.issued_by}}</span>
+
+                                                        <span *ngIf="item.db.hinh_thuc==1" class="font-medium text-base">{{item.db.from_date | date: 'dd/MM/yyyy'}}<!--14/05/2021 - 14/05/2023--> - {{item.db.to_date | date: 'dd/MM/yyyy'}}</span>
+
+                                                        <a *ngIf="item.db.url!= null && item.db.url!=''" class="mt-2 mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" href="{{item.db.url}}" target="_blank" mat-raised-button>
+                                                            <span class="text-base">Hiển thị chứng chỉ </span>
+                                                        </a>
+                                                    </div>
+                                                    <!--<div class="flex w-1/5 items-center mt-2" (click)="openDialogDetailCertificate(item,i)">
+                                        <img class="w-32 h-24 rounded-md border border-blue-500 cursor-pointer"
+                                             src={{item.db.image}}
+                                             alt="User avatar">
+
+                                    </div>-->
+                                                    <div class="flex w-1/5 items-center justify-end mt-2">
+                                                    
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditCertificate(item,i)"></mat-icon>
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:trash'" (click)="deleteCertificate(item.db.id)"></mat-icon>
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <hr class="w-full border-t border-slate-900 border-2 my-2">
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!--Kinh nghiệm-->
+                                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4">
+                                        <div class="flex flex-row justify-between">
+                                            <div class="flex items-center mt-2">
+                                                <mat-icon *ngIf="is_show_hide_work_history==true" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideWorkHistory()"></mat-icon>
+                                                <mat-icon *ngIf="is_show_hide_work_history==false" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideWorkHistory()"></mat-icon>
+                                                <span class="font-bold text-lg">Kinh nghiệm</span>
+                                                <!--<mat-icon class="icon-size-5 ml-1"
+                                [svgIcon]="'heroicons_solid:globe'"></mat-icon>-->
+
+
+                                            </div>
+                                            <div class="flex items-center mt-2">
+                                                <!--<mat-icon class="icon-size-5 mr-3"
+                                [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+                                                <button class="mb-3 bg-blue-900 text-white cursor-pointer" style="padding:0px!important" mat-raised-button>
+                                                    <span class="text-base" (click)="openDialogWorkHistory()">Thêm </span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <hr class="w-full border-t border-blue-500 border-2 my-0" *ngIf="list_user_work_history.length >0">
+
+                                        <div *ngIf="is_show_hide_work_history==true">
+                                            <div class="flex flex-col" *ngFor="let item of list_user_work_history;  index as i;">
+                                                <div class="flex flex-row justify-between">
+                                                    <div class="flex flex-col items-start mt-2">
+                                                        <span class="font-bold text-lg" *ngIf="item.db.position!=null && item.db.position!=''">{{item.db.position}}</span>
+                                                        <span class="font-bold text-lg" *ngIf="item.db.position==null || item.db.position==''"></span>
+
+                                                        <span class="font-medium text-base text-blue-900">{{item.db.company}}</span>
+
+                                                        <span *NgIf="item.db.from_date !=null && item.db.to_date!=null" class="font-medium text-base">{{item.db.from_date | date: 'dd/MM/yyyy'}} - {{item.db.to_date | date: 'dd/MM/yyyy'}}</span>
+
+                                                        <span *NgIf="item.db.from_date ==null || item.db.to_date==null" class="font-medium text-base" ></span>
+                                                        <span class="font-medium leading-normal text-base" *ngIf="item.db.description!=null && item.db.description!=''" [innerHtml]="item.db.description | safeHtml">{{item.db.description}}</span>
+                                                        <span class="font-medium leading-normal text-base" *ngIf="item.db.description==null || item.db.description==''"></span>
+                                                                                                             
+                                                    </div>
+
+                                                    <div class="flex items-center mt-2">
+
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditWorkHistory(item,i)"></mat-icon>
+                                                        <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:trash'" (click)="deleteWorkHistory(item.db.id)"></mat-icon>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <hr class="w-full border-t border-slate-900 border-2 my-2">
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <!--Kỹ năng-->
+                                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4">
+                                        <div class="flex flex-row justify-between">
+                                            <div class="flex items-center mt-2">
+                                                <mat-icon *ngIf="is_show_hide_experience==true" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideExperience()"></mat-icon>
+                                                <mat-icon *ngIf="is_show_hide_experience==false" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideExperience()"></mat-icon>
+                                                <span class="font-bold text-lg">Kỹ năng</span>
+                                                <!--<mat-icon class="icon-size-5 ml-1"
+                                [svgIcon]="'heroicons_solid:users'"></mat-icon>-->
+
+                                            </div>
+                                            <div class="flex items-center mt-2">
+                                                <!--<mat-icon class="icon-size-5 mr-3"
+                                [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+                                                <button class="mb-3 bg-blue-900 text-white cursor-pointer" style="padding:0px!important" mat-raised-button>
+                                                    <span class="text-base" (click)="openDialogExperience()">Thêm </span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <hr class="w-full border-t border-blue-500 border-2 my-0" *ngIf="list_user_experience.length >0">
+
+                                        <div *ngIf="is_show_hide_experience==true">
+                                            <div class="flex flex-col" *ngFor="let item of list_user_experience;  index as i;">
+                                                <div class="flex flex-row justify-between">
+                                                    <div class="flex flex-col items-start mt-2">
+
+                                                        <span class="font-bold text-lg">{{item.db.skill}}</span>
+
+                                                        <span class="font-medium text-base leading-normal" *ngIf="item.db.description!=null && item.db.description!=''" [innerHtml]="item.db.description | safeHtml"></span>
+                                                        <span class="font-medium text-base leading-normal" *ngIf="item.db.description==null || item.db.description==''"></span>
+
+                                                    </div>
+
+                                                    <div class="flex items-center mt-2">
+                                                        <mat-icon class="icon-size-5 mr-3  cursor-pointer"
+                                                                  [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditExperience(item,i)"></mat-icon>
+                                                        <mat-icon class="icon-size-5 mr-3"
+                                                                  [svgIcon]="'heroicons_solid:trash'" (click)="deleteExperience(item.db.id)"></mat-icon>
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <hr class="w-full border-t border-slate-900 border-2 my-2">
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <!--Mạng xã hội-->
+                                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4">
+                                        <div class="flex flex-row justify-between">
+                                            <div class="flex items-center mt-2 mb-4">
+                                                <mat-icon *ngIf="is_show_hide_social==true" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-down'" (click)="showHideSocial()"></mat-icon>
+                                                <mat-icon *ngIf="is_show_hide_social==false" class="icon-size-5 mr-3 cursor-pointer" [svgIcon]="'heroicons_solid:chevron-up'" (click)="showHideSocial()"></mat-icon>
+                                                <span class="font-bold text-lg" transloco="system.ket_noi_voi_toi"></span>
+                                                <!--<mat-icon class="icon-size-5 ml-1"
+                                [svgIcon]="'heroicons_solid:users'"></mat-icon>-->
+                                            </div>
+                                            <div class="flex items-center mt-2">
+                                                <!--<mat-icon class="icon-size-5 mr-3"
+                                [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+                                                <button class="mb-3 bg-blue-900 text-white" mat-raised-button style="padding:0px!important" (click)="openDialogEditSocial(record)">
+                                                    <span class="text-base">Thêm </span>
+                                                </button>
+
+
+                                            </div>
+                                        </div>
+
+                                        <hr class="w-full border-t border-blue-500 border-2 my-0" 
+                                        *ngIf="record.db.website_link!=null && record.db.website_link!=''
+                                        ||record.db.linkedin_link!=null && record.db.linkedin_link!=''
+                                        ||record.db.facebook_link!=null && record.db.facebook_link!=''
+                                        ||record.db.youtube_link!=null && record.db.youtube_link!=''
+                                        ||record.db.instagram_link!=null && record.db.instagram_link!=''
+                                        ||record.db.twitter_link!=null && record.db.twitter_link!=''"
+                                        >
+                                     
+                                        <div class="flex flex-col"
+                                        *ngIf="record.db.website_link!=null && record.db.website_link!=''
+                                        ||record.db.linkedin_link!=null && record.db.linkedin_link!=''
+                                        ||record.db.facebook_link!=null && record.db.facebook_link!=''
+                                        ||record.db.youtube_link!=null && record.db.youtube_link!=''
+                                        ||record.db.instagram_link!=null && record.db.instagram_link!=''
+                                        ||record.db.twitter_link!=null && record.db.twitter_link!=''">
+                                            <div class="flex flex-row justify-between">
+                                                <div class="flex flex-row items-start mt-2 mb-4">
+
+                                                    <div class="flex items-center mt-2" *ngIf="record.db.website_link!=null && record.db.website_link!=''">
+
+                                                        <a class="leading-none text-ellipsis truncate " href="{{record.db.website_link}}">
+                                                            <img src="/assets/images/portal/browser.png" class="h-7 w-7 mr-2" />
+
+                                                        </a>
+                                                    </div>
+                                                    <div class="flex items-center mt-2" *ngIf="record.db.linkedin_link!=null && record.db.linkedin_link!=''">
+
+                                                        <a href="{{record.db.linkedin_link}}" class="leading-none text-ellipsis truncate ">
+                                                            <img src="/assets/images/portal/linkedin.png" class="h-7 w-7 mr-2" />
+
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="flex items-center mt-2" *ngIf="record.db.facebook_link!=null && record.db.facebook_link!=''">
+
+                                                        <a href="{{record.db.facebook_link}}" class="leading-none text-ellipsis truncate ">
+                                                            <img src="/assets/images/portal/facebook.png" class="h-7 w-7 mr-2" />
+
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="flex items-center mt-2" *ngIf="record.db.twitter_link!=null && record.db.twitter_link!=''">
+
+                                                        <a href="{{record.db.twitter_link}}" class="leading-none text-ellipsis truncate ">
+                                                            <img src="/assets/images/portal/twitter.png" class="h-7 w-7 mr-2" />
+
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="flex items-center mt-2" *ngIf="record.db.youtube_link!=null && record.db.youtube_link!=''">
+
+                                                        <a href="{{record.db.youtube_link}}" class="leading-none text-ellipsis truncate ">
+                                                            <img src="/assets/images/portal/youtube.png" class="h-7 w-7 mr-2" />
+
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="flex items-center mt-2" *ngIf="record.db.instagram_link!=null && record.db.instagram_link!=''">
+
+                                                        <a href="{{record.db.instagram_link}}" class="leading-none text-ellipsis truncate ">
+                                                            <img src="/assets/images/portal/instagram.png" class="h-7 w-7 mr-2" />
+
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="flex items-center mt-2">
+                                                    <mat-icon class="icon-size-5 mr-3"
+                                                              [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditSocial(record)"></mat-icon>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </mat-tab>
+
+                                <!-- <mat-tab label="{{'system.ung_tuyen' | transloco}}">
+
+
+                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4">
+                        <div class="flex flex-row justify-between">
+                            <div class="flex items-center mt-2">
+                                <span class="font-bold text-lg">Tải CV</span>
+                            </div>
+
+                        </div>
+
+                        <hr class="w-full border-t border-blue-500 border-2 my-2">
+
+                        <div class="flex flex-col">
+
+                            <div class="flex flex-col justify-between">
+                                <div class="flex flex-row items-start mt-2">
+                                    <button class="mb-3 bg-blue-900 text-white" style="height:25px;min-height:0px" mat-raised-button (click)="fileInput.click()">
+                                        <mat-icon class="icon-size-5 mr-3"
+                                                  [svgIcon]="'heroicons_solid:upload'"></mat-icon>
+                                        <span class="text-base">Tải CV </span>
+                                    </button>
+                                    <input hidden (change)="onFileSelectedNew($event)" #fileInput type="file">
+
+                                    <div class="ml-2">
+                                        <span class="font-medium text-base ">
+                                            Upload hồ sơ: hỗ trợ định dạng *.jpg, *.png, *.pdf và không quá 3MB
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="flex flex-row  items-start mt-2 mb-2">
+
+                                    <div class="flex items-center mt-2">
+                                        <a class="font-medium text-base" *ngIf="record.file !=null" href="{{record.file.db.file_path}}">
+                                            {{record.file.db.file_name}}
+
+                                        </a>
+                                        <mat-icon class="icon-size-5 mr-3" *ngIf="record.file !=null"
+                                                  [svgIcon]="'heroicons_solid:trash'" (click)="cancelFile(record.file.db.id)"></mat-icon>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4">
+
+                        <div class="flex flex-row justify-between">
+                            <div class="flex items-center mt-2">
+
+                                <span class="font-bold text-lg">Thông tin cần thiết cho ứng tuyển</span>
+
+
+                            </div>
+                            <div class="flex items-center mt-2">
+
+                                <button class="mb-3 bg-blue-900 text-white cursor-pointer" style="padding:0px!important" mat-raised-button>
+                                    <span class="text-base" (click)="openUngTuyen()">Thêm </span>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <hr class="w-full border-t border-blue-500 border-2 my-2">
+
+                        <div class="flex flex-row justify-between" *ngIf="record.user_ung_tuyen != null">
+                            <div class="flex flex-col items-start mt-2 mb-2 w-4/5">
+
+                                <div class="flex flex-row items-center">
+                                    <span class="font-bold text-base" transloco="system.muc_luong_mong_muon"></span> <span>: {{record.user_ung_tuyen.db.muc_luong | number}} {{record.user_ung_tuyen.ten_tien_te}}</span>
+                                </div>
+                                <div class="flex flex-row items-center">
+                                    <span class="font-bold text-base" transloco="system.hinh_thuc_lam_viec"></span> <span>: {{record.user_ung_tuyen.db.hinh_thuc}}</span>
+                                </div>
+                                <div class="flex flex-row items-center">
+                                    <span class="font-bold text-base" transloco="system.vi_tri_cong_viec"></span> <span>: {{record.user_ung_tuyen.db.vi_tri}}</span>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="flex items-center justify-end w-1/5 mt-2">
+                                <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                          [svgIcon]="'heroicons_solid:pencil'" (click)="openDialogEditUngTuyen(record.user_ung_tuyen,i)"></mat-icon>
+                                <mat-icon class="icon-size-5 mr-3 cursor-pointer"
+                                          [svgIcon]="'heroicons_solid:trash'" (click)="deleteUngTuyen(record.user_ung_tuyen.db.id)"></mat-icon>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </mat-tab> -->
+                                <!-- <mat-tab label="{{'system.quyen_rieng_tu' | transloco}}">
+
+
+                                    <div class="flex flex-col shadow border border-blue-500 rounded-md px-8 mt-4">
+                                        <div class="flex flex-row justify-between">
+                                            <div class="flex items-center mt-2">
+                                                <span class="font-bold text-lg">Thiết lập quyền riêng tư</span>
+                                            </div>
+
+                                            <div class="flex items-center mt-2">
+                                                <button class="mb-3 bg-blue-900 text-white" *ngIf="loading==false" mat-raised-button style="padding:0px!important" (click)="save_quyen_rieng_tu()">
+                                                    <span class="text-base">Lưu </span>
+                                                </button>
+                                                <button class="mb-3 bg-gray-300 text-slate-900" *ngIf="loading==true" [disabled]="true" mat-raised-button style="padding:0px!important" (click)="save_quyen_rieng_tu()">
+                                                    <span class="text-base">Lưu </span>
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div>
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.gioi_tinh'"
+                                                               [listData]="lst_quyen"
+                                                               [callbackChange]="change_quyen_rieng_tu(is_check)"
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_gioi_tinh"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'date_of_birth'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_ngay_sinh"></cm_select>
+                                                </div>
+
+                                            </div>
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.email'"
+                                                               [listData]="lst_quyen"
+                                                            
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_email"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.phone'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_phone"></cm_select>
+                                                </div>
+
+                                            </div>
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'portal.status_graduate'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_trang_thai"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.dia_chi'"
+                                                               [listData]="lst_quyen"
+                                                               
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_dia_chi"></cm_select>
+                                                </div>
+
+                                            </div>
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'NAV.sys_khoa'"
+                                                               [listData]="lst_quyen"
+                                                               
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_khoa"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'portal.school_year'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_nien_khoa"></cm_select>
+                                                </div>
+
+                                            </div>
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.chuc_danh'"
+                                                               [listData]="lst_quyen"
+                                                               
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_chuc_danh"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'portal.don_vi_cong_tac'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_cong_ty"></cm_select>
+                                                </div>
+
+                                            </div>
+
+                                            <hr class="w-full border-t border-blue-500 border-2 my-2">
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.hoc_van'"
+                                                               [listData]="lst_quyen"
+                                                               
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_hoc_van"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.bang_cap_chung_chi'"
+                                                               [listData]="lst_quyen"
+                                                           
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_bang_cap"></cm_select>
+                                                </div>
+
+                                            </div>
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.thanh_tuu'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_thanh_tuu"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.kinh_nghiem'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_kinh_nghiem"></cm_select>
+                                                </div>
+
+                                            </div>
+                                            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.ky_nang'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_ky_nang"></cm_select>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <cm_select [label]="'system.mang_xa_hoi'"
+                                                               [listData]="lst_quyen"
+                                                              
+                                                               [(model)]="record.cau_hinh_quyen_rieng_tu.db.setting_mang_xa_hoi"></cm_select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-row justify-end">
+                                            <div class="flex items-center mt-2">
+
+                                            </div>
+                                            <div class="flex items-center mt-2">
+                                                <button class="mb-3 bg-blue-900 text-white" *ngIf="loading==false" mat-raised-button style="padding:0px!important" (click)="save_quyen_rieng_tu()">
+                                                    <span class="text-base">Lưu </span>
+                                                </button>
+                                                <button class="mb-3 bg-gray-300 text-slate-900" *ngIf="loading==true" [disabled]="true" mat-raised-button style="padding:0px!important" (click)="save_quyen_rieng_tu()">
+                                                    <span class="text-base">Lưu </span>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </mat-tab> -->
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                    <!--rigth main-->
+                    <!--<div class="flex flex-col shadow border border-blue-500 rounded-md w-1/5 m-2 items-center h-1/2">
+
+    <div class="font-bold text-lg">Đề xuất kết bạn</div>
+    <hr class="w-full border-t border-blue-500 border-2 my-2">
+
+
+    <div class="flex-auto overflow-y-auto">
+        <div class=" flex items-center py-1 px-2 cursor-pointer border-b hover:bg-gray-100 dark:hover:bg-hover ng-star-inserted" tabindex="0">
+            <div class="relative flex flex-0 items-center justify-center w-10 h-10">-->
+                    <!---->
+                    <!--<img alt="Contact avatar" class="w-full h-full rounded-full object-cover ng-star-inserted"
+     src="assets/images/avatars/female-04.jpg">-->
+                    <!----><!----><!---->
+                    <!--</div>
+        <div class="min-w-0 ml-4">
+            <div class="font-medium leading-5 truncate text-xs">{{record.db.FirstName}} {{record.db.LastName}}</div>
+            <div class="leading-5 truncate text-xs"> See you tomorrow! </div>
+            <div class="leading-5 truncate text-xs">
+                <button class="mb-3 bg-blue-900 text-white" style="height:20px;min-height:0px" mat-raised-button>
+                    <span class="text-xs">Kết bạn </span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class=" flex items-center py-1 px-2 cursor-pointer border-b hover:bg-gray-100 dark:hover:bg-hover ng-star-inserted" tabindex="0">
+        <div class="relative flex flex-0 items-center justify-center w-10 h-10">-->
+                    <!---->
+                    <!--<img alt="Contact avatar" class="w-full h-full rounded-full object-cover ng-star-inserted"
+     src="assets/images/avatars/female-04.jpg">-->
+                    <!----><!----><!---->
+                    <!--</div>
+                <div class="min-w-0 ml-4">
+                    <div class="font-medium leading-5 truncate text-xs">{{record.db.FirstName}} {{record.db.LastName}}</div>
+                    <div class="leading-5 truncate text-xs"> See you tomorrow! </div>
+                    <div class="leading-5 truncate text-xs">
+                        <button class="mb-3 bg-blue-900 text-white" style="height:20px;min-height:0px" mat-raised-button>
+                            <span class="text-xs">Kết bạn </span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>-->
+                </div>
+
+
+
+    </div>
+
+</div>
+
+<style>
+
+    .mat-tab-header {
+        padding: 0px !important
+    }
+
+    .mat-tab-body-content {
+        padding: 0px !important
+    }
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        /*  border: 1px solid #ccc;
+        background-color: #f1f1f1;*/
+    }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            /* Change background color of buttons on hover */
+            /* .tab button:hover {
+                background-color: #ddd;
+            }*/
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                border-bottom: 1px solid;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        /* border: 1px solid #ccc;
+        border-top: none;*/
+    }
+</style>

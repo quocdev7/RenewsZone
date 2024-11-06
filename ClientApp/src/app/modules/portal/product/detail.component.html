@@ -1,0 +1,286 @@
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="w-full mx-auto flex flex-col bg-white" *ngIf="loading!=true">
+        <!--san pham web-->
+        <div class="flex flex-col w-full pb-4" *ngIf="!isScreenSmall" data-aos="fade-right" data-aos-once="true">
+            <div class=" w-full h-16 md:px-4 bg-gray-300">
+                <h1 mat-dialog-title class="w-full min-w-0 max-w-screen-xl mx-auto pl-16 pr-16 mt-4 uppercase text-3xl"
+                    transloco="NAV.sys_san_pham_cua_chung_toi"></h1>
+            </div>
+            <!-- Card #59 - Expandable card -->
+            <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto pl-16 pr-16">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-10">
+                    <div class="flex-1">
+                        <div class="aspect-w-4 aspect-h-3 w-full pr-16">
+                            <img class="w-full h-full object-fill" src="{{hinh_anh}}" alt="avatar">
+                        </div>
+                        <div class="flex flex-wrap space-x-1 w-full mx-auto">
+                            <div *ngFor="let item of lst_hinh_anh">
+                                <div class="flex justify-start items-center mt-2"
+                                    (click)="changeImage(item.db.file_path)">
+                                    <img src="{{item.db.file_path}}" class="h-20 w-20 object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div *ngIf="activeLang=='vi' && san_pham.db.ten_san_pham!='null'"
+                            class="text-3xl font-bold text-black">{{san_pham.db.ten_san_pham}}</div>
+                        <div *ngIf="activeLang!='vi' && san_pham.ten_san_pham_language!='null'"
+                            class="text-3xl font-bold text-black">{{san_pham.ten_san_pham_language}}</div>
+                        <div class="text-yellow-500 text-xl" *ngIf="san_pham.db.so_tien!=0">
+                            {{san_pham.db.so_tien | currency: 'VND':true}}
+                        </div>
+                        <div class="flex items-center ">
+                            <div class=" mt-1 mb-6" style="word-break: break-word;">
+                                <span *ngIf="activeLang=='vi' && san_pham.db.mo_ta!='null'"
+                                    [innerHtml]="san_pham.db.mo_ta | safeHtml"></span>
+                                <span *ngIf="activeLang!='vi' && san_pham.mo_ta_language!='null'"
+                                    [innerHtml]="san_pham.mo_ta_language | safeHtml"></span>
+                            </div>
+                        </div>
+                        <div class="h-10 w-full rounded button-mua_hang">
+                            <a class="flex justify-center w-full mt-3" (click)="popup_mua_hang()">
+                                <span class="uppercase py-2" style="color:white;font-weight:bold;font-size:16px;"
+                                    transloco="system.dat_hang"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- tabs chi tiet san pham-->
+            <div class="flex flex-col min-w-0 max-w-screen-xl w-full pl-16 pr-16 mx-auto mt-10">
+                <div
+                    class="flex flex-col  flex-wrap bg-card shadow filter-post filter-interactive z-30  hover:cursor-pointer">
+
+                    <div class="w-full" style="overflow-x: scroll;">
+                        <ul class="flex mb-0  list-none flex-wrap flex-row"
+                            style="border-bottom: 1px solid #8F8F8F !important;">
+                            <li class="flex-1 -mb-px border-r-1 bka-border-color-event   last:mr-0 text-center">
+                                <a class="text-sm font-bold uppercase px-5 py-3   block leading-normal uppercase"
+                                    (click)="toggleTabs(1)"
+                                    [ngClass]="{'text-white bg-bka ': openTab === 1, 'text-black ': openTab !== 1}"
+                                    transloco="system.mo_ta_san_pham">
+                                </a>
+                            </li>
+                            <li class="flex-1 -mb-px  border-r-1 bka-border-color-event last:mr-0 text-center"
+                                style="border-right: 1px solid #8F8F8F !important;">
+                                <a class="text-sm font-bold uppercase px-5 py-3   block leading-normal"
+                                    (click)="toggleTabs(2)"
+                                    [ngClass]="{'text-white bg-bka ': openTab === 2, 'text-black ': openTab !== 2}"
+                                    transloco="system.thong_so_ky_thuat">
+
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6">
+                            <div class="px-4 py-5 flex-wrap ">
+                                <div class="tab-content tab-space">
+                                    <div [ngClass]="{'hidden': openTab !== 1, 'block': openTab === 1}">
+                                        <div class="w-full mt-5" style="word-break: break-word;">
+                                            <div *ngIf="activeLang=='vi'" class="whitespace-normal ">
+                                                <span [innerHtml]="san_pham.db.thong_tin_bo_sung| safeHtml"></span>
+                                            </div>
+                                            <div *ngIf="activeLang=='en'" class="whitespace-normal ">
+                                                <span
+                                                    [innerHtml]="san_pham.thong_tin_bo_sung_language | safeHtml"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div [ngClass]="{'hidden': openTab !== 2, 'block': openTab === 2}">
+                                        <div class="w-full mt-5" style="word-break: break-word;">
+                                            <div *ngIf="activeLang=='vi'" class="whitespace-normal ">
+                                                <span [innerHtml]="san_pham.db.thong_so_ky_thuat | safeHtml"></span>
+                                            </div>
+                                            <div *ngIf="activeLang=='en'" class="whitespace-normal ">
+                                                <span
+                                                    [innerHtml]="san_pham.thong_so_ky_thuat_language | safeHtml"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- San pham tuong tu -->
+            <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto pl-16 pr-16 mt-10">
+                <p class="text-2xl"><strong transloco="system.san_pham_tuong_tu"></strong></p>
+                <swiper [slidesPerView]="'auto'" [pagination]="{clickable: true}" [autoplay]="{delay: 3000}"
+                    [spaceBetween]="30" class="mySwiperCuuSinhVien">
+                    <ng-template swiperSlide *ngFor="let item of list_mtb_tuong_tu; let i = index">
+                        <div class="flex-none m-1 mb-2" style="width: 165px;height: 185px;"
+                            (click)="gotoProductDetail(item.id)">
+                            <div class="flex flex-col mt-1">
+                                <a>
+                                    <img class=" object-fill" style="height:100px;width:100px"
+                                        src="{{item.hinh_anh}}" />
+                                </a>
+                            </div>
+                            <div class="flex flex-col mt-1">
+                                <a>
+                                    <div *ngIf="activeLang=='vi'" class="text-black font-bold">{{item.name}}</div>
+                                    <div *ngIf="activeLang!='vi'" class="text-black font-bold">{{item.name_en}}</div>
+                                </a>
+                            </div>
+                            <div class="flex flex-col mt-1">
+                                <div class="text-yellow-500" *ngIf="san_pham.db.so_tien!=0">{{item.so_tien | currency:
+                                    'VND':true}} </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </swiper>
+            </div>
+        </div>
+        <!-- san pham mobile -->
+        <div class="flex flex-col w-full pb-4" *ngIf="isScreenSmall" data-aos="fade-right" data-aos-once="true">
+            <div class=" w-full h-16 md:px-4 bg-gray-300 border-b-2">
+                <h1 mat-dialog-title class="w-full min-w-0 max-w-screen-xl mx-auto px-6 mt-4 uppercase text-xl"
+                    transloco="NAV.sys_san_pham_cua_chung_toi"></h1>
+            </div>
+            <div class="w-full px-6 mt-4">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <div class="aspect-w-4 aspect-h-3 w-full lg:block lg:w-1/2 bg-cover mt-10">
+                            <img class="object-cover w-full h-full" src="{{hinh_anh}}" alt="avatar">
+                        </div>
+                        <div class="flex flex-wrap space-x-1 w-full mx-auto">
+                            <div *ngFor="let item of lst_hinh_anh">
+                                <div class="flex justify-start items-center mt-2"
+                                    (click)="changeImage(item.db.file_path)">
+                                    <img src="{{item.db.file_path}}" class="h-20 w-20 object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class=" mb-6">
+                            <h3 *ngIf="activeLang=='vi'" class="mt-10 mb-2 font-bold text-2xl">
+                                {{san_pham.db.ten_san_pham}}</h3>
+                            <h3 *ngIf="activeLang!='vi'" class="mt-10 mb-2 font-bold text-2xl">
+                                {{san_pham.ten_san_pham_language}}</h3>
+                            <div *ngIf="san_pham.db.so_tien!=0" class="text-yellow-500">{{san_pham.db.so_tien |
+                                currency: 'VND':true}} </div>
+                            <p class="mt-3 mb-4 text-base text-gray-700">
+                                <span *ngIf="activeLang=='vi' && san_pham.db.mo_ta!='null'"
+                                    [innerHtml]="san_pham.db.mo_ta | safeHtml"></span>
+                                <span *ngIf="activeLang!='vi' && san_pham.mo_ta_language!='null'"
+                                    [innerHtml]="san_pham.mo_ta_language | safeHtml"></span>
+                            </p>
+                            <div class="flex flex-row">
+                                <div class="h-10 w-full rounded button-mua_hang">
+                                    <a class="flex justify-center w-full" (click)="popup_mua_hang()">
+                                        <span class="uppercase py-2"
+                                            style="color:white;font-weight:bold;font-size:16px;"
+                                            transloco="system.dat_hang"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tabs chi tiet san pham -->
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto mt-10">
+                        <div
+                            class="flex flex-col  flex-wrap bg-card shadow filter-post filter-interactive z-30  hover:cursor-pointer">
+
+                            <div class="w-full" style="overflow-x: scroll;">
+                                <ul class="flex mb-0  list-none flex-wrap flex-row"
+                                    style="border-bottom: 1px solid #8F8F8F !important;">
+                                    <li class="flex-1 -mb-px border-r-1 bka-border-color-event   last:mr-0 text-center">
+                                        <a class="text-sm font-bold uppercase px-5 py-3   block leading-normal uppercase"
+                                            (click)="toggleTabs(1)"
+                                            [ngClass]="{'text-white bg-bka ': openTab === 1, 'text-black ': openTab !== 1}"
+                                            transloco="system.mo_ta_san_pham">
+                                        </a>
+                                    </li>
+                                    <li class="flex-1 -mb-px  border-r-1 bka-border-color-event last:mr-0 text-center"
+                                        style="border-right: 1px solid #8F8F8F !important;">
+                                        <a class="text-sm font-bold uppercase px-5 py-3   block leading-normal"
+                                            (click)="toggleTabs(2)"
+                                            [ngClass]="{'text-white bg-bka ': openTab === 2, 'text-black ': openTab !== 2}"
+                                            transloco="system.thong_so_ky_thuat">
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6">
+                                    <div class="px-4 py-5 flex-wrap ">
+                                        <div class="tab-content tab-space">
+                                            <div [ngClass]="{'hidden': openTab !== 1, 'block': openTab === 1}">
+                                                <div class="w-full mt-5" style="word-break: break-word;">
+                                                    <div *ngIf="activeLang=='vi'" class="whitespace-normal ">
+                                                        <span
+                                                            [innerHtml]="san_pham.db.thong_tin_bo_sung | safeHtml"></span>
+                                                    </div>
+                                                    <div *ngIf="activeLang=='en'" class="whitespace-normal ">
+                                                        <span
+                                                            [innerHtml]="san_pham.thong_tin_bo_sung_language | safeHtml"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div [ngClass]="{'hidden': openTab !== 2, 'block': openTab === 2}">
+                                                <div class="w-full mt-5" style="word-break: break-word;">
+                                                    <div *ngIf="activeLang=='vi'" class="whitespace-normal ">
+                                                        <span
+                                                            [innerHtml]="san_pham.db.thong_so_ky_thuat | safeHtml"></span>
+                                                    </div>
+                                                    <div *ngIf="activeLang=='en'" class="whitespace-normal ">
+                                                        <span
+                                                            [innerHtml]="san_pham.thong_so_ky_thuat_language| safeHtml"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- San pham tuong tu -->
+                    <div class="flex flex-col min-w-0 max-w-screen-xl w-full mx-auto mt-10"
+                        *ngIf="list_mtb_tuong_tu.length>0 && isScreenSmall" data-aos="fade-right" data-aos-once="true">
+                        <p class="text-2xl"><strong transloco="system.san_pham_tuong_tu"></strong></p>
+                        <swiper [slidesPerView]="'1'" [spaceBetween]="30" [pagination]="{
+                                  clickable: true
+                                }" class="mySwiperMobileBlue">
+                            <ng-template swiperSlide *ngFor="let item of list_mtb_tuong_tu">
+                                <div class="flex-none mx-auto mb-2" (click)="gotoProductDetail(item.id)">
+                                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-1"
+                                        style="height: 350px">
+                                        <div class="w-full h-auto lg:block lg:w-1/2 bg-cover mt-10">
+                                            <img class="w-full h-72 object-fill" src="{{item.hinh_anh}}" alt="avata">
+                                        </div>
+                                        <!-- <a>
+                                            <img class=" mx-auto object-contain" style="height:300px;width:300px" src="{{item.hinh_anh}}" />
+                                        </a> -->
+                                    </div>
+                                    <div class="flex flex-col mt-3">
+                                        <a>
+                                            <div *ngIf="activeLang=='vi'" class="text-black font-bold">{{item.name}}
+                                            </div>
+                                            <div *ngIf="activeLang!='vi'" class="text-black font-bold">{{item.name_en}}
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="flex flex-col mt-1">
+                                        <div *ngIf="san_pham.db.so_tien!=0" class="text-yellow-500">
+                                            {{san_pham.db.so_tien |
+                                            currency: 'VND':true}} </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </swiper>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--px-6 sm:px-8-->

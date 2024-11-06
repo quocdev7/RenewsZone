@@ -1,0 +1,234 @@
+<!-- Navigation -->
+<ng-container *ngIf="isScreenSmall">
+    <fuse-vertical-navigation class="dark bg-gray-900 print:hidden" [mode]="'over'" [name]="'mainNavigation'"
+        [navigation]="navigation.default" [opened]="false">
+        <!-- Navigation header hook -->
+        <ng-container fuseVerticalNavigationContentHeader>
+            <!-- Logo -->
+            <div class="flex items-center h-20  pt-6 px-8">
+                <img class="h-7 w-auto" src="assets/images/logo/worldsoft.png"
+                    style="image-rendering: -webkit-optimize-contrast;" alt="Logo image">
+            </div>
+        </ng-container>
+    </fuse-vertical-navigation>
+</ng-container>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0 bg-black">
+    <div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}" style="z-index:9999999">
+        <div class="flex flex-col justify-center items-center">
+
+            <a *ngIf="!isScreenSmall" href="https://cc.quickom.com/call/75111654155951653">
+                <img src="assets/images/logo/v2-customer-service.png" alt="" style="width: 35px;height: 35px;"
+                    class="rounded-full  ring-4 ring-bg-card"></a>
+            <a *ngIf="isScreenSmall" href="https://cc.quickom.com/call/75111654155951653">
+                <img src="assets/images/logo/v2-customer-service.png" alt="" style="width: 35px;height: 35px;"
+                    class="rounded-full ring-4 ring-bg-card"></a>
+            <br />
+            <button mat-raised-button style="background: #ffb700; min-width: 35px; width: 35px" (click)="scrollToTop()">
+                <span>
+                    <mat-icon style="color:white !important;vertical-align:middle">arrow_upward</mat-icon>
+                </span>
+            </button>
+        </div>
+
+    </div>
+    <!-- Header -->
+    <div class="flex items-center w-full z-50 shadow bg-card  print:hidden transition duration-700 header_web">
+        <div align="right"
+            class="flex md:px-20 sm:px-2 justify-between items-center w-full h-10 max-w-screen-xl mx-auto">
+            <!--mobi-->
+            <div *ngIf="isScreenSmall"
+                class="flex lg:flex-row flex-col text-white w-full max-w-screen-xl mx-auto lg:space-x-4 lg:space-y-0 lg:ml-0 ml-3 text-center ">
+                <div class="flex mx-2 items-center"></div>
+                <div class="flex mx-2 items-center">
+                    <language class="ml-auto"></language>
+                    <a class="mr-2 text-white text-base hover:text-gray-300" [routerLink]="['/sign-up']">Đăng ký</a>
+                    <hr class="border-r border-0.5 h-4 mr-2">
+                    <a class="text-white text-base hover:text-gray-300" [routerLink]="['/sign-in']">Đăng nhập</a>
+                </div>
+            </div>
+            <!-- web     -->
+            <div *ngIf="!isScreenSmall"
+                class="grid grid-cols-3 lg:flex-row flex-col text-white w-full max-w-screen-xl mx-auto lg:space-x-4 lg:space-y-0 space-y-2 lg:ml-0 ml-3 text-center ">
+                <div class="flex items-center">
+                    <div>Kết nối với chúng tôi</div>
+                    <a class="ml-2" href="https://www.facebook.com/xelex.vn">
+                        <img class="w-7 h-7 bg-white rounded-full p-1" [src]="'assets/icons/tiktok.svg'">
+                    </a>
+                    <a class="ml-2" href="https://www.facebook.com/xelex.vn">
+                        <img class="w-7 h-7 bg-white rounded-full p-1" [src]="'assets/icons/instagram.svg'">
+                    </a>
+                    <a class="ml-2" href="https://www.facebook.com/xelex.vn">
+                        <img class="w-7 h-7 bg-white rounded-full p-1" [src]="'assets/icons/facebook-2.svg'">
+                    </a>
+                </div>
+                <div class="flex items-center"></div>
+                <div class="flex items-center">
+                    <language class="ml-auto mr-3"></language>
+                    <div class="flex items-center" *ngIf="is_login!=true">
+                        <a class="mr-2 text-white text-base hover:text-gray-300" [routerLink]="['/sign-up']">Đăng ký</a>
+                        <hr class="border-r border-0.5 h-4 mr-2">
+                        <a class="mr-2 text-white text-base hover:text-gray-300" [routerLink]="['/sign-in']">Đăng nhập</a>
+                    </div>
+                    <div class="flex items-center" *ngIf="is_login==true">
+                        <user-menu></user-menu>
+                        <a mat-button *ngIf="user.type==1" class="text-white" style="padding: 0 10px !important;" [routerLink]="'/home'">
+                            <mat-icon [svgIcon]="'heroicons_solid:cog'" class="text-base text-white mr-1"></mat-icon>
+                            <span class="text-base" transloco="common.management"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col items-center w-full bg-black md:px-4 md:pt-4 z-50 shadow  bg-card dark:bg-transparent print:hidden "
+        [ngClass]="{'fixed top-0 xelex-img': windowScrolled  ,  'header_web' : !isScreenSmall ,  'header_mobile' : isScreenSmall}">
+        <div class="w-full max-w-screen-xl  flex flex-0 items-center md:px-20 px-2 z-50 mx-auto">
+            <!--Web-->
+            <ng-container *ngIf="!isScreenSmall">
+                <!-- Logo -->
+                <!-- Horizontal navigation -->
+                <div class="flex items-center h-full">
+                    <a [routerLink]="['/homepage-index']">
+                        <img class="flex mx-auto h-10" src="assets/images/logo/worldsoft.png">
+                    </a>
+                </div>
+                <div class="w-full flex flex-col items-center pl-2 space-x-2 md:pr-1">
+                    <search class="w-full px-20" [appearance]="'bar'"></search>
+                    <fuse-horizontal-navigation class="w-full px-18 normal-case xelex-fontsize-nav"
+                    [name]="'mainNavigation'" [navigation]="navigation.horizontal"></fuse-horizontal-navigation>
+                    <!-- <user-menu  ></user-menu> -->
+                </div>
+                <products-card></products-card>
+            </ng-container>
+            <!--Mobile-->
+            <!-- Navigation toggle button -->
+            <ng-container *ngIf="isScreenSmall">
+                <button mat-icon-button (click)="toggleNavigation('mainNavigation')">
+                    <mat-icon [svgIcon]="'heroicons_solid:menu'"></mat-icon>
+                </button>
+                <a [routerLink]="['/homepage-index']">
+                    <img class="h-6 w-auto" src="assets/images/logo/worldsoft.png" alt="Logo image">
+                </a>
+                <div class="flex items-center pl-2 space-x-2 md:pr-1">
+                    <search [appearance]="'mobile'"></search>
+                </div>
+                <products-card class="ml-auto"></products-card>
+            </ng-container>
+        </div>
+    </div>
+      
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto w-full"
+        [ngClass]="{ 'margin_header_web' : !isScreenSmall && (windowScrolled) ,  'margin_header_mobile' : isScreenSmall  && (windowScrolled)  }">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <div class="flex flex-col  md:flex-row lg:flex-row  flex-wrap w-full print:hidden z-50 xelex-backgroup-footer">
+
+        <div
+            class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap w-full leading-10 mx-auto  md:px-20 px-6 py-20 max-w-screen-xl">
+
+            <div class="lg:flex-1 flex-none items-center ml-20" *ngIf="!isScreenSmall">
+                <a [routerLink]="['/homepage-index']">
+                    <img style="height: 51.36px; width: auto;" src="/assets/images/logo/worldsoft.png">
+
+                </a>
+            </div>
+            <div class="mb-2 lg:flex-1 flex-none items-center" *ngIf="isScreenSmall">
+                <a [routerLink]="['/homepage-index']">
+
+                    <img style="height: 30px; width: auto;" src="/assets/images/logo/worldsoft.png">
+                </a>
+            </div>
+            <div class="flex-1">
+                <span *ngIf="activeLang=='vi'" class=" font-bold uppercase" style="font-size: 20px;"
+                    transloco="system.lien_he"></span>
+                <span *ngIf="activeLang!='vi'" class=" font-bold uppercase" style="font-size: 20px;"
+                    transloco="system.lien_he"></span>
+
+                <hr
+                    style="border-color: white; margin-top: 20px; margin-bottom: 32px;border-bottom-width: 0px; border-top-width:1px !important">
+                <div class="flex place-items-start space-x-1" [routerLink]="['/homepage-index']">
+                    <span transloco="common.cong_ty_co_phan_cong_nghe_xelex"></span>
+                </div>
+                <div class="flex place-items-start space-x-1">
+                    <!-- <svg class="h-5 w-5" style="margin-top: 10px;"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />  <circle cx="12" cy="10" r="3" /></svg> -->
+                    <span *ngIf="activeLang=='vi'">124 Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, Tp. HCM</span>
+                    <span *ngIf="activeLang!='vi'">124 Huynh Tan Phat Str., Tan Thuan Tay Ward, Dist. 7, HCMC</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <!-- <svg class="h-5 w-5 footer-text-color" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg> -->
+                    <span *ngIf="activeLang=='vi'">(+84) 28 6270 1372</span>
+                    <span *ngIf="activeLang!='vi'">(+84) 28 6270 1372</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <!-- <svg class="h-5 w-5 footer-text-color"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />  <polyline points="22,6 12,13 2,6" /></svg> -->
+                    <span *ngIf="activeLang=='vi'">info@xelex.vn</span>
+                    <span *ngIf="activeLang !='vi'">info@xelex.vn</span>
+                </div>
+            </div>
+            <div class="flex-1  ">
+                <div align="left" class="flex-1">
+                    <span *ngIf="activeLang=='vi'" class=" font-bold uppercase" style="font-size: 20px;"
+                        transloco="system.dieu_khoan"></span>
+                    <span *ngIf="activeLang!='vi'" class=" font-bold uppercase" style="font-size: 20px;"
+                        transloco="system.dieu_khoan"></span>
+                    <hr
+                        style="border-color: white; margin-top: 20px; margin-bottom: 32px;border-bottom-width: 0px; border-top-width:1px !important">
+                    <a class="footer-text-color-a" [routerLink]="'/portal-term'">
+                        <span *ngIf="activeLang=='vi'" transloco="common.term"></span>
+                        <span *ngIf="activeLang!='vi'" transloco="common.term"></span>
+                    </a><br>
+                    <a class="footer-text-color-a" [routerLink]="'/portal-privacy'">
+                        <span *ngIf="activeLang=='vi'" transloco="common.privacy"></span>
+                        <span *ngIf="activeLang!='vi'" transloco="common.privacy"></span>
+                    </a><br>
+                    <a class="footer-text-color-a" [routerLink]="'/portal_quy_dinh_doi_tra_hoan_tien'">
+                        <span transloco="common.quy_dinh_doi_tra_hoan_tien"></span>
+                    </a><br>
+                    <a class="footer-text-color-a" [routerLink]="'/portal_chinh_sach_van_chuyen_giao_nhan'">
+                        <span transloco="common.chinh_sach_van_chuyen_giao_nhan"></span>
+                    </a><br>
+                    <a class="footer-text-color-a" [routerLink]="'/portal_chinh_sach_bao_ve_thong_tin_ca_nhan'">
+                        <span transloco="common.chinh_sach_bao_ve_he_thong_ca_nhan_cua_nguoi_tieu_dung"></span>
+                    </a><br>
+                </div>
+            </div>
+            <div class="flex-none">
+                <span *ngIf="activeLang=='vi'" class=" font-bold uppercase " style="font-size: 20px;"
+                    transloco="system.ket_noi_voi_chung_toi"></span>
+                <span *ngIf="activeLang!='vi'" class=" font-bold uppercase " style="font-size: 20px;"
+                    transloco="system.ket_noi_voi_chung_toi"></span>
+                <hr
+                    style="border-color: white; margin-top: 20px; margin-bottom: 32px;border-bottom-width: 0px; border-top-width:1px !important">
+                <div class="flex items-center mt-4 mb-4 space-x-3">
+
+                    <a href="https://www.facebook.com/xelex.vn" target="_blank">
+                        <img src="/assets/images/portal/fb.png" style="height:35px;width:35px">
+                    </a>
+                    <a href="https://www.youtube.com/@xelexcorporation5166" target="_blank">
+                        <img src="/assets/images/portal/yt.jpg" alt="" style="height: 35px; width: 35px">
+                    </a>
+                    <a href="mailto:info@xelex.vn" target="_blank">
+                        <img src="/assets/images/portal/gm.png" style="height:35px;width: 35px">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="relative flex flex-0 items-center w-full pt-2 pb-2  z-50 print:hidden" style="background:#262626 ">
+        <div
+            class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap w-full mx-auto justify-center items-center px-6 sm:px-2">
+            <div class="footer-text-color" align="center"> Copyright © {{currentYear}} Xelex Corporation - All right
+                reserved Powered by <a href="https://worldsoft.com.vn/"> Worldsoft Corporation</a></div>
+        </div>
+    </div>
+</div>

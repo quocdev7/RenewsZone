@@ -1,0 +1,81 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_event_participate"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [actionEnum]="actionEnum"
+                          [label]="'system.hinhthuc'"
+                          [type]="'readonly'"
+                          [(model)]="khachmoi"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_select_server_side [errorModel]="errorModel"
+                                       [label]="'name'"
+                                       [link]="'/sys_user.ctr/getListUserSearch/'"
+                                       [keyError]="'db.user_id'"
+                                       [(objectChose)]="item_chose"
+                                       [callbackChange]="bind_data_item_chose.bind(this)"
+                                       [(model)]="record.db.user_id"></cm_select_server_side>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="user_info != null || user_info != undefined">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.chuc_vu'"
+                          [type]="'readonly'"
+                          [(model)]="record.position"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.don_vi_cong_tac'"
+                          [type]="'readonly'"
+                          [(model)]="record.ten_cong_ty"></cm_input>
+            </div>
+
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="user_info != null || user_info != undefined">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.nien_khoa'"
+                          [type]="'readonly'"
+                          [(model)]="record.db.school_year"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'NAV.sys_faculty'"
+                          [keyError]="'readonly'"
+                          [(model)]="record.faculty"></cm_input>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.quoc_gia'"
+                          [type]="'readonly'"
+                          [(model)]="record.ten_quoc_gia"></cm_input>
+            </div>
+            <div class="flex-1">
+                <img [src]="record.avatar_link" style="width: 100px; height: 100px; border-radius: 50%" />
+            </div>
+        </div>
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

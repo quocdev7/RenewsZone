@@ -1,0 +1,30 @@
+.mySwiperCuuSinhVien {
+    padding-top: 10px;
+    width: 100%;
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        max-width: 295px;
+    }
+    .swiper-pagination-bullet {
+        background-color: white !important;
+    }
+    .swiper-pagination-bullet-active {
+        background: white !important;
+    }
+}
+
+.mySwiperMobileBlue {
+    width: 100%;
+    padding: 10px;
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-bottom: 20px;
+    .swiper-slide {}
+    .swiper-pagination-bullet {
+        background-color: white !important;
+    }
+    .swiper-pagination-bullet-active {
+        background: white !important;
+    }
+}

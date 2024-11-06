@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FireBase.API\FireBase.API.csproj" />
+    <ProjectReference Include="..\worldsoft.DataBase\worldsoft.DataBase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="worldsoft.common">
+      <HintPath>..\Dll\worldsoft.common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="DataAccess\" />
+  </ItemGroup>
+
+</Project>

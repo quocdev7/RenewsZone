@@ -1,0 +1,94 @@
+
+.swiper {
+    width: 100%;
+    padding-bottom: 35px;
+}
+
+.swiper-pagination {
+    bottom: 0px !important
+}
+
+.mySwiperBanner {
+    width: 100%;
+    padding-bottom: 0px;
+
+    // .swiper-pagination-bullet {
+    //     width: 15px;
+    //     height: 15px;
+    // }
+
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+    }
+
+    .swiper-pagination {
+        bottom: 20px !important
+    }
+}
+
+.mySwiperBannerMobile {
+    width: 100%;
+    padding-bottom: 20px;
+
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+    }
+}
+
+.mySwiperNhomTin1 {
+    // .swiper-button-next {
+    //     color: white;
+    // }
+    // .swiper-button-prev {
+    //     color: white;
+    // }
+
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        max-width: 305px;
+    }
+
+    .swiper-pagination {
+        bottom: 20px !important
+    }
+
+    // .swiper-pagination-bullet {
+    //     width: 15px;
+    //     height: 15px;
+    // }
+
+    .swiper-pagination {
+        bottom: 5px !important
+    }
+}
+
+.mySwiperNhomTin1Mobile {
+    width: 100%;
+    padding-bottom: 20px;
+
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+    }
+}
+
+
+
+
+.mySwiperMobile {
+    width: 90%;
+    padding: 10px;
+    padding-bottom: 20px;
+
+    .swiper-slide {
+    }
+}
+
+.ul_paging{
+    li{
+        height: 40px;
+    }
+}

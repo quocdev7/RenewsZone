@@ -1,0 +1,139 @@
+<div class="w-full mx-auto flex flex-col bg-white ">
+    <div class="flex flex-col w-full">
+        <div class="flex flex-col w-full max-w-screen-xl  mb-4 container mx-auto px-64">
+        <div class="">
+            <div class="content" style="margin-top:0px !important">
+    
+                <div id="coming-soon" class="p-4 p-sm-8">
+                    <!--@if (eventinfo.time_start.Value.Date > DateTime.Now.Date)
+                    {-->
+                    <div class="pb-10">
+                     
+                        <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0" *ngIf="event.time_start > ngay_hien_tai">
+                            <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+                                <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0" >
+                                    <!-- Logo -->
+                                    <div class="w-50 mx-auto">
+                                        <img src="assets/images/logo/worldsoft.png" style="image-rendering: -webkit-optimize-contrast;">
+                                    </div>
+                        
+                                    <!-- Title -->
+                                    <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight text-center">Sự kiện chưa diễn ra</div>
+                                  
+                        
+                                    <!-- Form footer -->
+                                    <div class="mt-8 text-md font-medium text-secondary text-center">
+                                        <span>Đến trang</span>
+                                        <a
+                                            class="ml-1 text-primary-500 hover:underline"
+                                            [routerLink]="['/sign-in']">Đăng nhập
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!--}
+                    else if (eventinfo.time_end.Value.Date < DateTime.Now.Date)
+                    {-->
+                    <div class="pb-10">
+                        <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0"*ngIf="event.time_end < ngay_hien_tai">
+                            <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+                                <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0" >
+                                    <!-- Logo -->
+                                    <div class="w-50 mx-auto">
+                                        <img src="assets/images/logo/worldsoft.png" style="image-rendering: -webkit-optimize-contrast;">
+                                    </div>
+                        
+                                    <!-- Title -->
+                                    <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight text-center">Sự kiện đã kết thúc</div>
+                                  
+                        
+                                    <!-- Form footer -->
+                                    <div class="mt-8 text-md font-medium text-secondary text-center">
+                                        <span>Đến trang</span>
+                                        <a
+                                            class="ml-1 text-primary-500 hover:underline"
+                                            [routerLink]="['/sign-in']">Đăng nhập
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!--}
+                    else
+                    {-->
+                    <div class="pb-10">
+                        <div class="flex-1">
+                            <div align="center">
+                                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'search' ;  index as i;">
+                                    <span *ngFor="let msg of item.value">
+                                        {{ msg | transloco}}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="border-2 border-blue-500">
+                                <div class="px-2">
+                                    <p class="text-2xl font-bold bka-text">
+                                        Sự kiện: {{event.title}}
+                                    </p>
+                            <div align="left" class="flex w-full break-word">     
+                                <div class="flex grids items-start mx-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-900" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                                      </svg>
+                                </div>
+                                <div class="flex-row items-start">
+                                    <p class="text-blue-500" style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        Thời gian tổ chức: Từ {{event.time_start |  date: 'HH:mm - dd/MM/yyyy'}}
+                                        Đến {{event.time_end |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div align="left" class="flex w-full break-word">     
+                                <div class="flex grids items-start mx-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-900" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                      </svg>
+                                </div>
+                                <div class="flex-row items-start">
+                                    <p class="text-blue-500" style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        Địa điểm: {{event.location}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div align="left" class="flex w-full break-word">     
+                                <div class="flex grids items-start mx-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-900" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                                      </svg>
+                                </div>
+                                <div class="flex-row items-start">
+                                    <p class="text-blue-500" style="font-weight:bold;font-size:16px;vertical-align:middle">
+                                        Hạn đăng ký tới: {{event.ngay_den_han_dang_ky |  date: 'HH:mm - dd/MM/yyyy'}}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        </div>
+                            <mat-form-field class="w-full mt-3">
+                                <input matInput [(ngModel)]="search" (keyup.enter)="checkin()" placeholder="Nhập số điện thoại hoặc email để tìm kiếm">
+                            </mat-form-field>
+                            <h4 style="font-weight:bold;font-size:16px;vertical-align:middle">Hoặc quét QRCode để check-in</h4>
+                </div>
+            </div>
+    
+        </div>
+        
+    </div>
+    </div>
+</div>
+<style>
+    .mat-standard-chip {
+        cursor: pointer !important;
+    }
+</style>

@@ -1,0 +1,126 @@
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 " >
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+        <div class="m-auto w-full">
+            <div class="content w-full h-[600px] bg-yellow-500">
+                <div class="w-full relative flex justify-center items-center text-center 2xl:h-80 xl:h-80 lg:h-72 sm:h-64 h-60">
+                    <img class="h-full w-full object-cover absolute" alt="" src="assets/images/portal/our-capility.png">
+                    <div class="absolute text-center text-white text-xl font-bold md:text-2xl lg:text-3xl xl:text-3xl z-10 uppercase" transloco="portal.dich_vu"></div>
+                </div>
+                <div class="content__bottom flex justify-center items-center 2xl:h-80 xl:h-80 lg:h-72 sm:h-52 w-full text-xl md:px-0 px-5">
+                    <p class="text-white text-center md:text-2xl sm:text-lg text-base  md:px-14 px-0 md:py-0 py-5" transloco="portal.mo_ta_nang_luc" style="max-width: 1440px;margin: auto;"></p>
+                </div>
+            </div>
+            <div class="md:px-0 px-4" style="max-width: 1440px; margin: auto;">
+                <div *ngIf="lst_nang_luc.length>0" class="m-auto md:gap-x-8 gap-x-4 gap-y-10 my-12 program container grid grid-col-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 2xl:px-400 xl:px-20 lg:px-8 md:px-8 sm:px-5 px-5">
+                    <div *ngFor="let item of lst_nang_luc">
+                        <div>
+                            <div class="flex justify-center items-center" style=" border-radius: 50%">
+                                <img src="{{item.hinh_anh}}" class="w-50 h-50 object-cover" alt="" style=" border-radius: 50%">
+                            </div>
+                            <div>
+                                <div class="mx-auto text-center">
+                                    <h3 class="text-center text-2xl font-medium mt-8 mb-6" *ngIf="activeLang=='vi'"><strong>{{item.name }}</strong></h3>
+                                </div>
+                                <div class="mx-auto text-center">
+                                    <h3 class="text-center text-2xl font-medium mt-8 mb-6" *ngIf="activeLang!='vi'"><strong>{{item.name_en}}</strong></h3>
+                                </div>
+                                <span *ngIf="activeLang=='vi'" [innerHtml]="item.noi_dung | safeHtml" class="text-xl font-light">{{item.noi_dung}}</span>
+                                <span *ngIf="activeLang!='vi'" [innerHtml]="item.noi_dung_en | safeHtml" class="text-xl font-light">{{item.noi_dung_en}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcb-image h-2 w-full text-center flex items-center justify-between  md:px-16 px-0" style="max-width: 1440px;margin: auto;">
+                <span></span>
+                <h4 class="w-40 font-medium md:text-xl text-base" transloco="portal.pcb_image"></h4>
+                <span></span>
+                <br>
+            </div>
+            <!-- nang luc anh mobile -->
+            <div class="flex flex-col w-full" data-aos="fade-right" data-aos-once="true" *ngIf="lst_nang_luc_hinh_anh.length>0 && isScreenSmall">
+                <swiper *ngIf="lst_nang_luc_hinh_anh.length>0" [slidesPerView]="'1'" [spaceBetween]="30" [pagination]="{
+                              clickable: true
+                            }" class="mySwiperMobile">
+                    <ng-template swiperSlide *ngFor="let item of lst_nang_luc_hinh_anh">
+                        <div class="flex-none bg-card shadow mx-auto m-1">
+                            <div class="flex flex-col">
+                                <div class="relative  rounded-lg shadow-lg cursor-pointer">
+                                    <div class="flex justify-center items-center mt-8">
+                                        <div class="relative w-full h-60  overflow-hidden cursor-pointer" (click)="openViewImg(item)">
+                                            <img class="object-cover" src="{{item.image}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Course title & description -->
+                            </div>
+                        </div>
+                    </ng-template>
+                </swiper>
+        
+            </div>
+        
+            <!-- nang luc anh web -->
+            <div class="flex-col w-full justify-between mt-4" *ngIf="lst_nang_luc_hinh_anh.length>0 && !isScreenSmall" data-aos="fade-right" data-aos-once="true">
+                <div class="min-w-0 w-full mx-auto ">
+                    <div class="flex">
+                        <div *ngFor="let item of lst_nang_luc_hinh_anh" class="w-1/4 h-80">
+                            <div class="mx-auto mb-2" (click)="openViewImg(item)">
+                                <div class="mt-1">
+                                    <div class="relative pcb-image-item image-inside  w-full h-72  overflow-hidden cursor-pointer">
+                                        <img class="object-contain absolute" src="{{item.image}}">
+                                        <div class="hover:bg-black absolute z-10 opacity-50 h-72  w-full flex items-center justify-center overflow-hidden translate-y-full text-hover">
+                                            <p class="md:text-[50px] text-xl text-yellow-600 font-bold">
+                                                <mat-icon class="text-yellow-600">add_circle</mat-icon>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="flex flex-col  w-full flex-auto min-w-0 max-w-screen-xl mx-auto pl-20 pr-20 " >
+                    <swiper *ngIf="lst_nang_luc_hinh_anh.length>0"
+                            [slidesPerView]="4"
+             
+                            [loop]="true"
+                            [spaceBetween]="0"
+                            [pagination]="{
+        >>>>>>> 93fd9eedfde3f9c4a8b226de95b90736ccd93cdf
+                              clickable: true
+                            }" class="mySwiperHinhAnh">
+                        <ng-template swiperSlide *ngFor="let item of lst_nang_luc_hinh_anh" class="duration-300 ease-in-out">
+                            <div class="flex-none bg-card rounded-lg  shadow w-full mx-auto m-1 overflow-hidden">
+                                <div class="flex flex-col w-full">
+                                    <div class="relative pcb-image-item image-inside  w-full h-80  overflow-hidden cursor-pointer" (click)="openViewImg(item)">
+                                        <img class="object-contain absolute" src="{{item.image}}">
+                                        <div class="bg-black absolute z-10 opacity-50 h-full  w-full flex items-center justify-center overflow-hidden translate-y-full text-hover">
+                                            <p class="md:text-[50px] text-xl text-yellow-600 font-bold">
+                                                <mat-icon class="text-yellow-600">add_circle</mat-icon>
+                                            </p>
+                                        </div>
+                                    </div>
+        
+                                </div>
+                            </div>
+                        </ng-template>
+                    </swiper>
+        
+        
+                </div> -->
+            </div>
+            <div class="about w-full" style="background-color: #FFB700;">
+                <div class="w-full relative flex justify-center items-center text-center 2xl:h-80 xl:h-80 lg:h-72 sm:h-64 h-60">
+                    <div class="flex justify-center items-center h-52 w-full text-xl md:px-0 px-5" style="max-width: 1440px;margin: auto;">
+                        <p class="absolute text-white  md:text-2xl sm:text-lg text-base font-medium md:px-14 px-5" style="max-width: 1440px;margin: auto;" transloco="portal.muc_tieu_nang_luc">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

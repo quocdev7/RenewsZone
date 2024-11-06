@@ -1,0 +1,38 @@
+<div class="flex flex-col flex-auto w-full  mx-auto h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_event_participate"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [actionEnum]="actionEnum"
+                          [label]="'system.hinhthuc'"
+                          [type]="'readonly'"
+                          [(model)]="nguoilienhe"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_select_server_side [label]="'system.tim_kiem(ten|email|sdt)'"
+                                       [link]="'/sys_user.ctr/getListUserQuanTri/'"
+                                       [keyError]="'db.user_id'"
+                                       [(objectChose)]="item_chose"
+                                       [callbackChange]="bind_data_item_chose.bind(this)"
+                                       [(model)]="record.db.user_id"></cm_select_server_side>
+
+
+            </div>
+        </div>
+
+
+
+        <div class="flex flex-row justify-end space-x-2">
+            <!-- <button mat-raised-button transloco="system.search" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+            (click)="rerender()"></button> -->
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

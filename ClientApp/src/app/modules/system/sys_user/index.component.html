@@ -1,0 +1,127 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="flex flex-col flex-auto min-w-0 ">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_user"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full max-w-sm" style="min-width:500px">
+                    <div class="flex items-center border-b border-teal-500 py-2">
+                        <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="file" (change)="onFileSelected($event)" #fileUpLoad>
+
+                        <button class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-base py-1 px-2 rounded" type="button" (click)="dowloadFileMau()">
+                            Mẫu Import
+                        </button>
+                        <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-500 border-teal-500 hover:border-teal-700 text-base border-4 text-white py-1 px-2 rounded" type="button" (click)="onSubmitFile()">
+                            Upload
+                        </button>
+                        <!--<button class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-base py-1 px-2 rounded" type="button" (click)="cancelFile($event)">
+                Cancel
+            </button>-->
+
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-1">
+                    <div class="flex-1" style="padding-right:10px">
+                        <mat-form-field class="w-full">
+                            <mat-label>
+                                {{'search' | transloco}} ({{ 'system.name_dienthoai_email' | transloco }})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                        </mat-form-field>
+                    </div>
+                    <div class="flex-1">
+                        <cm_select [label]="'system.use_status'" [listData]="list_status_del"
+                                   [callbackChange]="rerender.bind(this)" [(model)]="filter.status_del"></cm_select>
+                    </div>
+                </div>
+               
+                <div class="listButtonAction" align="right">
+                    <button mat-raised-button transloco="system.search" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                            (click)="rerender()"></button>
+                    <button mat-raised-button transloco="system.add" class="bg-primary-600 text-white shadow-none hover:bg-primary-700" (click)="openDialogAdd()"></button>
+
+                </div>
+            </mat-card>
+
+
+            <br />
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                                <th style="width:75px"></th>
+                                <th transloco="system.no_" style="width:50px; text-align:center"></th>
+                                <th transloco="system.username"></th>
+                            
+                                <th transloco="system.full_name"></th>
+                                <th transloco="system.dien_thoai"></th>
+                                <th transloco="system.email"></th>
+                                <th transloco="system.create_date"></th>
+                                <th transloco="system.is_quan_tri"></th>
+
+                               
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                <td>
+                                    <button class="mat-button-action" mat-button [matMenuTriggerFor]="menu"
+                                            transloco="system.feature"></button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item transloco="view"
+                                                (click)="openDialogDetail(item,i)"></button>
+                                        <button mat-menu-item transloco="system.edit"
+                                                (click)="openDialogEdit(item,i)"></button>
+                                        <button *ngIf="item.db.status_del == 2" mat-menu-item transloco="system.revert"
+                                                (click)="revertStatus(item.db.Id)"></button>
+                                        <button mat-menu-item transloco="system.changepass"
+                                                (click)="changePasss(item,i)"></button>
+                                        <button mat-menu-item *ngIf="item.db.status_del == 1" transloco="stop_use"
+                                                (click)="delete(item.db.Id)"></button>
+
+                                        <button mat-menu-item transloco="common.approval"
+                                                (click)="approval(item.db.Id)" *ngIf="item.db.status_del == 4  || item.db.status_del == 5"></button>
+
+                                        <button mat-menu-item transloco="system.khong_duyet"
+                                                (click)="cancel(item.db.Id)" *ngIf="item.db.status_del == 4"></button>
+                                    </mat-menu>
+                                </td>
+                                <td style="text-align:center">{{currentIndex+ i+1 }}</td>
+                                <td>{{ item.db.Username }}</td>
+                                <td>{{ item.db.full_name }}</td>
+                                <td>{{ item.db.phone }}</td>
+
+                                <td>{{ item.db.email }}</td>
+                                <td>{{ item.db.time_input | date: 'dd/MM/yyyy HH:mm' }}</td>    
+                                <td>
+                                        <mat-icon class="text-green-500" *ngIf="item.db.type==1">check_circle</mat-icon>
+                                </td>
+                          
+                              
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty
+                                        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+</div>

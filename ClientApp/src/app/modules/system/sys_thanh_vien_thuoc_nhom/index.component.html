@@ -1,0 +1,149 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="flex flex-col flex-auto min-w-0 ">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_thanh_vien_thuoc_nhom"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full max-w-sm" style="min-width:500px">
+                    <div class="flex items-center border-b border-teal-500 py-2">
+                        <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="file" (change)="onFileSelected($event)" #fileUpLoad>
+
+                        <button class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-base py-1 px-2 rounded" type="button" (click)="dowloadFileMau()">
+                            Mẫu Import
+                        </button>
+                        <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-500 border-teal-500 hover:border-teal-700 text-base border-4 text-white py-1 px-2 rounded" type="button" (click)="onSubmitFile()">
+                            Upload
+                        </button>
+                        <!--<button class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-base py-1 px-2 rounded" type="button" (click)="cancelFile($event)">
+                Cancel
+            </button>-->
+
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_select [label]="'NAV.sys_nhom_thanh_vien'"
+                                   [listData]="list_nhom"
+                                   [callbackChange]="rerender.bind(this)"
+                                   [(model)]="filter.id_nhom"></cm_select>
+                    </div>
+
+                    <!--<div class="flex-1">
+            <cm_select [label]="'system.use_status'" [listData]="list_status_del"
+                       [callbackChange]="rerender.bind(this)" [(model)]="filter.status_del"></cm_select>
+        </div>-->
+                    <div class="flex-1">
+                        <mat-form-field class="w-full">
+                            <mat-label>
+                                {{'search' | transloco}} ({{ 'system.name' | transloco }} | {{'system.note' | transloco}})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="listButtonAction" align="right">
+                    <button mat-raised-button transloco="system.search" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                            (click)="rerender()"></button>
+
+
+                </div>
+            </mat-card>
+
+
+            <br />
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+
+                <div>
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'Key' : 'user_nhom' ;  index as i;">
+                        (<span *ngFor="let msg of item.Value">
+                            {{msg | translate}}
+                        </span>)
+                    </span>
+                </div>
+                <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
+                    <!-- Search -->
+                    <div class="flex-auto">
+
+                        <cm_select_server_side [label]="'ten_thanh_vien'"
+                                               [link]="'/sys_user.ctr/getListUseNew/'"
+                                               [placeholder]="'timkiem_phone_email'"
+                                               [(objectChose)]="item_chose"
+                                               [callbackChange]="bind_data_item_chose.bind(this)"
+                                               [(model)]="user_id"></cm_select_server_side>
+                    </div>
+                    <!-- Add contact button -->
+                    <button class="ml-4"
+                            mat-flat-button
+                            [color]="'primary'"
+                            (click)="addDetail()">
+                        <!--<mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>-->
+                        <span class="ml-2 mr-1" transloco="system.add"></span>
+                    </button>
+                </div>
+
+             
+
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="width:50px" transloco="no_"></th>
+
+
+                                <th transloco="system.tennhom"></th>
+                                <th transloco="name"></th>
+                                <th transloco="system.avatar"></th>
+                                <th transloco="system.dien_thoai"></th>
+                                <th transloco="system.email"></th>
+        
+                                <th transloco="system.update_by"></th>
+                                <th transloco="system.update_date"></th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                <td style="width:100px;text-align:center">
+
+                                    <button color="warn" mat-raised-button transloco="delete" (click)="deleteNew(item.db.id)"></button>
+                                </td>
+                                <td style="width:70px">{{currentIndex+ i+1 }}</td>
+
+                                <td>{{ item.ten_nhom  }}</td>
+                                <td>{{ item.full_name  }}</td>
+                                <td>
+                                    <span>
+                                        <img [src]="item.avatar_link" style="width:100px;height:100px;border-radius:50%" />
+                                    </span>
+                                </td>
+                                <td>{{ item.dien_thoai }}</td>
+                                <td>{{ item.email }}</td>
+
+                                <td>{{ item.db.create_date | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                <td>{{ item.createby_name  }}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                              [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

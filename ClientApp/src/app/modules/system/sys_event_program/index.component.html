@@ -1,0 +1,103 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="flex flex-col flex-auto min-w-0 ">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_event_program"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+
+                    <div class="flex-1">
+                        <cm_select [label]="'NAV.sys_event'"
+                                   [listData]="list_su_kien"
+                                   [callbackChange]="rerender.bind(this)"
+                                   [(model)]="filter.event_id"></cm_select>
+                    </div>
+
+                        <div class="flex-1">
+                            <mat-form-field class="w-full">
+                                <mat-label>
+                                    {{'search' | transloco}} ({{ 'system.name' | transloco }} | {{'system.note' | transloco}})
+                                </mat-label>
+                                <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div class="listButtonAction" align="right">
+                        <button mat-raised-button transloco="system.search" class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                                (click)="rerender()"></button>
+                        <button mat-raised-button transloco="system.add" class="bg-primary-600 text-white shadow-none hover:bg-primary-700" (click)="openDialogAdd()"></button>
+
+                    </div>
+</mat-card>
+
+
+            <br />
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                              
+                                <th></th>
+                                <th style="width:50px" transloco="no_"></th>
+                                <th style="min-width:200px" transloco="NAV.sys_event_program"></th>
+                                <th transloco="system.thoi_gian_bat_dau"></th>
+                                <th transloco="system.thoi_gian_ket_thuc"></th>
+                                <th transloco="system.dien_gia"></th>
+                                <!--<th style="width:100px" transloco="system.so_luong_nguoi_tham_du"></th>
+                                <th style="min-width: 200px" transloco="system.dia_diem"></th>-->
+                                
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                <td>
+                                    <button class="mat-button-action" mat-button [matMenuTriggerFor]="menu"
+                                            transloco="system.feature"></button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item transloco="view"
+                                                (click)="openDialogDetail(item,i)"></button>
+                                        <button mat-menu-item transloco="system.edit"
+                                                (click)="openDialogEdit(item,i)"></button>
+                                        <button mat-menu-item transloco="system.edit_language"
+                                                (click)="openDialogEdit_language(item,i)"></button>
+                                        <button *ngIf="item.db.status_del==2" mat-menu-item transloco="system.revert"
+                                                (click)="revertStatus(item,i)"></button>
+                                        <button *ngIf="item.db.status_del==1" mat-menu-item transloco="stop_use"
+                                                (click)="delete(item.db.id)"></button>
+                                    </mat-menu>
+                                </td>
+                                <td style="width:70px">{{currentIndex+ i+1 }}</td>
+                                <td>{{ item.db.name }}</td>
+                                <td>{{ item.db.start_time | date: 'dd/MM/yyyy HH:mm'}}</td>
+                                <td>{{ item.db.end_time | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                <td>{{ item.ten_dien_gia }}</td>
+                                <!--<td>{{ item.db.max_person_participate  }}</td>
+                                <td>{{ item.db.location  }}</td>-->
+                                
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty
+                                        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl overflow-y-auto">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" *ngIf="actionEnum==1">Thêm Thành tựu</div>
+        <div class="text-lg font-medium" *ngIf="actionEnum==2">Chỉnh sửa Thành tựu</div>
+        <div class="text-lg font-medium" *ngIf="actionEnum==3">Xem hình ảnh</div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1 h-fit" *ngIf="actionEnum!=3">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.thanh_tuu'"
+                          [keyError]="'db.description'"
+                          [(model)]="record.db.description"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.linh_vuc'"
+                          [keyError]="'db.field_name'"
+                          [(model)]="record.db.field_name"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.thong_tin_xac_thuc'"
+                          [keyError]="'db.url'"
+                          [(model)]="record.db.url"></cm_input>
+            </div>
+        </div>
+
+        <!--<div class="flex flex-col w-full md:flex-row lg:flex-row lg:items-start md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+                <label transloco="anh_dai_dien" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <div align="center">
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.image' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <div class="uploadfilecontainer" (click)="fileInput1.click()" appDragDrop (onFileDropped)="DragAndDrop_image($event)" align="center">
+                    <h3 style="margin:auto" transloco="chose_file"></h3>
+                    <input hidden type="file" #fileInput1 (change)="chose_file_image($event)" accept="image/*">
+                </div>
+
+                <br />
+                <div style="position: relative;padding:20px" *ngIf="Progress_image!=-1">
+                    <mat-progress-bar mode="determinate" [value]="Progress_image" style="height: 2em;" color="'Warn'"></mat-progress-bar>
+                    <span style="position: absolute; top: 0.5em;" [ngStyle]="{'left': Progress_image + '%'}">{{Progress_image}}%</span>
+                </div>
+
+            </div>
+            <div class="flex-1">
+                <label transloco="anh_dai_dien" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <img [src]="record.db.image" class="h-40 w-full mx-auto" *ngIf="record.db.image!=null" />
+            </div>
+        </div>-->
+
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="saveSuccess()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+
+        <div class="h-40" *ngIf="isScreenSmall"></div>
+    </div>
+    <div class="w-full p-3 space-y-1 h-fit" *ngIf="actionEnum==3">
+      
+        <div class="flex flex-col w-full md:flex-row lg:flex-row lg:items-start md:space-x-4 flex-wrap">
+           
+            <div class="flex-1">
+                <a class="font-medium text-base" href="{{record.db.image}}">
+                    Tải về
+                </a>
+                <img [src]="record.db.image" class="h-auto w-full mx-auto" />
+            </div>
+        </div>
+
+
+        <div class="flex flex-row justify-end space-x-2"> 
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+
+        <div class="h-40" *ngIf="isScreenSmall"></div>
+    </div>
+</div>
+
+
+

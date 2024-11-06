@@ -1,0 +1,329 @@
+<!-- <div class="flex items-center justify-center  bg-card shadow    rounded-lg" style="width: 255px; height: 255px;">                        
+    <a href="{{slide.db.link}}" target="_blank" >
+        <img class="mx-auto" style="height:230px;width:230px" src="{{slide.db.image}}" />
+    </a>
+</div> -->
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+        <!--Đối tác web *ngIf="!isScreenSmall"-->
+        <div class="w-full mx-auto flex flex-col">
+            <div class="relative flex-0 overflow-hidden bg-black">
+                <img class="h-full w-full object-cover absolute" alt="" src="assets/images/portal/Laptop-59.jpg">
+                <div class="z-10 relative flex flex-col items-center">
+                    <div class="et-pb-row et-pb-row-0"></div>
+                    <h2 class="font-semibold text-white xelex-font-size-39" transloco="system.gamabook_xq"></h2>
+                    <div class=" tracking-tight leading-tight text-center text-white xelex-font-size-93"
+                        *ngIf="!isScreenSmall" transloco="system.ai_empowered"></div>
+                    <div class=" tracking-tight leading-tight text-center text-white xelex-font-size-63"
+                        *ngIf="isScreenSmall" transloco="system.ai_empowered"></div>
+                    <div class="max-w-5xl mt-6 text-center tracking-tight text-secondary xelex-font-size-28"
+                        transloco="system.gioi_thieu_gamabook"></div>
+                </div>
+            </div>
+            <div class="relative flex-0 sm:px-16 overflow-hidden bg-black">
+                <div class="z-10 relative flex flex-col items-center mt-20">
+                    <div class="flex flex-auto justify-center w-full max-w-5xl mx-auto p-6 sm:p-8">
+                        <img style="vertical-align: middle;" class=" object-cover absolute w-44 h-44 -mt-28" alt=""
+                            src="assets/images/portal/Rectangle.png">
+                        <span class="mt-10 xelex-font-size-36 text-center" *ngIf="!isScreenSmall"
+                            transloco="system.tich_hop_snapdragon_7c_gen_2"></span>
+                        <span class="mt-10 xelex-font-size-24 text-center" *ngIf="isScreenSmall"
+                            transloco="system.tich_hop_snapdragon_7c_gen_2"></span>
+                        <!-- <div class="hidden lg:flex flex-col items-center">
+                           
+                        </div>
+                        <div class="flex flex-col items-strat">
+                            <h2 class="text-4xl text-secondary text-white">Tích hợp Snapdragon 7c Gen 2</h2>
+                        </div> -->
+                    </div>
+
+                    <div class="xelex-font-size-36 text-center" *ngIf="!isScreenSmall" transloco="system.gia_chi_tu">
+                    </div>
+                    <div class="xelex-font-size-24 text-center" *ngIf="isScreenSmall" transloco="system.gia_chi_tu">
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex-0 px-8 sm:px-40  overflow-hidden bg-black">
+                <div class="z-10 relative flex flex-col items-start">
+                    <h2 class="text-white max-w-5xl xelex-font-size-95" *ngIf="!isScreenSmall"
+                        transloco="system.mong_nhung_manh"></h2>
+                    <h2 class="mt-8 text-white max-w-5xl xelex-font-size-95" *ngIf="isScreenSmall"
+                        transloco="system.mong_nhung_manh"></h2>
+                    <p class="text-secondary xelex-font-size-28" transloco="system.mo_ta_gamabook"></p>
+                </div>
+            </div>
+
+            <div class="relative flex-0 px-4 sm:px-40 overflow-hidden bg-black">
+                <!-- playsinline="" muted="" style="pointer-events: none;" -->
+                <video width="100%" loop autoplay muted playsinline>
+
+                    <!-- <source  src="https://bvdvrtist.com/wp-content/uploads/2023/08/Comp-1_1.mp4" type="video/mp4"> -->
+                    <source src="assets/images/portal/Comp 1_1.mp4" type="video/mp4">
+
+                </video>
+            </div>
+
+            <!-- <div class="embed-responsive embed-responsive-21by9 relative w-full overflow-hidden" style="padding-top: 42.857%;">
+               
+                 <iframe  
+                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                 
+                 class="embed-responsive-item absolute bottom-0 left-0 right-0 top-0 h-full w-full"
+                src="assets/images/portal/Comp 1_1.mp4" ></iframe> 
+            </div> -->
+            <div class="relative flex-0 px-8 sm:px-40 overflow-hidden bg-black">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0 text-white">
+                    <div class="flex flex-col flex-auto shadow rounded-2xl overflow-hidden mr-20">
+                        <span class="xelex-font-size-20" transloco="system.hon"></span>
+                        <span class="xelex-font-size-50" transloco="system.20%"></span>
+                        <span class="xelex-font-size-20" transloco="system.hieu_xuat_so_voi_cac_nen_tang_khac"></span>
+                    </div>
+                    <div class="flex flex-col flex-auto shadow rounded-2xl overflow-hidden">
+                        <span class="xelex-font-size-20" transloco="system.tang"></span>
+                        <span class="xelex-font-size-50">2x</span>
+                        <span class="xelex-font-size-20" transloco="system.thoi_luong_pin"></span>
+                    </div>
+                    <div class="flex flex-col flex-auto shadow rounded-2xl overflow-hidden mr-20">
+                        <span class="xelex-font-size-20" transloco="system.tiet_kiem"></span>
+                        <span class="xelex-font-size-50">50x</span>
+                        <span class="xelex-font-size-20"
+                            transloco="system.luong_dien_tieu_thu_so_voi_cac_laptop_tuyen_thong"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative flex-0 px-8 sm:px-40  overflow-hidden bg-black">
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 text-white">
+                    <div class="flex flex-col flex-auto shadow rounded-2xl overflow-hidden ">
+                        <div data-aos="zoom-in" data-aos-once="true" class="xelex-linear-gradient-to-right">
+                            <p *ngIf="!isScreenSmall" class="text-center py-8 px-20 xelex-font-size-65">6000 mAh</p>
+                            <p *ngIf="isScreenSmall" class="text-center py-8 px-20 xelex-font-size-35">6000 mAh</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto shadow rounded-2xl overflow-hidden">
+                        <div class="xelex-font-size-41">
+                            <span transloco="system.mo_ta_pin"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <div class="relative flex-0 px-4 sm:px-16 overflow-hidden bg-black">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0">
+                    <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <img style="vertical-align: middle;" class="h-auto w-auto object-cover absolute" alt="" src="assets/images/portal/Group 31.png">
+                    </div>
+                    <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <img style="vertical-align: middle;" class="h-auto w-auto object-cover absolute" alt="" src="assets/images/portal/Group 32.png">
+                    </div>
+                    <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <img style="vertical-align: middle;" class="h-auto w-auto object-cover absolute" alt="" src="assets/images/portal/Group 33.png">
+                    </div>
+                </div>
+            </div> -->
+            <div class="relative flex-0 px-8 sm:px-40 overflow-hidden bg-black" *ngIf="!isScreenSmall">
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full  text-white">
+                    <div data-aos="fade-up" data-aos-once="true" class="flex flex-col flex-auto shadow rounded-2xl  ">
+                        <img class="h-fit object-cover absolute" alt="" src="assets/images/portal/Group 31.png">
+                    </div>
+                    <div data-aos="fade-up" data-aos-once="true" data-aos-delay="500"
+                        class="flex flex-col flex-auto shadow rounded-2xl ">
+                        <img sclass="h-fit object-cover absolute" alt="" src="assets/images/portal/Group 32.png">
+
+                    </div>
+                    <div data-aos="fade-up" data-aos-once="true" data-aos-delay="1000"
+                        class="flex flex-col flex-auto shadow rounded-2xl ">
+                        <img class="h-fit object-cover absolute" alt="" src="assets/images/portal/Group 33.png">
+
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex flex-col px-8 sm:px-40 overflow-hidden bg-black" *ngIf="isScreenSmall">
+                <div data-aos="fade-up" data-aos-once="true" class="mt-8 flex flex-col flex-auto shadow rounded-2xl">
+                    <img class="h-120  object-contain " alt="" src="assets/images/portal/Group 31.png">
+                </div>
+                <div data-aos="fade-up" data-aos-once="true" class="mt-4 flex flex-col flex-auto shadow rounded-2xl">
+                    <img class="h-120  object-contain " alt="" src="assets/images/portal/Group 32.png">
+                </div>
+
+                <div data-aos="fade-up" data-aos-once="true" data-aos-delay="1000"
+                    class="mt-8 flex flex-col flex-auto shadow rounded-2xl">
+                    <img class="h-120 object-contain" alt="" src="assets/images/portal/Group 33.png">
+
+                </div>
+            </div>
+
+
+            <div class="relative flex-0 px-4 sm:px-40  overflow-hidden bg-black" *ngIf="!isScreenSmall">
+                <div class="z-10 relative flex flex-col items-start">
+                    <h2 class="text-7xl font-bold text-white mt-12" transloco="system.tri_tue_nhan_tao"></h2>
+                    <h2 class="text-7xl font-bold text-white" transloco="system.artificial_intelligence"></h2>
+                    <div class="flex flex-auto w-full mx-auto p-6 sm:p-0">
+                        <p class="xelex-font-size-36-width-80" transloco="system.gioi_thieu_tri_tue_nhan_tao"></p>
+                        <span style="width: 100%;">
+                            <img style="vertical-align: middle;" class="-mt-10 ml-4 h-64 w-auto object-cover absolute"
+                                alt="" src="assets/images/portal/Group 28.png">
+
+                        </span>
+                        <!-- <div class="hidden lg:flex flex-col items-center">
+                          
+                       </div>
+                       <div class="flex flex-col items-strat">
+                           <h2 class="text-4xl text-secondary text-white">Tích hợp Snapdragon 7c Gen 2</h2>
+                       </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex-0 px-8 sm:px-16 overflow-hidden bg-black" *ngIf="isScreenSmall">
+                <div class="z-10 relative flex flex-col mt-20">
+                    <p class="mt-1 xelex-font-size-56 text-white" transloco="system.tri_tue_nhan_tao"></p>
+                    <p class="mt-1 xelex-font-size-56 text-white" transloco="system.artificial_intelligence"></p>
+                    <p class="xelex-font-size-36 text-secondary" transloco="system.gioi_thieu_tri_tue_nhan_tao"></p>
+                    <div class="flex flex-auto h-20 w-full mx-auto p-6 sm:p-8">
+                        <!-- <img style="vertical-align: middle;" class=" object-cover absolute w-44 h-44 -mt-20" alt="" src="assets/images/portal/Group 28.png"> -->
+
+                        <!-- <div class="hidden lg:flex flex-col items-center">
+                          
+                       </div>
+                       <div class="flex flex-col items-strat">
+                           <h2 class="text-4xl text-secondary text-white">Tích hợp Snapdragon 7c Gen 2</h2>
+                       </div> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="relative flex-0 overflow-hidden bg-black">
+            <img class="h-full w-full object-cover absolute" alt="" src="assets/images/portal/Laptop-67.jpg">
+            <div class="z-10 relative flex flex-col items-center">
+                <div class="et-pb-row et-pb-row-0"></div>
+                <h2 class="text-xl font-semibold text-white"></h2>
+                <div
+                    class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center text-white">
+                </div>
+                <div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary ">
+                </div>
+            </div>
+        </div>
+        <div class="relative flex-0 sm:px-16 overflow-hidden bg-black xelex-font-family">
+            <div class="z-10 relative flex flex-col items-center mt-20">
+                <h2 class="font-black text-4xl xelex-color-yellow" transloco="system.nhan_cac_thong_tin_ve_laptop_ai">
+                </h2>
+                <div>
+                    <p class="text-white" transloco="system.dang_ki_de_nhan_thong_tin_ve_cac_su_kien"></p>
+                </div>
+            </div>
+            <div class="z-10 relative flex flex-col items-center mb-20">
+                <div class="flex items-center">
+                    <!-- <mat-form-field class="xelex-input-email">
+                        <input matInput [type]="'text'" class="w-full bg-gray-50 text-gray-900 text-lg focus:ring-red-500 block pl-6 p-2.5  dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500" 
+                        placeholder="Email" [(ngModel)]="record.email" form (keyup.enter)="rerender()">
+                        
+                    </mat-form-field>   -->
+                    <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                        <div class="flex-1">
+
+                            <mat-form-field class="w-full mb-5 mt-3">
+                            
+                                <mat-label>
+                                    Captcha  <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'captcha'; index as i">
+                                        (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                                    </span>
+                                </mat-label>
+                                <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px" class="h-auto" /></span>
+
+                                <input matInput [type]="'text'" [(ngModel)]="record.email">
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+                    <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                        <div class="flex-1 font-bold">
+
+                            <cm_input [errorModel]="errorModel"
+                                      [actionEnum]="actionEnum"
+                                      [label]="'system.email'"
+                                      [keyError]="'db.email'"
+                                      [(model)]="record.db.email"></cm_input>
+                        </div>   
+                    </div> -->
+                    <div class="relative w-full">
+                        <!-- <span style="color: white" *ngFor="let item of errorModel | filter: 'key':'db.email'; index as i">
+                            (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                        </span> -->
+                        <!-- <cm_input class="xelex-input-email bg-gray-50 text-gray-900 text-lg focus:ring-red-500 block pl-6 p-2.5  dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500" 
+                        placeholder="Email" required="" [(model)]="record.db.email"></cm_input> -->
+                        <input type="text"
+                            class="xelex-input-email bg-gray-50 text-gray-900 text-lg focus:ring-red-500 block pl-6 p-2.5  dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500"
+                            placeholder="Email" required="" [(ngModel)]="record.db.email" />
+                    </div>
+                    <button type="submit"
+                        class="xelex-button-flow items-center py-2.5 px-3 text-lg font-bold border-gray-900"
+                        (click)="theo_doi()">
+                        <span transloco="system.theo_doi"></span>
+                    </button>
+
+                    <!-- <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search
+                    </button> -->
+                    <!-- <div class="h-36 w-36 bg-white rounded-xl shadow-xl transform rotate-3 flex justify-between p-4 hover:scale-150 transition duration-700 hover:rotate-45 hover:shadow-2xl">
+                        <div class="space-y-4 pt-1">
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                        </div>
+                        <div class="space-y-4 pt-1">
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                        </div>
+                        <div class="space-y-4 pt-1">
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                          <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
+                        </div>
+                      </div> -->
+                </div>
+                <div class="items-center" style="width: 700px;height: 49px;" *ngIf="record.db.email!=''">
+                    <div class="w-full no-margin-bottom">
+                        <!-- <mat-form-field floatLabel="always" class="fuse-mat-dense bg-gray-50 w-full mt-8">
+                            <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px"
+                                    class="h-auto" /></span>
+                            <input [(ngModel)]="record.capcha"
+                                class=" bg-gray-50 text-gray-900 text-lg focus:ring-red-500 block pl-6 p-2.5  dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500"
+                                placeholder="Captcha" matInput #newLabelInput>
+                            <button mat-icon-button (click)="reloadCaptcha(); record.capcha = ''" matSuffix>
+                                <mat-icon>refresh</mat-icon>
+                            </button>
+                        </mat-form-field> -->
+
+                        <mat-form-field class="w-full bg-gray-50 mt-8">
+                            <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px"
+                                    class="h-auto" /></span>
+                            <input matInput [type]="'text'" [(ngModel)]="record.capcha">
+                            <button mat-icon-button matSuffix (click)="reloadCaptcha()" type="button">
+                                <mat-icon>refresh</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Đối tác mobi-->
+        <div class="w-full mx-auto flex flex-col" *ngIf="isScreenSmall">
+
+        </div>
+    </div>
+</div>
+<style>
+    .mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper {
+        margin-bottom: 0px !important;
+    }
+
+    .mat-form-field.mat-form-field-appearance-fill.mat-form-field-has-label .mat-form-field-wrapper {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+</style>

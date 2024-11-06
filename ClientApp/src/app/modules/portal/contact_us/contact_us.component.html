@@ -1,0 +1,361 @@
+<!--px-6 sm:px-8-->
+
+
+  
+<div class="w-full mx-auto flex flex-col bg-white">
+    <div class="flex flex-col w-full  mx-auto" data-aos="fade-right" data-aos-once="true">
+        <!-- Banner web -->
+        <swiper [slidesPerView]="'1'" [navigation]="true" [autoplay]="{delay: 5000}" [pagination]="{
+                      clickable: true
+                    }" class="mySwiperBanner" *ngIf="!isScreenSmall && lst_banner.length>0">
+            <ng-template swiperSlide *ngFor="let item of lst_banner">
+                <div class="flex-none   mx-auto">
+                    <div class="flex flex-col">
+                        <div class="relative  cursor-pointer">
+                            <a *ngIf="activeLang=='vi'" href="{{item.db.link}}" target="_blank"><img class="h-auto w-full " src="{{item.db.image}}"></a>
+                            <a *ngIf="activeLang!='vi'" href="{{item.db.link}}" target="_blank"><img class="h-auto w-full " src="{{item.db.image_en}}"></a>
+                            <!--<div class="absolute object-cover w-full bottom-0" style="background:#161F37;">
+                                <span class="text-xl p-1 font-semibold tracking-tight text-white">{{item.name}}</span>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </swiper>
+        <!-- Banner mobile -->
+        <swiper [slidesPerView]="'1'" [navigation]="true" [autoplay]="{delay: 5000}" [pagination]="{
+             clickable: true
+
+           }" class="SwiperMobileBanner" *ngIf="isScreenSmall && lst_banner.length>0">
+            <ng-template swiperSlide *ngFor="let item of lst_banner">
+                <div class="flex-none   mx-auto">
+                    <div class="flex flex-col">
+                        <div class="relative  cursor-pointer">
+                            <a *ngIf="activeLang=='vi'" href="{{item.db.link}}" target="_blank"><img class="h-auto w-full " src="{{item.db.image_mobile}}"></a>
+                            <a *ngIf="activeLang!='vi'" href="{{item.db.link}}" target="_blank"><img class="h-auto w-full " src="{{item.db.image_mobile_en}}"></a>
+
+
+                            <!--<div class="absolute object-cover w-full bottom-0" style="background:#161F37;">
+                   <span class="text-xl p-1 font-semibold tracking-tight text-white">{{item.name}}</span>
+               </div>-->
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </swiper>
+    </div>
+
+    <div class="flex flex-col flex-auto min-w-0 md:mt-6 mt-3 mb-16">
+        <div class="bg-card dark:border-b">
+            <div class="flex flex-col w-full max-w-screen-xl mx-auto">
+                <div class="flex flex-col px-4 flex-auto items-center min-w-0">
+                   
+    
+                </div>
+                <!--flex-wrap-->
+                <div class="flex flex-col space-y-4  flex-auto sm:items-center min-w-0  px-4">
+                    <!-- Card #59 - Expandable card -->
+                    <div class="flex flex-col w-full bg-card">
+                        <div class="flex items-center">
+    
+                            <div class="flex flex-col w-full max-w-screen-xl mx-auto">
+                                <!-- Logo -->
+    
+                                <div class="w-full">
+                
+
+    
+                                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-3">
+                                        <div class="flex-1 space-y-2">
+                                            <!-- <table>
+                                                <tr>
+                                                    <td>
+                                                        <div class="flex space-x-2 items-center bka-text">
+                                                            <svg class="h-7 w-7"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
+                                                             <span>Phu Tho - Bach Khoa Alumni</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="flex space-x-2 items-center bka-text ">
+                                                            <svg class="h-7 w-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M8 9l5 5v7h-5v-4m0 4h-5v-7l5 -5m1 1v-6a1 1 0 0 1 1 -1h10a1 1 0 0 1 1 1v17h-8" />  <line x1="13" y1="7" x2="13" y2="7.01" />  <line x1="17" y1="7" x2="17" y2="7.01" />  <line x1="17" y1="11" x2="17" y2="11.01" />  <line x1="17" y1="15" x2="17" y2="15.01" /></svg>
+                                                            <span>Ho Chi Minh City University of Technology</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="flex space-x-2 items-center bka-text">
+                                                            <svg class="h-7 w-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="18" y1="6" x2="18" y2="6.01" />  <path d="M18 13l-3.5 -5a4 4 0 1 1 7 0l-3.5 5" />  <polyline points="10.5 4.75 9 4 3 7 3 20 9 17 15 20 21 17 21 15" />  <line x1="9" y1="4" x2="9" y2="17" />  <line x1="15" y1="15" x2="15" y2="20" /></svg>
+                                                            <span>268 Ly Thuong Kiet Str.Ward 14,Dist.10 HCMC.</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="flex space-x-2 items-center bka-text">
+                                                            <svg class="h-7 w-7"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />  <polyline points="22,6 12,13 2,6" /></svg>
+                                                            <span>Email: bka@hcmut.edu.vn</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="flex space-x-2 items-center bka-text">
+                                                            <svg class="h-7 w-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <g transform="rotate(27 12 12)">  <rect x="7" y="4" width="10" height="16" rx="1" />  <line x1="11" y1="5" x2="13" y2="5" />  <line x1="12" y1="17" x2="12" y2="17.01" />  </g>  <path d="M6 4l-2 1v2.5l-2 1v2.5" />  <path d="M22 13v2.5l-2 1v2.5l-2 1" /></svg>
+                                                            <span>Mobile: +84877905080</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="flex space-x-2 items-center bka-text">
+                                                            <svg class="h-7 w-7"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                                                            <span>Tel:+84(28) 38 647 256 Ext.6324</span>
+                                                        </div> 
+                                                    </td>
+                                                </tr>
+                                            </table>   -->       
+                                            <div style="font-size: 32px;font-weight: bold;">Xelex Technology Corporation</div>                                 
+                                            <div *ngIf="activeLang == 'vi'" class="mb-8">
+                                                <div class="flex items-center w-full space-x-4">
+                                                    <hr style="width: 50%; border-color:#f7be68 !important;border-top-width: 0px;">
+                                                    <h4 class="mb-0">Office</h4>
+                                                    <hr style="width: 50%; border-color:#f7be68 !important;border-top-width: 0px;">
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4>Trung tâm nghiên cứu phát triển</h4>
+                                                       
+                                                        <li>124 Huỳnh Tấn Phát, phường Tân Thuận Tây, Quận 7, TP.HCM</li>
+                                                        <li>Điện thoại: (+84) 28 6270 1372</li>
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4 >Văn phòng kinh doanh</h4>
+                                                        <li>Tòa nhà Đại Minh, lầu 8, 77 Hoàng Văn Thái, P. Tân Phú, Q.7, TP.HCM</li>
+                                                        <li>Điện thoại : (+84) 28 54 155 553</li>
+                                                        <li>Email : info@xelex.vn</li>
+                                                        <li>Website: www.xelex.vn</li>
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4 >Văn phòng tại Hà Nội</h4>
+                                                        <li>Tòa nhà Tiền Phong, 15 Hồ Xuân Hương, P. Nguyễn Du, Q. Hai Bà Trưng, Hà Nội</li>
+                                                </div>                                                                                                
+                                                <div class="mb-8">
+                                                    <h4>Văn phòng tại Hoa Kỳ</h4>
+                                                        <li>15211 Camino Del Sol Dr.Houston, TX 77083, USA</li>
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4>Nhà máy</h4>
+                                                        <li>2A Phan Văn Trị, Phường 10,Quận Gò Vấp, TP.HCM</li>
+                                                        <li>Điện Thoai : (+84) 28 54 155 552</li>
+                                                        <li>Email : info@xelex.vn</li>
+                                                        <li>Website: <a href="www.xelex.vn">www.xelex.vn</a></li>
+                                                </div>
+                                            </div>
+                                            <!-- English -->
+                                            <div *ngIf="activeLang != 'vi'" class="mb-8">
+                                                <div class="flex items-center w-full space-x-4">
+                                                    <hr style="width: 50%; border-color:#f7be68 !important;border-top-width: 0px;">
+                                                    <h4 class="mb-0">Office</h4>
+                                                    <hr style="width: 50%; border-color:#f7be68 !important;border-top-width: 0px;">
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4>Head Office in Vietnam</h4>
+                                                    
+                                                        <li>Dai Minh Building, 8th Floor, 77 Hoang Van Thai, Tan Phu Ward, District 7, Ho Chi Minh City</li>
+                                                        <li>Telephone : (+84) 28 54 155 553</li>
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4 >Hardware Research Center</h4>
+                                                        <li>124 Huynh Tan Phat Str., Tan Thuan Tay Ward, Dist. 7, HCMC</li>
+                                                        <li>Phone: (+84) 28 6270 1372</li>
+                                                        <li>Email : info@xelex.vn</li>
+                                                        <li>Website: www.xelex.vn</li>
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4 >Ha Noi Office</h4>
+                                                        <li>Tien Phong Building, 15 Ho Xuan Huong, Nguyen Du Ward, District Hai Ba Trung, Ha Noi</li>
+                                                </div>                                             
+                                                <div class="mb-8">
+                                                    <h4>US Office</h4>
+                                                        <li>15211 Camino Del Sol Dr.Houston, TX 77083, USA</li>
+                                                </div>
+                                                <div class="mb-8">
+                                                    <h4>Factory</h4>
+                                                        <li>2A Phan Van Tri, Ward 10, Go Vap District, Ho Chi Minh City</li>
+                                                        <li>Telephone : (+84) 28 54 155 552</li>
+                                                        <li>Email : info@xelex.vn</li>
+                                                        <li>Website: <a href="www.xelex.vn">www.xelex.vn</a></li>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="w-50">
+                                                <img src="assets/images/logo/worldsoft.png" style="image-rendering: -webkit-optimize-contrast;">
+                                            </div > -->
+                                            
+                                            <!--<div class="flex space-x-4">
+                                                <div class="space-y-4">
+                                                    <div class="flex space-x-2 items-center bka-text">
+                                                        <svg class="h-7 w-7"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
+                                                        <span>Phu Tho - Bach Khoa Alumni</span>
+                                                    </div>
+                                                    <div class="flex space-x-2 items-center bka-text">
+                                                        <svg class="h-7 w-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="18" y1="6" x2="18" y2="6.01" />  <path d="M18 13l-3.5 -5a4 4 0 1 1 7 0l-3.5 5" />  <polyline points="10.5 4.75 9 4 3 7 3 20 9 17 15 20 21 17 21 15" />  <line x1="9" y1="4" x2="9" y2="17" />  <line x1="15" y1="15" x2="15" y2="20" /></svg>
+                                                        <span>268 Ly Thuong Kiet Str.Ward 14,Dist.10 HCMC.</span>
+                                                    </div>
+                                                    <div class="flex space-x-2 items-center bka-text">
+                                                        <svg class="h-7 w-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <g transform="rotate(27 12 12)">  <rect x="7" y="4" width="10" height="16" rx="1" />  <line x1="11" y1="5" x2="13" y2="5" />  <line x1="12" y1="17" x2="12" y2="17.01" />  </g>  <path d="M6 4l-2 1v2.5l-2 1v2.5" />  <path d="M22 13v2.5l-2 1v2.5l-2 1" /></svg>
+                                                        <span>Mobile: +84877905080</span>
+                                                    </div>
+                                                </div>
+                                                <div class="space-y-4">
+                                                    <div class="flex space-x-2 items-center bka-text ">
+                                                        <svg class="h-7 w-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M8 9l5 5v7h-5v-4m0 4h-5v-7l5 -5m1 1v-6a1 1 0 0 1 1 -1h10a1 1 0 0 1 1 1v17h-8" />  <line x1="13" y1="7" x2="13" y2="7.01" />  <line x1="17" y1="7" x2="17" y2="7.01" />  <line x1="17" y1="11" x2="17" y2="11.01" />  <line x1="17" y1="15" x2="17" y2="15.01" /></svg>
+                                                        <span>Ho Chi Minh City University of Technology</span>
+                                                    </div>
+                                                    <div class="flex space-x-2 items-center bka-text">
+                                                        <svg class="h-7 w-7"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />  <polyline points="22,6 12,13 2,6" /></svg>
+                                                        <span>Email: bka@hcmut.edu.vn</span>
+                                                    </div>
+                                                    <div class="flex space-x-2 items-center bka-text">
+                                                        <svg class="h-7 w-7"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                                                        <span>Tel:+84(28) 38 647 256 Ext.6324</span>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                                                              
+                                            <br />
+                                            <!-- Alert -->
+                                            <fuse-alert class="mt-8 -mb-4"
+                                                        *ngIf="showAlert"
+                                                        [appearance]="'outline'"
+                                                        [showIcon]="false"
+                                                        [type]="alert.type"
+                                                        [@shake]="alert.type === 'error'">
+                                                {{alert.message}}
+                                            </fuse-alert>
+                                        </div>
+                                        <div class="flex-1 w-full mb-8">
+                                            <div class="md:px-5 px-0">
+                                              
+                                                <div class="flex items-center w-full space-x-4">
+                                                    <hr style="width: 50%; border-color:#f7be68 !important;border-top-width: 0px;">
+                                                    <h4 class="mb-0">ContactUs</h4>
+                                                    <hr style="width: 50%; border-color:#f7be68 !important;border-top-width: 0px;">
+                                                </div>
+                                                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap md:mt-3 mt-2 mb-6">
+                                                    <div class="flex-1">
+                                                        <cm_input [errorModel]="errorModel"
+                                                                  [actionEnum]="actionEnum"                                                               
+                                                                  [label]="'system.full_name'"
+                                                                  [keyError]="'db.name'"
+                                                                  [(model)]="record.db.name"></cm_input>
+                                                    </div>
+                                                </div>   
+                                                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                    <div class="flex-1 font-bold">
+    
+                                                        <cm_input [errorModel]="errorModel"
+                                                                  [actionEnum]="actionEnum"
+                                                                  [label]="'system.email'"
+                                                                  [keyError]="'db.email'"
+                                                                  [(model)]="record.db.email"></cm_input>
+                                                    </div>   
+                                                </div>
+                                                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                    <div class="flex-1">
+                                                        <cm_input [errorModel]="errorModel"
+                                                                  [actionEnum]="actionEnum"
+                                                                  [label]="'system.phone'"
+                                                                  [keyError]="'db.phone'"
+                                                                  [(model)]="record.db.phone"></cm_input>
+                                                    </div>                                                   
+                                                </div>
+                                                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                    <div class="flex-1">
+                                                        <h1 class="font-normal text-gray-700" transloco="system.content"></h1>
+                                                        <mat-form-field *ngIf="activeLang=='vi'" class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                                                            <textarea matInput
+                                                                      [rows]="3"
+                                                                      [placeholder]="'Nội dung...'"
+                                                                      matTextareaAutosize></textarea>
+                                                        </mat-form-field>
+                                                        <mat-form-field *ngIf="activeLang=='en'" class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                                                            <textarea matInput
+                                                                      [rows]="3"
+                                                                      [placeholder]="'Content...'"
+                                                                      matTextareaAutosize></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                    <div class="flex-1">
+    
+                                                        <mat-form-field class="w-full mb-5 mt-3">
+                                                        
+                                                            <mat-label>
+                                                                Captcha  <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'captcha'; index as i">
+                                                                    (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                                                                </span>
+                                                            </mat-label>
+                                                            <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px" class="h-auto" /></span>
+    
+                                                            <input matInput [type]="'text'" [(ngModel)]="record.captcha">
+                                                            <button mat-icon-button matSuffix (click)="reloadCaptcha()" type="button">
+                                                                <mat-icon>refresh</mat-icon>
+                                                            </button>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                    <div class="flex-1" align="left">
+                                                        <button class="fuse-mat-button-large rounded w-full md:mb-4 md:mt-1 mt-0 "
+                                                                style="background-color: #ffb700;"
+                                                                mat-flat-button
+                                                                [color]="'primary'"
+                                                                [disabled]="loading"
+                                                                (click)="SendUp()">
+                                                            <span *ngIf="!loading && activeLang=='vi'">
+                                                                Gửi
+                                                            </span>
+                                                            <!-- English -->
+                                                            <span *ngIf="!loading && activeLang!='vi'">
+                                                                Send
+                                                            </span>
+                                                            <mat-progress-spinner *ngIf="loading"
+                                                                                  [diameter]="24"
+                                                                                  [mode]="'indeterminate'">
+                                                            </mat-progress-spinner>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr style="width: 100%; border-color:#f7be68 !important;border-top-width: 0px;">
+                                    <div class="flex md:space-x-4 space-y-2 md:space-y-0 w-full flex-col md:flex-row lg:flex-row">
+                                        <div class="md:w-1/2">
+                                            <h4 *ngIf="activeLang == 'vi'">Trụ sở chính</h4>
+                                            <h4 *ngIf="activeLang != 'vi'">Head Office</h4>
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m19!1m8!1m3!1d7840.114946615266!2d106.72222!3d10.7300507!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x31752f44c70f43ad%3A0x342a90e622999ce7!2zQ8O0bmcgVHkgQ-G7lSBQaOG6p24gQ8O0bmcgTmdo4buHIFhlbGV4IDc3IEhvw6BuZyBWxINuIFRow6FpIFTDom4gUGjDuiBRdeG6rW4gNywgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oIDcwMDAwMA!3m2!1d10.7300507!2d106.72222!5e0!3m2!1sen!2s!4v1655952967251!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>       
+                                        </div>
+                                        <div class="md:w-1/2">
+                                            <h4 *ngIf="activeLang == 'vi'">Trung tâm nghiên cứu phát triển</h4>
+                                            <h4 *ngIf="activeLang != 'vi'">Hardware Research Center</h4>
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m19!1m8!1m3!1d31357.899536735717!2d106.7262528!3d10.7547072!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x31753bee788e4643%3A0x77503031c8991f2c!2zWGVsZXggRGVzaWduIEhvdXNlIDEyNCBIdeG7s25oIFThuqVuIFBow6F0IFTDom4gVGh14bqtbiBUw6J5IFF14bqtbiA3LCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!3m2!1d10.7547072!2d106.7262528!5e0!3m2!1sen!2s!4v1655953057706!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                    </div>
+    
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+    
+    
+    
+    
+        </div>
+    
+    </div>
+</div>
+
+

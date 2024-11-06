@@ -1,0 +1,24 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="bg-card dark:border-b">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto">
+            <!--flex-wrap-->
+            <div class="flex flex-col space-y-4  mt-10  flex-auto sm:items-center min-w-0">
+                <!-- Card #59 - Expandable card -->
+                <div class="flex flex-col w-full bg-card">
+                    <div class="flex items-center">
+                        <div class="mx-4 mt-2 mb-6">
+                            <span *ngIf="activeLang=='vi'" [innerHtml]="record.db.noi_dung | safeHtml"></span>
+                            <span *ngIf="activeLang!='vi'" [innerHtml]="record.db.noi_dung_en | safeHtml"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+

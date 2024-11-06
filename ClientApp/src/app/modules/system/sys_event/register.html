@@ -1,0 +1,267 @@
+<div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
+    <div class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-50">
+                <img src="assets/images/logo/worldsoft.png" style="image-rendering: -webkit-optimize-contrast;">
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Đăng ký tham gia sự kiện</div>
+         
+
+            <!-- Alert -->
+            <fuse-alert class="mt-8 -mb-4"
+                        *ngIf="showAlert"
+                        [appearance]="'outline'"
+                        [showIcon]="false"
+                        [type]="alert.type"
+                        [@shake]="alert.type === 'error'">
+                {{alert.message}}
+            </fuse-alert>
+            <div class="w-full">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel" *ngIf="isUser==false"
+                                  [keyError]="'lastName'"
+                                  [label]="'system.hoten'"
+                                  [(model)]="record.lastName"></cm_input>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.email'"
+                                  [callbackChange]="emailchange.bind(this)"
+                                  [keyError]="'db.email'"
+                                  [(model)]="record.db.email"></cm_input>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_select [errorModel]="errorModel" *ngIf="isUser==false"
+                                   [label]="'system.danh_xung'"
+                                   [keyError]="'sex'"
+                                   [listData]="list_trang_thai"
+                                   [(model)]="record.sex"></cm_select>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.first_name'"
+                                  [keyError]="'db.FirstName'"
+                                  [(model)]="record.db.FirstName"></cm_input>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.last_name'"
+                                  [keyError]="'db.LastName'"
+                                  [(model)]="record.db.LastName"></cm_input>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel"
+                                  [actionEnum]="actionEnum"
+                                  [label]="'system.phone'"
+                                  [keyError]="'db.phone'"
+                                  [(model)]="record.db.phone"></cm_input>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_select [errorModel]="errorModel"
+                                   [label]="'NAV.sys_khoa'"
+                                   [keyError]="'db.id_khoa'"
+                                   [listData]="list_khoa"
+                                   [(model)]="record.db.id_khoa"></cm_select>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+
+                        <cm_select [errorModel]="errorModel"
+                                   [label]="'portal.school_year'"
+                                   [keyError]="'db.school_year'"
+                                   [listData]="list_school_year"
+                                   [(model)]="record.db.school_year"></cm_select>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_select [errorModel]="errorModel"
+                                   [label]="'portal.status_graduate'"
+                                   [keyError]="'db.status_graduate'"
+                                   [listData]="list_status_graduate"
+                                   [(model)]="record.db.status_graduate"></cm_select>
+                    </div>
+                </div>
+
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_input [errorModel]="errorModel"
+                                  [keyError]="'email'"
+                                  [label]="'system.email'"
+                                  [callbackChange]="emailchange.bind(this)"
+                                  [(model)]="record.email"></cm_input>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_select [errorModel]="errorModel" *ngIf="isUser==false"
+                                   [label]="'system.danh_xung'"
+                                   [keyError]="'sex'"
+                                   [listData]="list_trang_thai"
+                                   [(model)]="record.sex"></cm_select>
+                    </div>
+                </div>
+
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+
+                        <cm_input [errorModel]="errorModel" *ngIf="isUser==false"
+                                  [keyError]="'dienthoai'"
+                                  [label]="'system.dien_thoai'"
+                                  [(model)]="record.dienthoai"></cm_input>
+
+                    </div>
+                </div>
+                <h1 style="text-align:center" *ngIf="isUser==true">Chào {{record.lastName}}</h1>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <mat-form-field class="w-full mb-5">
+                            <mat-label>
+                                Captcha  <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'capcha'; index as i">
+                                    (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                                </span>
+                            </mat-label>
+                            <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px;height:36px" class="mr-2" />
+                            <input matInput [type]="'text'" [(ngModel)]="record.capcha">
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- Sign Up form -->
+            <!-- Company field -->
+            <!--<mat-form-field class="w-full">
+                <mat-label>Company</mat-label>
+                <input id="company-confirm"
+                       matInput
+                       [formControlName]="'company'">
+            </mat-form-field>-->
+            <!-- ToS and PP -->
+            <div class="inline-flex items-end w-full mt-1.5">
+                <mat-checkbox [color]="'primary'"
+                              [formControlName]="'agreements'">
+                    <span>Tôi đồng ý với </span>
+                    <a class="ml-1 text-primary-500 hover:underline"
+                       [routerLink]="['/portal-term']">
+                        điều khoản
+                    </a>
+                    <span>và</span>
+                    <a class="ml-1 text-primary-500 hover:underline"
+                       [routerLink]="['/portal-privacy']">
+                        chính sách bảo mật
+                    </a>
+                </mat-checkbox>
+            </div>
+
+            <!-- Submit button -->
+            <button class="fuse-mat-button-large w-full mt-6"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="loading"
+                    (click)="register()">
+                <span *ngIf="!loading" transloco="system.registerEvent">
+                    
+                </span>
+                <mat-progress-spinner *ngIf="loading"
+                                      [diameter]="24"
+                                      [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+            <button class="fuse-mat-button-large w-full mt-6"
+                    mat-flat-button
+                    [color]="'accent'"
+                    (click)="gobackhomepage()">
+                <span transloco="portal.homepage"></span>
+            </button>
+            <div align="right" class="flex-1 text-base mt-10">
+                Copyright © {{currentYear}} Xelex Corporation - All right reserved
+                <br />
+                <a href="https://worldsoft.com.vn/" style="color:black">Powered by Worldsoft Corporation</a>
+            </div>
+        </div>
+    </div>
+    <div class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- Dots -->
+        <svg class="absolute -top-16 -right-16 text-gray-700"
+             viewBox="0 0 220 192" width="220" height="192" fill="none">
+            <defs>
+                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
+                </pattern>
+            </defs>
+            <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
+        </svg>
+        <!-- @formatter:on -->
+        <!-- Content -->
+        <div class="z-10 relative w-full max-w-2xl">
+            <div class="text-7xl font-bold leading-none text-gray-100">
+                <img src="/assets/images/portal/Welcome.png" />
+            </div>
+            <!--<div class="mt-6 text-lg tracking-tight leading-6 text-gray-400">
+                Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules.
+                Join us and start building your application today.
+            </div>-->
+            <!--<div class="flex items-center mt-8">
+                <div class="flex flex-0 items-center -space-x-1.5">
+                    <img
+                        class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-gray-800 ring-offset-gray-800 object-cover"
+                        src="assets/images/avatars/female-18.jpg">
+                    <img
+                        class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-gray-800 ring-offset-gray-800 object-cover"
+                        src="assets/images/avatars/female-11.jpg">
+                    <img
+                        class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-gray-800 ring-offset-gray-800 object-cover"
+                        src="assets/images/avatars/male-09.jpg">
+                    <img
+                        class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-gray-800 ring-offset-gray-800 object-cover"
+                        src="assets/images/avatars/male-16.jpg">
+                </div>
+                <div class="ml-4 font-medium tracking-tight text-gray-400">More than 17k people joined us, it's your turn</div>
+            </div>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_event_nguoi_nhan_hoc_bong"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="text-lg font-medium">
+            <span transloco="NAV.sys_event"></span> - {{record.ten_su_kien}}
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.mssv'"
+                          [maxlength]="11"
+                          [keyError]="'db.mssv'"
+                          [(model)]="record.db.mssv"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.name'"
+                          [keyError]="'db.name'"
+                          [(model)]="record.db.name"></cm_input>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.so_tien'"
+                          [keyError]="'db.so_tien'"
+                            [type]="'number'"
+                          [(model)]="record.db.so_tien"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_select [errorModel]="errorModel"
+                           [label]="'system.don_vi_tien_te'"
+                           [keyError]="'db.id_tien_te'"
+                           [listData]="list_tien_te"
+                           [(model)]="record.db.id_tien_te"></cm_select>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel"
+                          [actionEnum]="actionEnum"
+                          [label]="'system.note'"
+                          [keyError]="'db.note'"
+                          [(model)]="record.db.note"></cm_input>
+            </div>
+        </div>
+
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

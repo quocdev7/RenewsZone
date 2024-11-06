@@ -1,0 +1,156 @@
+<div class="flex flex-col flex-auto md:w-auto md:min-w-160 max-w-screen-md w-full  md:min-w-md  -m-6 overflow-y-auto p-5">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_approval_config"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.name'"
+                              [keyError]="'db.name'"
+                              [(model)]="record.db.name"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" *ngIf="actionEnum!=1"
+                              [actionEnum]="actionEnum"
+                              [type]="'readonly'"
+                              [label]="'system.step'"
+                              [keyError]="'db.step'"
+                              [(model)]="record.db.step"></cm_input>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" *ngIf="actionEnum==1"
+                               [label]="'system.menu'"
+                               [keyError]="'db.menu'"
+                               [listData]="listMenu"
+                               [(model)]="record.db.menu"></cm_select>
+
+                    <cm_input [label]="'system.menu'" *ngIf="actionEnum==3 || actionEnum==2"
+                              [type]="'readonly'"
+                              [(model)]="record.form_name"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'system.note'"
+                              [keyError]="'db.note'"
+                              [(model)]="record.db.note"></cm_input>
+                </div>
+            </div>
+        </mat-card>
+        <br />
+
+        <mat-card *ngIf="actionEnum!=3">
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+
+                <div class="flex-1">
+                    <cm_select_server_side [label]="'system.user_name'"
+                                           [link]="'/sys_approval_config.ctr/getListUser/'"
+                                           [(objectChose)]="item_chose"
+                                           [callbackChange]="bind_data_item_chose.bind(this)"
+                                           [(model)]="additem.db.user_id"></cm_select_server_side>
+                </div>
+                <div class="flex-1">
+                    <cm_input [label]="'system.step_num'"
+                              [actionEnum]="actionEnum"
+                              [type]="'number'"
+                              [(model)]="additem.db.step_num"></cm_input>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+
+                <div class="flex-1">
+                    <cm_input [label]="'system.step_name'"
+                              [actionEnum]="actionEnum"
+                              [(model)]="additem.db.name"></cm_input>
+
+                </div>
+                <div class="flex-1">
+                    <cm_input [label]="'system.note'"
+                              [actionEnum]="actionEnum"
+                              [(model)]="additem.db.note"></cm_input>
+
+                </div>
+
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+
+                <div class="flex-1">
+                    <cm_input [label]="'system.duration_hours'"
+                              [actionEnum]="actionEnum"
+                              [type]="'number'"
+                              [(model)]="additem.db.duration_hours"></cm_input>
+
+                </div>
+                <div class="flex-1">
+
+
+                </div>
+
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" align="end">
+                <div class="flex-1">
+                    <button class="mat-button-action" mat-button transloco="add" (click)="addDetail()"></button>
+                </div>
+            </div>
+        </mat-card>
+        <br />
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'list_item' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                     <table  datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                                <th *ngIf="actionEnum!=3"></th>
+                                <th transloco="no_"></th>
+                                <th transloco="system.step_num"></th>
+                                <th transloco="system.step_name"></th>
+                                <th transloco="system.user_name"></th>
+                                <th transloco="system.duration_hours"></th>
+                                <th transloco="note"></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="record.list_item?.length != 0">
+                            <tr *ngFor="let item of record.list_item;  index as i;">
+                                <td *ngIf="actionEnum!=3">
+                                    <button color="warn" mat-raised-button transloco="delete" (click)="deleteDetail(i)"></button>
+                                </td>
+                                <td>{{ i+1 }}</td>
+
+                                <td align="right">{{ item.db.step_num | number }}</td>
+                                <td>{{ item.db.name }}</td>
+                                <td>{{ item.user_name }}</td>
+                                <td align="right">{{ item.db.duration_hours | number }}</td>
+
+                                <td>{{ item.db.note }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </mat-card>
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600"  *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>
+

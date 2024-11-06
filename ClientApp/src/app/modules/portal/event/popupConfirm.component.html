@@ -1,0 +1,116 @@
+<h2 mat-dialog-title class="w-full max-w-screen-md mx-auto" transloco="system.tom_tat_su_kien"> </h2>
+<mat-dialog-content class="mat-typography" class="p-4 w-full max-w-screen-md mx-auto">
+    <div class="flex flex-col bg-card shadow rounded-lg p-4 filter-post filter-interactive  hover:cursor-pointer">
+        <div>
+            <p  class="text-2xl font-bold text-blue-900">
+                {{record.db.title}}
+            </p>
+          
+                <p *ngIf="record.db.quyen_rieng_tu==5">
+                    <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+                        Thông tin vé: 
+                    </span>
+                    <span  style="font-weight: bold; font-size: 16px; vertical-align: middle;color:blue" *ngIf="record.db.quyen_rieng_tu==5">{{record.db.so_tien |  number }} {{record.ten_tien_te }}</span>
+                </p>
+            <p>
+                <span>
+                    <mat-icon style="color:blue;vertical-align:middle">apps</mat-icon>
+                </span>
+                <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                     Hình thức:
+                    <span class="pl-2 pr-2" style="color:cornflowerblue" *ngIf="record.db.type.includes('1')" transloco="system.offline"></span>
+                    <span class="pl-2 pr-2" style="color:forestgreen" *ngIf="record.db.type.includes('2')" transloco="system.online"></span>
+                    <span class="pl-2 pr-2" style="color:orange" *ngIf="record.db.type.includes('3')" transloco="system.hoc_bong"></span>
+                    <span class="pl-2 pr-2" style="color:red" *ngIf="record.db.type.includes('4')" transloco="system.tai_tro"></span>
+                </span>
+            </p>
+            <p>
+                <span>
+                    <mat-icon style="color:blue;vertical-align:middle">apps</mat-icon>
+                </span>
+                <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                     Trạng thái:
+                     <span style="color:cornflowerblue" *ngIf="record.trang_thai == 1" transloco="system.dang_dien_ra"></span>
+                     <span style="color:forestgreen" *ngIf="record.trang_thai == 3" transloco="system.ket_thuc"></span>
+                     <span style="color:orange" *ngIf="record.trang_thai == 4" transloco="system.sap_toi"></span>
+                     <span style="color:red" *ngIf="record.trang_thai == 2" transloco="system.cancel"></span>
+                </span>
+            </p>
+            <p *ngIf="record.db.quyen_rieng_tu!=5">
+                <span>
+                    <mat-icon style="color:blue;vertical-align:middle">apps</mat-icon>
+                </span>
+                <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                     Quyền riêng tư:
+                     <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==1" transloco="system.cong_khai"></span>
+                     <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==2" transloco="system.thanh_vien"></span>
+                     <span class="text-green-900" *ngIf="record.db.quyen_rieng_tu==3" transloco="system.ban_be"></span>
+                     <p class="text-green-900" *ngIf="record.db.quyen_rieng_tu==4">{{item.ten_khoa }}</p>
+
+                   
+                </span>
+            </p>
+       
+            <p>
+                <span>
+                    <mat-icon style="color:blue;vertical-align:middle">access_time</mat-icon>
+                </span>
+
+                <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+                    Thời gian tổ chức: Từ {{record.db.time_start |  date: 'HH:mm - dd/MM/yyyy'}} -
+                    Đến {{record.db.time_end |  date: 'HH:mm - dd/MM/yyyy'}}
+                </span>
+
+            </p>
+            <p>
+                <span>
+                    <mat-icon style="color:blue;vertical-align:middle">room</mat-icon>
+                </span>
+                <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                    Địa điểm: {{record.db.location}}
+                </span>
+            </p>
+            <p>
+                <span>
+                    <mat-icon style="color:blue;vertical-align:middle">access_time</mat-icon>
+                </span>
+                <span style="font-weight:bold;font-size:16px;vertical-align:middle">
+
+                    Hạn đăng ký tới: {{record.db.ngay_den_han_dang_ky |  date: 'HH:mm - dd/MM/yyyy'}}
+                </span>
+            </p>
+           
+           
+
+        </div>
+    </div>
+    <div class="flex flex-col bg-card shadow rounded-lg p-4 mt-4 filter-post filter-interactive  hover:cursor-pointer" ngIf="!isScreenSmall">
+                
+        <div class="w-full mt-5" >
+            <p  class="text-2xl font-bold text-blue-900 mb-2" transloco="system.luu_y_tham_gia"></p>
+            <span *ngIf="activeLang=='vi'" [innerHtml]="record.db.luu_y_tham_gia | safeHtml"></span>
+            <span *ngIf="activeLang!='vi'" [innerHtml]="record.db.luu_y_tham_gia_en | safeHtml"></span>
+
+        </div>
+    
+    </div>
+    <div class="flex flex-col bg-card shadow rounded-lg p-4 mt-4 filter-post filter-interactive  hover:cursor-pointer"  ngIf="!isScreenSmall">
+                
+        <div class="w-full mt-5">
+            <p  class="text-2xl font-bold text-blue-900 mb-2" transloco="system.luu_y_tham_gia"></p>
+            <span *ngIf="activeLang=='vi'" [innerHtml]="record.db.luu_y_tham_gia_mobile | safeHtml"></span>
+            <span *ngIf="activeLang!='vi'" [innerHtml]="record.db.luu_y_tham_gia_mobile_en | safeHtml"></span>
+
+        </div>
+    
+    </div>
+   
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="p-4">
+  <button  mat-raised-button  color="accent" (click)="close()"  transloco="close">Đóng</button>
+  <button mat-raised-button color="primary" (click)="confirm(record.db.title)" cdkFocusInitial  transloco="system.dong_y_tham_gia"></button>
+</mat-dialog-actions>

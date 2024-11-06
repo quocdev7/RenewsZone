@@ -1,0 +1,49 @@
+
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="bg-bka-header dark:border-b min-w-0">
+      
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto md:pl-20 md:pr-20">
+
+            <!--flex-wrap-->
+            <div class="flex flex-col space-y-4   flex-auto sm:items-center min-w-0 ">
+                <!-- Card #59 - Expandable card -->
+                <div class="flex flex-col w-full bg-card rounded-lg shadow">
+                    <div class="" align="center">
+                        <img class="h-auto w-full rounded-lg" style="border-top-left-radius: 0.5rem !important;border-top-right-radius: 0.5rem !important"
+                             src="{{linh_vuc.db.image}}"
+                             alt="Card cover image">
+                    </div>
+
+                    <div class="p-2 mb-4">
+                        <div  *ngIf="activeLang=='vi'" class="text-2xl font-bold bka-text mx-3">
+                            {{linh_vuc.db.name}}
+                        </div>
+                        <div  *ngIf="activeLang!='vi'" class="text-2xl font-bold bka-text mx-3">
+                            {{linh_vuc.db.name_en}}
+                        </div>                       
+                        <hr style="margin-top:8px;margin-bottom:8px" />
+
+                        <div class="flex items-center ">
+                            <div class="mx-3 mt-1 mb-6" style="word-break: break-word;">                  
+                                <span *ngIf="activeLang=='vi'  && linh_vuc.db.note != null && linh_vuc.db.note != ''" [innerHtml]="linh_vuc.db.note | safeHtml"></span>
+                                <span *ngIf="activeLang!='vi' && linh_vuc.db.note != null && linh_vuc.db.note != ''" [innerHtml]="linh_vuc.db.note_en | safeHtml"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex w-full items-center">
+                        <hr style="width: 50%; border-color:#8400ff !important;border-top-width: 0px;">
+                        <a href="{{linh_vuc.db.link}}" class="rounded-full border text-center xem_them x-3" style="border-color: #8400ff; height: 50px;width: 200px; font-size: 20px; padding-top: 8px;" transloco="system.xem_them"></a>
+                        <hr style="width: 50%; border-color:#8400ff !important; border-top-width: 0px;">
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>
+

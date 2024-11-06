@@ -1,0 +1,257 @@
+<div class="w-full mx-auto flex flex-col bg-white max-w-screen-xl md:pl-15 md:pr-15">
+
+
+    <div class="flex flex-col w-full max-w-screen-xl  mx-auto  p-4">
+
+        <div class="flex flex-col w-full max-w-screen-xl    mx-auto" data-aos="fade-right" data-aos-once="true">
+            <div class="flex flex-col w-full mt-4 ">
+                <div class="flex flex-col flex-auto  w-full min-w-0 max-w-screen-xl mx-auto">
+                    <swiper [slidesPerView]="'auto'" *ngIf="!isScreenSmall"
+                            [pagination]="{
+                      clickable: true
+                    }"
+                            [autoplay]="{delay: 10000}"
+                            [spaceBetween]="20"
+                            class="mySwiperNhomTin1">
+                        <ng-template swiperSlide *ngFor="let item1 of lst_type_news; let i = index">
+                            <div class="p-3 grid place-items-center text-center rounded-lg bg-bka shadow-lg"
+                                 style="height:92px;">
+                                <a *ngIf="activeLang=='vi'" class="text-2xl  font-semibold tracking-tight text-white" (click)="gotoTypeNewsPage(item1.id)">  {{item1.name}}</a>
+                                <a *ngIf="activeLang!='vi'" class="text-2xl  font-semibold tracking-tight text-white" (click)="gotoTypeNewsPage(item1.id)">  {{item1.name_en}}</a>
+                            </div>
+                        </ng-template>
+                    </swiper>
+                    <swiper [slidesPerView]="'1'" *ngIf="isScreenSmall"
+                            [pagination]="{
+                      clickable: true
+                    }"
+                            [autoplay]="{delay: 10000}"
+                            [spaceBetween]="20"
+                            class="mySwiperNhomTin1Mobile">
+                        <ng-template swiperSlide *ngFor="let item1 of lst_type_news; let i = index">
+                            <div class="p-3 grid place-items-center text-center rounded-lg bg-bka shadow-lg"
+                                 style="height:92px;">
+                                <a *ngIf="activeLang=='vi'" class="text-2xl  font-semibold tracking-tight text-white" (click)="gotoTypeNewsPage(item1.id)">  {{item1.name}}</a>
+                                <a *ngIf="activeLang!='vi'" class="text-2xl  font-semibold tracking-tight text-white" (click)="gotoTypeNewsPage(item1.id)">  {{item1.name_en}}</a>
+                            </div>
+                        </ng-template>
+                    </swiper>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full mt-5" data-aos="fade-right" data-aos-once="true">
+            <!-- <mat-form-field class=" w-full mt-8">
+                <mat-icon matPrefix>search</mat-icon>
+                <input [(ngModel)]="search_key" placeholder="Gõ từ khóa" (keyup.enter)="loadNewsByTypeNews(0)"
+                       matInput>
+                <button mat-icon-button color="primary" class="mr-4" (click)="loadNewsByTypeNews(0)">
+                    Tìm kiếm
+                </button>
+            </mat-form-field> -->
+        </div>
+        <div class="flex flex-row flex-auto sm:items-center bg-bka  rounded-lg shadow sticky  z-50" data-aos="fade-right" data-aos-once="true" style="height:40px;"
+             [ngClass]="{'fix_top_web': !isScreenSmall , 'fix_top_mobile': isScreenSmall}">
+            <div class="flex flex-auto items-center min-w-0 pl-4 sticky  z-50">
+                <a [routerLink]="['/portal-news/'+ id_group_news]">
+                    <span *ngIf="activeLang=='vi'" class="text-2xl whitespace-nowrap text-white">{{group_news.name}}</span>
+                    <span *ngIf="activeLang!='vi'" class="text-2xl whitespace-nowrap text-white">{{group_news.name_en}}</span>
+                </a>
+                <mat-icon class="text-2xl  text-white">keyboard_arrow_right</mat-icon>
+
+                <span *ngIf="activeLang=='vi'" class="text-2xl text-white  line-clamp-1">{{type_news.name}}</span>
+                <span *ngIf="activeLang!='vi'" class="text-2xl text-white  line-clamp-1">{{type_news.name_en}}</span>
+
+
+            </div>
+        </div>
+
+
+
+      
+
+        <div class="flex flex-col mx-auto w-full mb-10" *ngIf="!isScreenSmall">
+            <div class="flex-none w-full pt-5 pb-5" *ngFor="let item of lst_news ; let i = index;" (click)="gotoNewsDetailPage(item.id)">
+                <div class="flex flex-row w-full">
+                    <div class="flex">
+                        <div class="aspect-w-16 aspect-h-9" style="width:300px">
+                            <img class="h-full w-full object-cover" src="{{item.image}}">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <a>
+                            <div *ngIf="activeLang=='vi'" class="text-lg font-semibold leading-7  bka-text p-2 line-clamp-2" style="max-height:65px">{{item.title}}</div>
+                            <div *ngIf="activeLang!='vi'" class="text-lg font-semibold leading-7  bka-text p-2 line-clamp-2" style="max-height:65px">{{item.tieu_de_language}}</div>
+                        </a>
+                        <div *ngIf="activeLang!='vi'" class="pl-2 line-clamp-2 text-secondary " >{{item.noi_dung_trang_bia_language}}</div>
+                        <div *ngIf="activeLang=='vi'" class="pl-2 line-clamp-2 text-secondary " >{{item.content_brief}}</div>
+
+                        <div class="flex flex-row grids items-center">
+                            <span class="text-base text-secondary italic ml-2 mr-3  leading-none">{{item.post_date | date : 'dd/MM/yyyy'}}</span>
+                            <!-- <img class="w-5 h-5 rounded-full mr-1"
+                                 src={{item.avatar}}>
+                            <span class="text-base truncate italic  leading-none">{{item.create_by_name}}</span> -->
+
+                        </div>
+
+                        <!-- <div class="flex flex-row">
+                            <div class="flex-1" align="left">
+                                <button mat-button style="padding:5px" (click)="openShareNews(item.id)">
+                                    <mat-icon class="text-base"> share</mat-icon> <span class="text-base">Chia sẻ</span>
+                                </button>
+
+                                <button mat-button style="padding:5px">
+                                    <mat-icon class="text-base"> remove_red_eye</mat-icon> <span class="text-base">{{item.view_count  | thousandSuff }} Lượt xem</span>
+                                </button>
+
+                                <button mat-button style="padding:5px">
+                                    <mat-icon class="text-base"> comment</mat-icon>
+                                    <span class="text-base">{{item.comment_count | thousandSuff }} Bình luận</span>
+                                </button>
+                            </div>
+
+
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="flex flex-col mx-auto w-full mb-10 m-2" *ngIf="isScreenSmall">
+            <div class="flex-none w-full pt-5 pb-5" *ngFor="let item of lst_news ; let i = index;" (click)="gotoNewsDetailPage(item.id)">
+                <div class="flex flex-row w-full">
+                    <div class="flex flex-col">
+                        <div class="aspect-w-16 aspect-h-9 w-full">
+                            <img class="h-full w-full object-cover" src="{{item.image}}">
+                        </div>
+                        <a>
+                            <div *ngIf="activeLang=='vi'" class="text-lg font-semibold leading-7  bka-text p-2 line-clamp-2" style="max-height:65px">{{item.title}}</div>
+                            <div  *ngIf="activeLang!='vi'" class="text-lg font-semibold leading-7  bka-text p-2 line-clamp-2" style="max-height:65px">{{item.title_en}}</div>
+                        </a>
+                        <div *ngIf="activeLang!='vi'" class="pl-2 line-clamp-2 text-secondary " >{{item.noi_dung_trang_bia_language}}</div>
+                        <div *ngIf="activeLang=='vi'" class="pl-2 line-clamp-2 text-secondary " >{{item.content_brief}}</div>
+                        <div class="flex flex-row grids items-center">
+                            <span class="text-base text-secondary italic ml-2 mr-3  leading-none">{{item.post_date | date : 'dd/MM/yyyy'}}</span>
+                            <!-- <img class="w-5 h-5 rounded-full mr-1"
+                                 src={{item.avatar}}>
+                            <span class="text-base truncate italic  leading-none">{{item.create_by_name}}</span> -->
+
+                        </div>
+                        <div class="flex flex-row">
+                            <div class="flex-1" align="left">
+                                <button mat-button style="padding:5px" (click)="openShareNews(item.db.id)">
+                                    <mat-icon class="text-base"> share</mat-icon> <span class="text-base" transloco="system.chia_se"></span>
+                                </button>
+
+                                <button mat-button style="padding:5px">
+                                    <mat-icon class="text-base"> remove_red_eye</mat-icon> <span class="text-base">{{item.view_count  | thousandSuff }} <span transloco="view"> </span></span>
+                                </button>
+
+                                <button mat-button style="padding:5px">
+                                    <mat-icon class="text-base"> comment</mat-icon>
+                                    <span class="text-base">{{item.comment_count | thousandSuff }} <span transloco="system.binh_luan"></span></span>
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <nav class="mx-auto" *ngIf="pageList.length >0">
+            <ul class="inline-flex items-center -space-x-px ul_paging" >
+                <li>
+                    <a href="javascript:void(0)" (click)="loadNewsByTypeNews(page-1)" class=" p-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" transloco="system.sau">
+                      
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" *ngIf=" (page!=0) " (click)="loadNewsByTypeNews(0)" class="p-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        {{1}}
+                    </a>
+                    <a href="javascript:void(0)" *ngIf=" (page==0) " aria-current="page" class="z-10 p-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                        {{1}}
+                    </a>
+                </li>
+                <li *ngIf="(page  > 2)">
+                    <a href="javascript:void(0)" class="p-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        ..
+                    </a>
+                </li>
+                <ng-container *ngFor="let item of pageList ; let i = index;">
+                    <li  *ngIf=" (item!=page   &&  (page-item) >= -1 &&   (page-item) <= 1 ) " >
+                      
+                        <a href="javascript:void(0)" (click)="loadNewsByTypeNews(item)"  class="p-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            {{item+1}}
+                        </a>
+
+                    </li>
+                    <li *ngIf="(item==page &&  (page-item) >= -1 &&   (page-item) <= 1 )">
+                       
+                        <a href="javascript:void(0)"  aria-current="page" class="z-10 p-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                            {{item+1}}
+                        </a>
+
+                    </li>
+                </ng-container>
+              
+                <li *ngIf="(total_page -page > 3 )">
+                    <a href="javascript:void(0)" class="p-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        ...
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" (click)="loadNewsByTypeNews(total_page-1)" *ngIf=" (total_page-1!=page) " class="p-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        {{total_page}}
+                    </a>
+                    <a href="javascript:void(0)" aria-current="page" *ngIf=" (total_page-1==page)" class="z-10 p-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                        {{total_page}}
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)" (click)="loadNewsByTypeNews(page+1)" class=" p-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" transloco="system.truoc">
+                       
+                    </a>
+                </li>
+            </ul>
+        </nav>
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Header -->
+        <!--(click)="gotoTypeNewsPage(item1.id)"-->
+        <!--[routerLink]="['/portal-news/'+id_group_news]"-->
+
+
+
+
+    </div>
+
+
+
+
+</div>
+

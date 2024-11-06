@@ -1,0 +1,42 @@
+<div class="flex flex-col flex-auto w-full overflow-y-auto">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_news"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1">
+        <div class="flex flex-col">
+            <div class="flex-1" *ngIf="actionEnum !=3" >
+                <h1 transloco="portal.comment"></h1>
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'comment' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+                <editor [init]="timyconfig" [(ngModel)]="record.comment"></editor>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="flex-1">
+                <mat-form-field class="w-full mb-1">
+                    <mat-label>
+                        Captcha  <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'captcha'; index as i">
+                            (<span *ngFor="let msg of item.value"> {{ msg | transloco}} </span>)
+                        </span>
+                    </mat-label>
+                    <span matPrefix> <img [src]="srcCaptcha" (click)="reloadCaptcha()" style="width:100px"  class="h-auto" /></span>
+                   
+                    <input matInput [type]="'text'" [(ngModel)]="record.captcha">
+                    <button mat-icon-button matSuffix (click)="reloadCaptcha()"  type="button">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row justify-end space-x-2 sticky top-[100vh] mb-2">
+        <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="comment()" >Gửi</button>
+        <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+    </div>
+</div>
